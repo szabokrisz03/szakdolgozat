@@ -1,0 +1,11 @@
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace TaskManager.Srv.Model.DataModel;
+
+public class Project: DbTable
+{
+    public string Name { get; set; } = "";
+    public Guid TechnicalName { get; set; }
+    public ICollection<ProjectUser> ProjectUsers { get; set; }
+}

@@ -1,0 +1,55 @@
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
+
+using TaskManager.Srv.Model.ViewModel;
+using TaskManager.Srv.Services.ProjectServices;
+
+namespace TaskManager.Srv.Pages.Home;
+
+public partial class ProjectList
+{
+    [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; } = null!;
+    [Parameter] public bool MineOnly { get; set; } = false;
+    [Parameter] public string SearchTerm { get; set; } = "";
+
+    [Inject] private IProjectDisplayService _projectDisplayService { get; set; } = null!;
+
+    private string _userName = "";
+    private List<ProjectViewModel> _projects = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        if (authenticationStateTask != null)
+        {
+            var state = await authenticationStateTask;
+            _userName = state?.User.Identity?.Name ?? "";
+        }
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await RefreshProjects();
+    }
+
+    public async Task RefreshProjects(bool progress = false)
+    {
+        int skip = 0;
+        if (progress)
+        {
+            skip = _projects.Count;
+        }
+
+        if (MineOnly)
+        {
+            _projects = await _projectDisplayService.ListUserProjectsAsync(_userName, SearchTerm, 100, skip);
+        }
+        else
+        {
+            _projects = await _projectDisplayService.ListProjectsAsync(SearchTerm, 100, skip);
+        }
+
+        StateHasChanged();
+    }
+}
