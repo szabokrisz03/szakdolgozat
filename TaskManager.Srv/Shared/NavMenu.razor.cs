@@ -45,7 +45,6 @@ public partial class NavMenu: IDisposable
     {
         var uriComps = NavigationManager.ToBaseRelativePath(NavigationManager.Uri).Split('/');
 
-        projectTechnicalName = null;
         if (uriComps.Length == 3 && uriComps[0] == "projects")
         {
             projectTechnicalName = Guid.TryParse(uriComps[1], out Guid technicalName) ? technicalName : null;

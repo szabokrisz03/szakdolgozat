@@ -1,9 +1,9 @@
 ﻿<MudNavMenu>
-    <MudNavLink Href="/mytasks">Saját feladatok</MudNavLink>
+    <MudNavLink Href="mytasks">Saját feladatok</MudNavLink>
 
     @if (projectTechnicalName != null){
         <MudNavGroup Title="@projectName" Expanded="true">
-            <MudNavLink Href="@($"/projects/{projectTechnicalName}/tasks")">Feladatok</MudNavLink>
+            <MudNavLink Href="@($"projects/{projectTechnicalName}/tasks")">Feladatok</MudNavLink>
         </MudNavGroup>
     }
 </MudNavMenu>
