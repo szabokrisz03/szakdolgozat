@@ -1,0 +1,39 @@
+﻿
+.body {
+	height: 60px;
+	border-radius: 0;
+	border-bottom: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: white;
+	display: flex;
+	align-items: center;
+	padding-left: 20px;
+}
+
+.margin-bottom {
+	margin-bottom: 20px;
+}
+
+.element {
+	margin-left: 10px;
+	margin-top: 5px;
+	display: flex !important;
+	height: 57px;
+}
+
+.gap-3 {
+	gap: 0;
+}
+
+.paper {
+	background-color: darkgray;
+	width: 40px;
+	height: 40px;
+	border-radius: 5px;
+	margin-right: 20px;
+}
+
+.textstyle {
+	background-color: transparent;
+	border-radius: 0;
+}

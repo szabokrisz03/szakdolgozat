@@ -3,7 +3,10 @@
     @foreach(var project in _projects)
     {
         <a href="/projects/@project.TechnicalName/tasks">
-            <MudCard Style="width: 100%">
+            <MudCard class="body">
+                <div class="paper">
+                    <MudPaper></MudPaper>
+                </div>
                 <MudText Typo="Typo.body1" >@project.Name
                 </MudText>
             </MudCard>
