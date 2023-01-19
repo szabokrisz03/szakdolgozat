@@ -1,11 +1,13 @@
 ﻿
-<MudStack>
+    <MudStack class="border">
     @foreach(var project in _projects)
     {
         <a href="/projects/@project.TechnicalName/tasks">
             <MudCard class="body">
                 <div class="paper">
-                    <MudPaper></MudPaper>
+                    <MudPaper class="paper">
+                        <MudText class="papertext">a</MudText>
+                    </MudPaper>
                 </div>
                 <MudText Typo="Typo.body1" >@project.Name
                 </MudText>
