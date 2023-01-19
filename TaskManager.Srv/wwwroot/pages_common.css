@@ -21,9 +21,9 @@
 
 .element {
 	margin-left: 10px;
-	margin-top: 5px;
+	margin-top: 2px;
 	display: flex !important;
-	height: 39px;
+	height: 40px;
 }
 
 .paper {
@@ -51,6 +51,6 @@
 	gap: 0;
 }
 
-.mud-input > input.mud-input-root-outlined, div.mud-input-slot.mud-input-root-outlined {
-	padding: 10px;
+.search {
+	padding-bottom: 10px;
 }
