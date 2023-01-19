@@ -1,9 +1,12 @@
 ﻿
-<MudStack>
+<MudStack class="border">
     @foreach(var project in _projects)
     {
         <a href="/projects/@project.TechnicalName/tasks">
-            <MudCard Style="width: 100%">
+            <MudCard class="card">
+                <MudPaper class="paper">
+                    <MudText class="papertext">@project.Name.Substring(0, 1).ToUpper()</MudText>
+                </MudPaper>
                 <MudText Typo="Typo.body1" >@project.Name
                 </MudText>
             </MudCard>
