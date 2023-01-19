@@ -3,12 +3,10 @@
     @foreach(var project in _projects)
     {
         <a href="/projects/@project.TechnicalName/tasks">
-            <MudCard class="body">
-                <div class="paper">
-                    <MudPaper class="paper">
-                        <MudText class="papertext">@project.Name.Substring(0, 1).ToUpper()</MudText>
-                    </MudPaper>
-                </div>
+            <MudCard class="card">
+                <MudPaper class="paper">
+                    <MudText class="papertext">@project.Name.Substring(0, 1).ToUpper()</MudText>
+                </MudPaper>
                 <MudText Typo="Typo.body1" >@project.Name
                 </MudText>
             </MudCard>
