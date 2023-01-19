@@ -23,7 +23,7 @@
 	margin-left: 10px;
 	margin-top: 5px;
 	display: flex !important;
-	height: 57px;
+	height: 39px;
 }
 
 .paper {
@@ -49,4 +49,8 @@
 
 .gap-3 {
 	gap: 0;
+}
+
+.mud-input > input.mud-input-root-outlined, div.mud-input-slot.mud-input-root-outlined {
+	padding: 10px;
 }
