@@ -9,6 +9,7 @@ public class ManagerContext : DbContext
     public DbSet<Project> Project { get; set; }
     public DbSet<User> User { get; set; }
     public DbSet<ProjectUser> ProjectUser { get; set; }
+    public DbSet<WiLinkTemplate> WiLinkTemplate { get; set; }
 
     public ManagerContext(DbContextOptions options) : base(options)
     {
@@ -23,6 +24,7 @@ public class ManagerContext : DbContext
         projectUser.HasIndex(pu => pu.LastVisit);
 
         var project = modelBuilder.Entity<Project>();
+        project.HasMany(p => p.WiLinkTemplates).WithOne(p => p.Project).HasForeignKey(t => t.ProjectId);
         project.HasIndex(p => p.TechnicalName).IsUnique(true);
         project.HasIndex(p => p.Name);
         project.Property(p => p.TechnicalName).HasDefaultValueSql("NEWID()");

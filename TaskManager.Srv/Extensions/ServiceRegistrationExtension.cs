@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using TaskManager.Srv.Model.DataContext;
 using TaskManager.Srv.Services.ProjectServices;
 using TaskManager.Srv.Services.UtilityServices;
+using TaskManager.Srv.Services.WiLinkService;
 
 namespace TaskManager.Srv.Extensions;
 
@@ -28,6 +29,7 @@ public static class ServiceRegistrationExtension
         services.AddScoped<IProjectDisplayService, ProjectDisplayService>();
         services.AddScoped<IProjectViewService, ProjectViewService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IWiLinkTemplateService, WiLinkTemplateService>();
         return services;
     }
 }

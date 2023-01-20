@@ -53,4 +53,18 @@ public class UserService : IUserService
             return await dbcx.User.AsNoTracking().Where(u => u.UserName == userName).AnyAsync();
         }
     }
+
+    public async Task EnsureUserExists(string userName)
+    {
+        if (await ExistsUser(userName))
+        {
+            return;
+        }
+
+        var userVm = new UserViewModel()
+        {
+            UserName = userName,
+        };
+        await CreateUser(userVm);
+    }
 }

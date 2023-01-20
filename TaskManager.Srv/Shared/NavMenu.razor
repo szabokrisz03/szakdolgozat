@@ -4,6 +4,8 @@
     @if (projectTechnicalName != null){
         <MudNavGroup Title="@projectName" Expanded="true">
             <MudNavLink Href="@($"projects/{projectTechnicalName}/tasks")">Feladatok</MudNavLink>
+            <MudNavLink Href="@($"projects/{projectTechnicalName}/milestones")">Mérföldkövek</MudNavLink>
+            <MudNavLink Href="@($"projects/{projectTechnicalName}/witemplates")">WI Sablonok</MudNavLink>
         </MudNavGroup>
     }
 </MudNavMenu>

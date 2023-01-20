@@ -4,18 +4,17 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 using TaskManager.Srv.Model.DataContext;
-using TaskManager.Srv.Model.DataModel;
 
 namespace TaskManager.Srv.Services.UtilityServices;
 
 public class ClaimsTransformation : IClaimsTransformation
 {
-    private readonly IDbContextFactory<ManagerContext> dbContextFactory;
+    private readonly IUserService userService;
 
     public ClaimsTransformation(
-        IDbContextFactory<ManagerContext> dbContextFactory)
+        IUserService userService)
     {
-        this.dbContextFactory = dbContextFactory;
+        this.userService = userService;
     }
 
     public async Task<ClaimsPrincipal> TransformAsync(ClaimsPrincipal principal)
@@ -28,28 +27,9 @@ public class ClaimsTransformation : IClaimsTransformation
         string username = principal.Identity.Name ?? "";
         if (!string.IsNullOrEmpty(username))
         {
-            await PersistUser(username);
+            await userService.EnsureUserExists(username);
         }
 
         return principal;
-    }
-
-    private async Task PersistUser(string username)
-    {
-        using (var dbcx = await dbContextFactory.CreateDbContextAsync())
-        {
-            var user = await dbcx.User.AsNoTracking().Where(u => u.UserName == username).SingleOrDefaultAsync();
-            if (user is null)
-            {
-                user = new User()
-                {
-                    UserName = username
-                };
-
-                await dbcx.AddAsync(user);
-                await dbcx.SaveChangesAsync();
-                dbcx.Entry(user).State = EntityState.Detached;
-            }
-        }
     }
 }
