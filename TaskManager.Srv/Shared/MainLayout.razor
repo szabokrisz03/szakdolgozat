@@ -13,8 +13,8 @@
         <MudSpacer />
     </MudAppBar>
     <MudDrawer @bind-Open="_drawerOpen" Elevation="1">
-        <MudDrawerHeader>
-            <MudButton Href="/" DisableElevation="true" DisableRipple="true" >Feladat kezelő</MudButton>
+        <MudDrawerHeader class="box" onclick="@(() => GoToMain())">
+            <MudText>Feladat kezelő</MudText>
         </MudDrawerHeader>
         <NavMenu />
     </MudDrawer>
