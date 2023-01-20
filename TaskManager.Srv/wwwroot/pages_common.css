@@ -38,7 +38,7 @@
 	display: flex;
 	background: none;
 	justify-content: center;
-	padding-top: 4px;
+	padding-top: 6px;
 	font-size: 25px;
 }
 
@@ -53,4 +53,9 @@
 
 .search {
 	padding-bottom: 10px;
+}
+
+.box:hover {
+	background-color: #25252C;
+	cursor: pointer;
 }
