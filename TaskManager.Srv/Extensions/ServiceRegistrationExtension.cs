@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
+
 using TaskManager.Srv.Model.DataContext;
+using TaskManager.Srv.Model.Options;
+using TaskManager.Srv.Services.AzdoServices;
 using TaskManager.Srv.Services.ProjectServices;
 using TaskManager.Srv.Services.UtilityServices;
 using TaskManager.Srv.Services.WiLinkService;
@@ -22,9 +26,32 @@ public static class ServiceRegistrationExtension
         return services;
     }
 
+    public static IServiceCollection RegisterHttpClients(this IServiceCollection services, IConfiguration configuration)
+    {
+        var appSettings = new AppSettings();
+        configuration.Bind(appSettings);
+
+        // org base, data-fetch (srv usr. winauth)
+        services.AddHttpClient(HttpClients.AZDO_ORG_GET, httpClient =>
+        {
+            httpClient.BaseAddress = new Uri(appSettings.Remotes.AzdoOrg);
+
+            httpClient.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
+            httpClient.DefaultRequestHeaders.Add(HeaderNames.AcceptEncoding, "utf-8");
+        })
+        .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+        {
+            UseDefaultCredentials = true
+        });
+
+        return services;
+    }
+
     public static IServiceCollection RegisterApplicationServices(this IServiceCollection services)
     {
+        services.AddMemoryCache();
         services.AddTransient<IClaimsTransformation, ClaimsTransformation>();
+        services.AddTransient<IAzdoDataFetchService, AzdoDataFetchService>();
         services.AddScoped<IProjectAdminService, ProjectAdminService>();
         services.AddScoped<IProjectDisplayService, ProjectDisplayService>();
         services.AddScoped<IProjectViewService, ProjectViewService>();
