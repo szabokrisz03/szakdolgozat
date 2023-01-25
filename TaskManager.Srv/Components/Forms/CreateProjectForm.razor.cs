@@ -28,15 +28,4 @@ public partial class CreateProjectForm
         await OnValidate.InvokeAsync(IsValid);
         return IsValid ? Array.Empty<string>() : result.Errors.Select(e => e.ErrorMessage).ToArray();
     };
-
-    public async Task<bool> ValidateForm()
-    {
-        if (Form != null)
-            await Form.Validate();
-
-        IsValid = Form.IsValid;
-        await OnValidate.InvokeAsync(IsValid);
-
-        return IsValid;
-    }
 }

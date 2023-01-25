@@ -34,7 +34,7 @@ public static class ServiceRegistrationExtension
         // org base, data-fetch (srv usr. winauth)
         services.AddHttpClient(HttpClients.AZDO_ORG_GET, httpClient =>
         {
-            httpClient.BaseAddress = new Uri(appSettings.Remotes.AzdoOrg);
+            httpClient.BaseAddress = new Uri(appSettings.Remotes.AzdoOrg + "_apis/");
 
             httpClient.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
             httpClient.DefaultRequestHeaders.Add(HeaderNames.AcceptEncoding, "utf-8");
@@ -51,12 +51,13 @@ public static class ServiceRegistrationExtension
     {
         services.AddMemoryCache();
         services.AddTransient<IClaimsTransformation, ClaimsTransformation>();
-        services.AddTransient<IAzdoDataFetchService, AzdoDataFetchService>();
+        services.AddTransient<IAzdoTeamProjectService, AzdoTeamProjectService>();
         services.AddScoped<IProjectAdminService, ProjectAdminService>();
         services.AddScoped<IProjectDisplayService, ProjectDisplayService>();
         services.AddScoped<IProjectViewService, ProjectViewService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IWiLinkTemplateService, WiLinkTemplateService>();
+        services.AddScoped<IWiLinkTemplateViewService, WiLinkTemplateViewService>();
         return services;
     }
 }

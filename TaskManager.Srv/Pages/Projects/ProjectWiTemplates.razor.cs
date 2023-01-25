@@ -11,8 +11,9 @@ namespace TaskManager.Srv.Pages.Projects;
 public partial class ProjectWiTemplates
 {
     [Parameter] public string TechnicalName { get; set; } = "";
-    [Inject] private IProjectDisplayService ProjectDisplayService { get; set; }
-    [Inject] private IWiLinkTemplateService DataService { get; set; }
+    [Inject] private IProjectDisplayService ProjectDisplayService { get; set; } = null!;
+    [Inject] private IWiLinkTemplateService DataService { get; set; } = null!;
+    [Inject] private IWiLinkTemplateViewService TemplateViewService { get; set; } = null!;
 
     private ProjectViewModel project = new();
 
@@ -38,5 +39,10 @@ public partial class ProjectWiTemplates
             Items = templates,
             TotalItems = size
         };
+    }
+
+    private async Task CreateTemplate()
+    {
+        await TemplateViewService.CreateTemplateDialog();
     }
 }

@@ -1,13 +1,13 @@
 ﻿namespace TaskManager.Srv.Utilities;
 
-public class PreparedHttpRequest
+public class HttpRequestData
 {
-	public PreparedHttpRequest(string url)
+	public HttpRequestData(string url)
 	{
         Url = url;
     }
 
-    public PreparedHttpRequest(string url, HttpContent content)
+    public HttpRequestData(string url, HttpContent content)
     {
         Url = url;
         Content = content;

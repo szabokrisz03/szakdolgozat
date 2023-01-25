@@ -49,7 +49,7 @@ public class HttpRequestBuilder
 
     public string GetQuery()
     {
-        bool firstParam = false;
+        bool firstParam = true;
         var sb = new StringBuilder();
         sb.Append(url);
 
@@ -79,9 +79,9 @@ public class HttpRequestBuilder
         return content;
     }
 
-    public PreparedHttpRequest Build()
+    public HttpRequestData Build()
     {
-        PreparedHttpRequest request;
+        HttpRequestData request;
         HttpContent? content = null;
 
         if (bodyJson != null)
@@ -90,7 +90,7 @@ public class HttpRequestBuilder
         }
 
         string query = GetQuery();
-        request = new PreparedHttpRequest(query, content);
+        request = new HttpRequestData(query, content);
         return request;
     }
 }

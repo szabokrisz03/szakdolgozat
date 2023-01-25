@@ -1,3 +1,4 @@
 ﻿<MudForm @ref="Form" Model="@Model" Validation="@FieldValidator" @bind-IsValid="@IsValid" @bind-Errors="Errors" Style="min-width: 32em;">
     <MudTextField Label="Név" For="(() => Model.Name)" @bind-Text="Model.Name" OnlyValidateIfDirty="true" Immediate="true" />
+    
 </MudForm>
