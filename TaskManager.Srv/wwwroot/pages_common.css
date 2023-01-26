@@ -59,3 +59,19 @@
 	background-color: #25252C;
 	cursor: pointer;
 }
+
+.container {
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	overflow: scroll;
+	width: 800px;
+	height: 110px
+}
+
+.cell {
+	width: 100px;
+}
+
+.table {
+	height: 100vh;
+}

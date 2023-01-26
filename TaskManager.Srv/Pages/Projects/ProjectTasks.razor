@@ -1,3 +1,47 @@
 ﻿@page "/projects/{TechnicalName}/tasks"
+@using TaskManager.Srv.Model.ViewModel;
 
+<MudText Typo="Typo.h6">Feladatok</MudText>
 
+<MudTable class="table"
+    T="TaskViewModel" 
+    ServerData="LoadData">
+    
+    <HeaderContent>
+        <MudTh>Név</MudTh>
+        <MudTh>Állapot</MudTh>
+        <MudTh/>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>@context.Name</MudTd>
+        <MudTd>@context.State</MudTd>
+        <MudTd class="cell">
+            <MudButton class="button" Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => ShowBtnPress(context))" Style="width=200px">
+                @((context.ShowDetails == true) ? "-" : "+")
+            </MudButton>
+        </MudTd>
+    </RowTemplate>
+    <ChildRowContent>
+        @if (context.ShowDetails)
+        {
+        <td colspan="4">
+            <MudCard>
+                <MudCardContent>
+                    <MudContainer class="container">
+                        <MudText>@context.Description</MudText>
+                    </MudContainer>
+                </MudCardContent>
+            </MudCard>
+        </td>
+        }
+    </ChildRowContent>
+</MudTable>
+
+@code {
+
+    private void ShowBtnPress(TaskViewModel taskView)
+    {
+        taskView.ShowDetails = !taskView.ShowDetails;
+    }
+
+}
