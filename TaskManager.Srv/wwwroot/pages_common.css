@@ -79,7 +79,7 @@
 }
 
 .pagination {
-	position: static;
-	margin-top: 15px;
-	margin-left: 50em;
+	position: fixed;
+	left: 50%;
+	bottom: 15px;
 }
