@@ -73,5 +73,13 @@
 }
 
 .table {
-	height: 100vh;
+	display: block;
+	background-color: transparent;
+	margin-bottom: 30px
+}
+
+.pagination {
+	position: static;
+	margin-top: 15px;
+	margin-left: 50em;
 }

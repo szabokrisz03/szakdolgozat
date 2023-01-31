@@ -4,9 +4,15 @@
 <MudText Typo="Typo.h6">Feladatok</MudText>
 
 <MudTable class="table"
-    T="TaskViewModel" 
-    ServerData="LoadData">
-    
+            ServerData="LoadData"
+            @ref="@_table"
+            Elevation="0"
+            RowsPerPage="9">
+    <ColGroup>
+        <col style="width: 50em"/>
+        <col />
+        <col />
+    </ColGroup>
     <HeaderContent>
         <MudTh>Név</MudTh>
         <MudTh>Állapot</MudTh>
@@ -24,24 +30,33 @@
     <ChildRowContent>
         @if (context.ShowDetails)
         {
-        <td colspan="4">
-            <MudCard>
-                <MudCardContent>
-                    <MudContainer class="container">
-                        <MudText>@context.Description</MudText>
-                    </MudContainer>
-                </MudCardContent>
-            </MudCard>
-        </td>
+            <td colspan="4">
+                <MudCard>
+                    <MudCardContent>
+                        <MudContainer class="container">
+                            <MudText>@context.Description</MudText>
+                        </MudContainer>
+                    </MudCardContent>
+                </MudCard>
+            </td>
         }
     </ChildRowContent>
+    <PagerContent>
+        <MudPagination class="pagination" SelectedChanged="PageChanged" Count="@((_table.GetFilteredItemsCount() + _table.RowsPerPage - 1) / _table.RowsPerPage)" />
+    </PagerContent>
 </MudTable>
 
 @code {
+
+    private MudTable<TaskViewModel> _table;
+
+    private async Task PageChanged(int i)
+    {
+         _table.NavigateTo(i - 1);
+    }
 
     private void ShowBtnPress(TaskViewModel taskView)
     {
         taskView.ShowDetails = !taskView.ShowDetails;
     }
-
 }
