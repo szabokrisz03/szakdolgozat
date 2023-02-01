@@ -73,5 +73,13 @@
 }
 
 .table {
-	height: 100vh;
+	display: block;
+	background-color: transparent;
+	margin-bottom: 30px
+}
+
+.pagination {
+	position: fixed;
+	left: 50%;
+	bottom: 15px;
 }

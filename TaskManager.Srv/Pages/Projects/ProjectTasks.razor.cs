@@ -20,7 +20,7 @@ public partial class ProjectTasks
 
         return new TableData<TaskViewModel>
         {
-            Items = tasks,
+            Items = tasks.Skip(skip).Take(take),
             TotalItems = size
         };
     }
