@@ -48,23 +48,5 @@
 
 @code {
 
-    private MudTable<TaskViewModel> _table;
-    private long ShownId = 0;
 
-    private async Task PageChanged(int i)
-    {
-        _table.NavigateTo(i - 1);
-    }
-
-    private void ShowBtnPress(TaskViewModel taskView)
-    {
-        if (ShownId == taskView.RowId)
-        {
-            ShownId = 0;
-        }
-        else
-        {
-            ShownId = taskView.RowId;
-        }
-    }
 }
