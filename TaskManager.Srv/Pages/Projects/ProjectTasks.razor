@@ -22,7 +22,7 @@
         <MudTd>@context.Name</MudTd>
         <MudTd>@context.State</MudTd>
         <MudTd class="cell">
-            <MudButton class="button" Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => ShowBtnPress(context))" Style="width=200px">
+            <MudButton class="button" Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => ShowBtnPress(context))">
                 @((context.ShowDetails == true) ? "-" : "+")
             </MudButton>
         </MudTd>
@@ -49,6 +49,7 @@
 @code {
 
     private MudTable<TaskViewModel> _table;
+    private List<TaskViewModel> InputValue = new();
 
     private async Task PageChanged(int i)
     {
@@ -57,6 +58,15 @@
 
     private void ShowBtnPress(TaskViewModel taskView)
     {
+        InputValue.Add(taskView);
+        foreach(var item in InputValue)
+        {
+            if (item != taskView)
+            {
+                item.ShowDetails = false;
+            }
+        }
+
         taskView.ShowDetails = !taskView.ShowDetails;
     }
 }
