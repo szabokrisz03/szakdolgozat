@@ -22,13 +22,13 @@
         <MudTd>@context.Name</MudTd>
         <MudTd>@context.State</MudTd>
         <MudTd class="cell">
-            <MudButton class="button" Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => ShowBtnPress(context))" Style="width=200px">
-                @((context.ShowDetails == true) ? "-" : "+")
+            <MudButton class="button" Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => ShowBtnPress(context))">
+                @((context.RowId == ShownId) ? "-" : "+")
             </MudButton>
         </MudTd>
     </RowTemplate>
     <ChildRowContent>
-        @if (context.ShowDetails)
+        @if (context.RowId == ShownId)
         {
             <td colspan="4">
                 <MudCard>
@@ -48,15 +48,5 @@
 
 @code {
 
-    private MudTable<TaskViewModel> _table;
 
-    private async Task PageChanged(int i)
-    {
-        _table.NavigateTo(i - 1);
-    }
-
-    private void ShowBtnPress(TaskViewModel taskView)
-    {
-        taskView.ShowDetails = !taskView.ShowDetails;
-    }
 }
