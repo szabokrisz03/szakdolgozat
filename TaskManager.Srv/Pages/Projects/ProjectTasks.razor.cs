@@ -1,6 +1,13 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Primitives;
 
 using MudBlazor;
+
+using System.Collections.Specialized;
+using System.Web;
 
 using TaskManager.Srv.Model.ViewModel;
 
@@ -8,9 +15,28 @@ namespace TaskManager.Srv.Pages.Projects;
 
 public partial class ProjectTasks
 {
-    private MudTable<TaskViewModel> _table;
+    private MudTable<TaskViewModel>? _table;
     private long ShownId = 0;
+
+    [Inject] public NavigationManager NavManager { get; set; } = null!;
+
     [Parameter] public string TechnicalName { get; set; } = "";
+
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "page_index")]
+    public int PageIndex { get; set; }
+
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "page_size")]
+    public int PageSize { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (PageSize == 0)
+        {
+            PageSize = 9;
+        }
+    }
 
     private async Task<TableData<TaskViewModel>> LoadData(TableState state)
     {
@@ -18,15 +44,15 @@ public partial class ProjectTasks
         int take = state.PageSize;
 
         var tasks = new List<TaskViewModel>();
-        for(int i = 0; i < 12; i++)
+        for (int i = 0; i < 12; i++)
         {
             tasks.Add(new TaskViewModel
             {
                 RowId = i + 1,
                 Name = "teszt1",
                 State = "folyamatban",
-                Description = "alma alma alma alma alma alma alma alma alma alma alma alma alma alma alma alma alma alma "
-            }); 
+                Description = "alma alma alma alma alma alma alma alma alma alma alma alma alma alma alma alma alma alma"
+            });
         }
 
         var size = tasks.Count();
@@ -38,21 +64,13 @@ public partial class ProjectTasks
         };
     }
 
-    private async Task PageChanged(int i)
+    private void PageChanged(int i)
     {
-        _table.NavigateTo(i - 1);
-        
+        PageIndex = i - 1;
     }
 
     private void ShowBtnPress(TaskViewModel taskView)
     {
-        if (ShownId == taskView.RowId)
-        {
-            ShownId = 0;
-        }
-        else
-        {
-            ShownId = taskView.RowId;
-        }
+        ShownId = ShownId == taskView.RowId ? 0 : taskView.RowId;
     }
 }
