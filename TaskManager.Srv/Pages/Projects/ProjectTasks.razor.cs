@@ -1,13 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.Extensions.Primitives;
 
 using MudBlazor;
-
-using System.Collections.Specialized;
-using System.Web;
 
 using TaskManager.Srv.Model.ViewModel;
 
