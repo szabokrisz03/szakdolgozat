@@ -30,12 +30,21 @@ public partial class ProjectTasks
     [SupplyParameterFromQuery(Name = "page_size")]
     public int PageSize { get; set; }
 
+    private void SetRouting()
+    {
+        var uriBuilder = new UriBuilder(NavManager.Uri);
+        string newQuery = $"{uriBuilder.Path}?page_size={PageSize}&page_index={PageIndex}";
+        NavManager.NavigateTo(newQuery, forceLoad: false, replace: true);
+    }
+
     protected override void OnInitialized()
     {
         if (PageSize == 0)
         {
             PageSize = 9;
         }
+
+        SetRouting();
     }
 
     private async Task<TableData<TaskViewModel>> LoadData(TableState state)
@@ -67,6 +76,7 @@ public partial class ProjectTasks
     private void PageChanged(int i)
     {
         PageIndex = i - 1;
+        SetRouting();
     }
 
     private void ShowBtnPress(TaskViewModel taskView)
