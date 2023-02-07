@@ -9,6 +9,7 @@ namespace TaskManager.Srv.Pages.Projects;
 public partial class ProjectTasks
 {
     private MudTable<TaskViewModel>? _table;
+    private string infoFormat = "{first_item}-{last_item}";
     private long ShownId = 0;
 
     [Inject] public NavigationManager NavManager { get; set; } = null!;
@@ -16,28 +17,11 @@ public partial class ProjectTasks
     [Parameter] public string TechnicalName { get; set; } = "";
 
     [Parameter]
-    [SupplyParameterFromQuery(Name = "page_index")]
-    public int PageIndex { get; set; }
-
-    [Parameter]
-    [SupplyParameterFromQuery(Name = "page_size")]
     public int PageSize { get; set; }
-
-    private void SetRouting()
-    {
-        var uriBuilder = new UriBuilder(NavManager.Uri);
-        string newQuery = $"{uriBuilder.Path}?page_size={PageSize}&page_index={PageIndex}";
-        NavManager.NavigateTo(newQuery, forceLoad: false, replace: true);
-    }
 
     protected override void OnInitialized()
     {
-        if (PageSize == 0)
-        {
-            PageSize = 9;
-        }
-
-        SetRouting();
+        PageSize = 9;
     }
 
     private async Task<TableData<TaskViewModel>> LoadData(TableState state)
@@ -64,12 +48,6 @@ public partial class ProjectTasks
             Items = tasks.Skip(skip).Take(take),
             TotalItems = size
         };
-    }
-
-    private void PageChanged(int i)
-    {
-        PageIndex = i - 1;
-        SetRouting();
     }
 
     private void ShowBtnPress(TaskViewModel taskView)

@@ -79,6 +79,7 @@
 
 .pagination {
 	position: fixed;
+	border: none;
 	left: 50%;
-	bottom: 15px;
+	bottom: 0px;
 }

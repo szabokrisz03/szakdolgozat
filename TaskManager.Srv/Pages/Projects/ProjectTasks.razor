@@ -7,7 +7,6 @@
             ServerData="LoadData"
             @ref="@_table"
             Elevation="0"
-            @bind-CurrentPage="@PageIndex"
             @bind-RowsPerPage="@PageSize">
     <ColGroup>
         <col style="width: 50em"/>
@@ -43,7 +42,6 @@
         }
     </ChildRowContent>
     <PagerContent>
-        <MudPagination class="pagination" SelectedChanged="PageChanged" Count="@((_table!.GetFilteredItemsCount() + _table.RowsPerPage - 1) / _table.RowsPerPage)"
-         BoundaryCount="1" MiddleCount="3" ShowFirstButton="true" ShowLastButton="true" />
+        <MudTablePager class="pagination" DisableRowsPerPage="true" InfoFormat="@($"{infoFormat}")" />
     </PagerContent>
 </MudTable>
