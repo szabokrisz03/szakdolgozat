@@ -8,9 +8,15 @@ namespace TaskManager.Srv.Pages.Projects;
 
 public partial class ProjectTasks
 {
-    private MudTable<TaskViewModel> _table;
     private long ShownId = 0;
+    private string infoFormat = "{first_item}-{last_item}";
     [Parameter] public string TechnicalName { get; set; } = "";
+    [Parameter] public int PageSize { get; set; }
+
+    protected override void OnInitialized()
+    {
+        PageSize = 8;
+    }
 
     private async Task<TableData<TaskViewModel>> LoadData(TableState state)
     {
@@ -36,12 +42,6 @@ public partial class ProjectTasks
             Items = tasks.Skip(skip).Take(take),
             TotalItems = size
         };
-    }
-
-    private async Task PageChanged(int i)
-    {
-        _table.NavigateTo(i - 1);
-        
     }
 
     private void ShowBtnPress(TaskViewModel taskView)

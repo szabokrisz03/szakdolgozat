@@ -5,17 +5,16 @@
 
 <MudTable class="table"
             ServerData="LoadData"
-            @ref="@_table"
             Elevation="0"
-            RowsPerPage="9">
+            @bind-RowsPerPage="@PageSize">
     <ColGroup>
         <col style="width: 50em"/>
         <col />
         <col />
     </ColGroup>
     <HeaderContent>
-        <MudTh>Név</MudTh>
-        <MudTh>Állapot</MudTh>
+        <MudTh><b>Név</b></MudTh>
+        <MudTh><b>Állapot</b></MudTh>
         <MudTh/>
     </HeaderContent>
     <RowTemplate>
@@ -30,19 +29,28 @@
     <ChildRowContent>
         @if (context.RowId == ShownId)
         {
-            <td colspan="4">
-                <MudCard>
-                    <MudCardContent>
-                        <MudContainer class="container">
-                            <MudText>@context.Description</MudText>
+        <td colspan="4">
+            <MudCard>
+                <MudCardContent class="wrapper">
+                    <MudText class="descriptionText"><b>Leírás</b></MudText>
+                        <MudContainer class="description">
+                        <MudText class="text">@context.Description</MudText>
                         </MudContainer>
-                    </MudCardContent>
-                </MudCard>
-            </td>
+                    <MudText class="milestoneText"><b>Mérföldkövek</b></MudText>
+                        <form class="milestone">
+                            <MudText>Ez egy teszt string</MudText>
+                        </form>
+                    <MudText class="templateText"><b>Kapcsolódó WI-k</b></MudText>
+                        <form class="template">
+                            <MudText>Ez is egy teszt string</MudText>
+                        </form>
+                </MudCardContent>
+            </MudCard>
+        </td>
         }
     </ChildRowContent>
     <PagerContent>
-        <MudPagination class="pagination" SelectedChanged="PageChanged" Count="@((_table.GetFilteredItemsCount() + _table.RowsPerPage - 1) / _table.RowsPerPage)" />
+        <MudTablePager class="pagination" DisableRowsPerPage="true" InfoFormat="@infoFormat" />
     </PagerContent>
 </MudTable>
 
