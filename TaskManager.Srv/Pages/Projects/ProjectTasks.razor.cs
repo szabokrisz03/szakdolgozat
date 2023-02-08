@@ -8,9 +8,21 @@ namespace TaskManager.Srv.Pages.Projects;
 
 public partial class ProjectTasks
 {
-    private MudTable<TaskViewModel> _table;
+    private MudTable<TaskViewModel>? _table;
+    private string infoFormat = "{first_item}-{last_item}";
     private long ShownId = 0;
+
+    [Inject] public NavigationManager NavManager { get; set; } = null!;
+
     [Parameter] public string TechnicalName { get; set; } = "";
+
+    [Parameter]
+    public int PageSize { get; set; }
+
+    protected override void OnInitialized()
+    {
+        PageSize = 9;
+    }
 
     private async Task<TableData<TaskViewModel>> LoadData(TableState state)
     {
@@ -18,15 +30,15 @@ public partial class ProjectTasks
         int take = state.PageSize;
 
         var tasks = new List<TaskViewModel>();
-        for(int i = 0; i < 12; i++)
+        for (int i = 0; i < 12; i++)
         {
             tasks.Add(new TaskViewModel
             {
                 RowId = i + 1,
                 Name = "teszt1",
                 State = "folyamatban",
-                Description = "alma alma alma alma alma alma alma alma alma alma alma alma alma alma alma alma alma alma "
-            }); 
+                Description = "alma alma alma alma alma alma alma alma alma alma alma alma alma alma alma alma alma alma"
+            });
         }
 
         var size = tasks.Count();
@@ -38,21 +50,8 @@ public partial class ProjectTasks
         };
     }
 
-    private async Task PageChanged(int i)
-    {
-        _table.NavigateTo(i - 1);
-        
-    }
-
     private void ShowBtnPress(TaskViewModel taskView)
     {
-        if (ShownId == taskView.RowId)
-        {
-            ShownId = 0;
-        }
-        else
-        {
-            ShownId = taskView.RowId;
-        }
+        ShownId = ShownId == taskView.RowId ? 0 : taskView.RowId;
     }
 }
