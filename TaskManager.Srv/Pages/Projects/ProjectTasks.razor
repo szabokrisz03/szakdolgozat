@@ -22,7 +22,7 @@
         <MudTd>@context.State</MudTd>
         <MudTd class="cell">
             <MudButton class="button" Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => ShowBtnPress(context))">
-                @((context.RowId == ShownId) ? "-" : "+")
+             @((context.RowId == ShownId) ? "-" : "+")
             </MudButton>
         </MudTd>
     </RowTemplate>
@@ -53,8 +53,3 @@
         <MudTablePager class="pagination" DisableRowsPerPage="true" InfoFormat="@infoFormat" />
     </PagerContent>
 </MudTable>
-
-@code {
-
-
-}
