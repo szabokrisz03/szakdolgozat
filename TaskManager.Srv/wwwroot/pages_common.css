@@ -67,63 +67,59 @@
 
 .descriptionText {
 	position: relative;
-	bottom: 5px;
-	width: 700px;
-	height: 30px;
-	padding: 5px;
+	bottom: 2%;
+	width: 45%;
+	height: 15%;
+	padding: 0.3%;
 	margin-top: 0px;
 }
 
 .description {
 	position: relative;
-	width: 700px;
-	height: 170px;
+	width: 45%;
+	height: 85%;
 	float: left;
-	padding-left: 5px;
-	padding-right: 0px;
+	padding-left: 0.3%;
+	padding-right: 0%;
 	border: 2px solid transparent;
 }
 
 .milestoneText {
 	position: relative;
-	bottom: 35px;
-	width: 820px;
-	height: 30px;
-	padding: 5px;
+	bottom: 15%;
+	width: 53%;
+	height: 15%;
+	padding: 0.3%;
 	float: right;
 }
 
 .milestone {
 	position: relative;
-	bottom: 30px;
+	bottom: 15%;
 	float: right;
-	padding: 5px;
-	height: 60px;
-	width: 820px;
-	padding-left: 5px;
-	padding-right: 0px;
+	padding: 0.3%;
+	height: 31%;
+	width: 53%;
 	border: 2px solid transparent;
 }
 
 .templateText {
 	position: relative;
-	bottom: 15px;
-	width: 820px;
-	height: 30px;
-	padding: 5px;
+	bottom: 7%;
+	width: 53%;
+	height: 15%;
+	padding: 0.3%;
 	float: right;
 }
 
 .template {
 	position: relative;
-	bottom: 30px;
-	height: 60px;
-	width: 820px;
-	margin-top: 20px;
-	padding: 5px;
+	bottom: 15%;
+	height: 31%;
+	width: 53%;
+	margin-top: 1%;
+	padding: 0.3%;
 	float: right;
-	padding-left: 5px;
-	padding-right: 0px;
 	border: 2px solid transparent;
 }
 
