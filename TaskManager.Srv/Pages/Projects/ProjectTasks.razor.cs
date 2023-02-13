@@ -8,7 +8,7 @@ namespace TaskManager.Srv.Pages.Projects;
 
 public partial class ProjectTasks
 {
-    private MudTable<TaskViewModel>? _table;
+
     private string infoFormat = "{first_item}-{last_item}";
     private long ShownId = 0;
     [Parameter] public string TechnicalName { get; set; } = "";
@@ -38,6 +38,8 @@ public partial class ProjectTasks
 
         var size = tasks.Count();
 
+        //page váltáskor bezárja az adott oldalon megnyitott desc blokkot
+        ShownId = 0;
         return new TableData<TaskViewModel>
         {
             Items = tasks.Skip(skip).Take(take),

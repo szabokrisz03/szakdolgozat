@@ -133,18 +133,17 @@
 }	
 
 .cell {
-	width: 100px;
+	width: 5%;
 }
 
 .table {
 	display: block;
 	background-color: transparent;
-	margin-bottom: 30px
 }
 
 .pagination {
 	position: fixed;
 	border: none;
 	left: 50%;
-	bottom: 0px;
+	bottom: 0%;
 }
