@@ -11,17 +11,12 @@ public partial class ProjectTasks
     private MudTable<TaskViewModel>? _table;
     private string infoFormat = "{first_item}-{last_item}";
     private long ShownId = 0;
-
-    [Inject] public NavigationManager NavManager { get; set; } = null!;
-
     [Parameter] public string TechnicalName { get; set; } = "";
-
-    [Parameter]
-    public int PageSize { get; set; }
+    [Parameter] public int PageSize { get; set; }
 
     protected override void OnInitialized()
     {
-        PageSize = 9;
+        PageSize = 8;
     }
 
     private async Task<TableData<TaskViewModel>> LoadData(TableState state)

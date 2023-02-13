@@ -5,7 +5,6 @@
 
 <MudTable class="table"
             ServerData="LoadData"
-            @ref="@_table"
             Elevation="0"
             @bind-RowsPerPage="@PageSize">
     <ColGroup>
@@ -14,8 +13,8 @@
         <col />
     </ColGroup>
     <HeaderContent>
-        <MudTh>Név</MudTh>
-        <MudTh>Állapot</MudTh>
+        <MudTh><b>Név</b></MudTh>
+        <MudTh><b>Állapot</b></MudTh>
         <MudTh/>
     </HeaderContent>
     <RowTemplate>
@@ -32,16 +31,25 @@
         {
         <td colspan="4">
             <MudCard>
-                <MudCardContent>
-                    <MudContainer class="container">
-                        <MudText>@context.Description</MudText>
-                    </MudContainer>
+                <MudCardContent class="wrapper">
+                    <MudText class="descriptionText"><b>Leírás</b></MudText>
+                        <MudContainer class="description">
+                        <MudText class="text">@context.Description</MudText>
+                        </MudContainer>
+                    <MudText class="milestoneText"><b>Mérföldkövek</b></MudText>
+                        <div class="milestone">
+                            <MudText>Ez egy teszt string</MudText>
+                        </div>
+                    <MudText class="templateText"><b>Kapcsolódó WI-k</b></MudText>
+                        <div class="template">
+                            <MudText>Ez is egy teszt string</MudText>
+                        </div>
                 </MudCardContent>
             </MudCard>
         </td>
         }
     </ChildRowContent>
     <PagerContent>
-        <MudTablePager class="pagination" DisableRowsPerPage="true" InfoFormat="@($"{infoFormat}")" />
+        <MudTablePager class="pagination" DisableRowsPerPage="true" InfoFormat="@infoFormat" />
     </PagerContent>
 </MudTable>

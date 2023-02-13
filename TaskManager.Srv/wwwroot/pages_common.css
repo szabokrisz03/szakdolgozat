@@ -59,13 +59,74 @@
 	cursor: pointer;
 }
 
-.container {
-	margin: 0px 0px 0px 0px;
-	padding: 0px 0px 0px 0px;
-	overflow: scroll;
-	width: 800px;
-	height: 110px
+.wrapper {
+	width: 100%;
+	overflow: hidden;
+	height: 230px;
 }
+
+.descriptionText {
+	position: relative;
+	bottom: 2%;
+	width: 45%;
+	height: 15%;
+	padding: 0.3%;
+	margin-top: 0px;
+}
+
+.description {
+	position: relative;
+	width: 45%;
+	height: 85%;
+	float: left;
+	padding-left: 0.3%;
+	padding-right: 0%;
+	border: 2px solid transparent;
+}
+
+.milestoneText {
+	position: relative;
+	bottom: 15%;
+	width: 53%;
+	height: 15%;
+	padding: 0.3%;
+	float: right;
+}
+
+.milestone {
+	position: relative;
+	bottom: 15%;
+	float: right;
+	padding: 0.3%;
+	height: 31%;
+	width: 53%;
+	border: 2px solid transparent;
+}
+
+.templateText {
+	position: relative;
+	bottom: 7%;
+	width: 53%;
+	height: 15%;
+	padding: 0.3%;
+	float: right;
+}
+
+.template {
+	position: relative;
+	bottom: 15%;
+	height: 31%;
+	width: 53%;
+	margin-top: 1%;
+	padding: 0.3%;
+	float: right;
+	border: 2px solid transparent;
+}
+
+.description:hover, .milestone:hover, .template:hover {
+	border: 2px solid rgb(255, 255, 255, .1);
+	border-radius: 5px;
+}	
 
 .cell {
 	width: 100px;
