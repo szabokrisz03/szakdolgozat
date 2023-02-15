@@ -85,6 +85,11 @@
 	padding: 0.1%;
 }
 
+.milestoneText:hover {
+	background-color: #38343c;
+	cursor: pointer;
+}
+
 .milestone {
 	position: relative;
 	float: right;
@@ -104,9 +109,7 @@
 }
 
 .connectingWi {
-	position: relative;
 	bottom: 17%;
-	height: 34%;
 	width: 53%;
 	padding: 0.3%;
 	float: right;
