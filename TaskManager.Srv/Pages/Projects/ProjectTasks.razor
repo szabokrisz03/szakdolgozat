@@ -1,5 +1,6 @@
 ﻿@page "/projects/{TechnicalName}/tasks"
 @using TaskManager.Srv.Model.ViewModel;
+@using TaskManager.Srv.Components.TaskDetails;
 
 <MudText Typo="Typo.h6">Feladatok</MudText>
 
@@ -29,27 +30,10 @@
     <ChildRowContent>
         @if (context.RowId == ShownId)
         {
-        <td colspan="4">
-            <MudCard>
-                <MudCardContent class="wrapper">
-                    <MudText class="descriptionText"><b>Leírás</b></MudText>
-                        <MudContainer class="description">
-                        <MudText class="text">@context.Description</MudText>
-                        </MudContainer>
-                    <MudText class="milestoneText"><b>Mérföldkövek</b></MudText>
-                        <div class="milestone">
-                            <MudText>Ez egy teszt string</MudText>
-                        </div>
-                    <MudText class="templateText"><b>Kapcsolódó WI-k</b></MudText>
-                        <div class="template">
-                            <MudText>Ez is egy teszt string</MudText>
-                        </div>
-                </MudCardContent>
-            </MudCard>
-        </td>
+            <Details></Details>
         }
     </ChildRowContent>
     <PagerContent>
-        <MudTablePager class="pagination" DisableRowsPerPage="true" InfoFormat="@infoFormat" />
+        <MudTablePager class="pagination" DisableRowsPerPage="true" InfoFormat="@infoFormat"/>
     </PagerContent>
 </MudTable>

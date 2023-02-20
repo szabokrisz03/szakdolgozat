@@ -46,10 +46,6 @@
 	border-radius: 0;
 }
 
-.gap-3 {
-	gap: 0;
-}
-
 .search {
 	padding-bottom: 10px;
 }
@@ -67,20 +63,17 @@
 
 .descriptionText {
 	position: relative;
-	bottom: 2%;
+	bottom: 1%;
 	width: 45%;
-	height: 15%;
-	padding: 0.3%;
-	margin-top: 0px;
+	padding: 0.1%;
 }
 
 .description {
 	position: relative;
 	width: 45%;
-	height: 85%;
+	padding: 0.3%;
+	margin: 0%;
 	float: left;
-	padding-left: 0.3%;
-	padding-right: 0%;
 	border: 2px solid transparent;
 }
 
@@ -88,59 +81,58 @@
 	position: relative;
 	bottom: 15%;
 	width: 53%;
-	height: 15%;
-	padding: 0.3%;
 	float: right;
+	padding: 0.1%;
+}
+
+.milestoneText:hover {
+	background-color: #38343c;
+	cursor: pointer;
 }
 
 .milestone {
 	position: relative;
-	bottom: 15%;
 	float: right;
 	padding: 0.3%;
-	height: 31%;
+	height: 34%;
 	width: 53%;
+	bottom: 17%;
 	border: 2px solid transparent;
 }
 
-.templateText {
+.connectingWiText {
 	position: relative;
-	bottom: 7%;
+	bottom: 16%;
 	width: 53%;
-	height: 15%;
-	padding: 0.3%;
 	float: right;
+	padding: 0.1%;
 }
 
-.template {
-	position: relative;
-	bottom: 15%;
-	height: 31%;
+.connectingWi {
+	bottom: 17%;
 	width: 53%;
-	margin-top: 1%;
 	padding: 0.3%;
 	float: right;
 	border: 2px solid transparent;
 }
 
-.description:hover, .milestone:hover, .template:hover {
+.description:hover, .milestone:hover, .connectingWi:hover {
 	border: 2px solid rgb(255, 255, 255, .1);
 	border-radius: 5px;
 }	
 
 .cell {
-	width: 100px;
+	width: 5%;
 }
 
 .table {
 	display: block;
 	background-color: transparent;
-	margin-bottom: 30px
 }
 
 .pagination {
 	position: fixed;
 	border: none;
 	left: 50%;
-	bottom: 0px;
+	bottom: 0%;
 }
