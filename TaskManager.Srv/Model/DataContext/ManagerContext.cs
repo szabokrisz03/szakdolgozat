@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using TaskManager.Srv.Model.DataModel;
+using TaskManager.Srv.Model.ViewModel;
 
 namespace TaskManager.Srv.Model.DataContext;
 
@@ -10,6 +11,7 @@ public class ManagerContext : DbContext
     public DbSet<User> User { get; set; }
     public DbSet<ProjectUser> ProjectUser { get; set; }
     public DbSet<WiLinkTemplate> WiLinkTemplate { get; set; }
+    public DbSet<ProjectTask> ProjectTask { get; set; }
 
     public ManagerContext(DbContextOptions options) : base(options)
     {

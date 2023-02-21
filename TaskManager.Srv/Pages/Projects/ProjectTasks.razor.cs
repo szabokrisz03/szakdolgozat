@@ -3,6 +3,8 @@
 using MudBlazor;
 
 using TaskManager.Srv.Model.ViewModel;
+using TaskManager.Srv.Services.TaskServices;
+using TaskManager.Srv.Services.WiLinkService;
 
 namespace TaskManager.Srv.Pages.Projects;
 
@@ -14,9 +16,16 @@ public partial class ProjectTasks
     [Parameter] public string TechnicalName { get; set; } = "";
     [Parameter] public int PageSize { get; set; }
 
+    [Inject] private ITaskViewService TaskViewService { get; set; } = null!;
+
     protected override void OnInitialized()
     {
         PageSize = 8;
+    }
+
+    private async Task CreateTask()
+    {
+        await TaskViewService.CreateTaskDialog();
     }
 
     private async Task<TableData<TaskViewModel>> LoadData(TableState state)

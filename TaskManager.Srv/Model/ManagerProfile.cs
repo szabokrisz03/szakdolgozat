@@ -12,5 +12,6 @@ public class ManagerProfile: Profile
 		CreateMap<Project, ProjectViewModel>().ReverseMap();
 		CreateMap<User, UserViewModel>().ReverseMap();
 		CreateMap<WiLinkTemplate, WiLinkTemplateViewModel>().ReverseMap();
+		CreateMap<ProjectTask, TaskViewModel>().ReverseMap();
 	}
 }
