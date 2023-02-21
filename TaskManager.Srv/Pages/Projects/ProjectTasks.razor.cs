@@ -13,10 +13,12 @@ public partial class ProjectTasks
 
     private string infoFormat = "{first_item}-{last_item}";
     private long ShownId = 0;
+    private ProjectViewModel project = new();
     [Parameter] public string TechnicalName { get; set; } = "";
     [Parameter] public int PageSize { get; set; }
 
     [Inject] private ITaskViewService TaskViewService { get; set; } = null!;
+    [Inject] private ITaskService TaskService { get; set; } = null!;
 
     protected override void OnInitialized()
     {
@@ -33,25 +35,13 @@ public partial class ProjectTasks
         int skip = state.PageSize * state.Page;
         int take = state.PageSize;
 
-        var tasks = new List<TaskViewModel>();
-        for (int i = 0; i < 12; i++)
-        {
-            tasks.Add(new TaskViewModel
-            {
-                RowId = i + 1,
-                Name = "teszt1",
-                State = "folyamatban",
-                Description = "alma alma alma alma alma alma alma alma alma alma alma alma alma alma alma alma alma alma"
-            });
-        }
-
-        var size = tasks.Count();
-
-        //page váltáskor bezárja az adott oldalon megnyitott desc blokkot
+        int size = await TaskService.CountTasks(project.RowId);
+        var tasks = await TaskService.ListTasks(project.RowId, take, skip);
         ShownId = 0;
+
         return new TableData<TaskViewModel>
         {
-            Items = tasks.Skip(skip).Take(take),
+            Items = tasks,
             TotalItems = size
         };
     }

@@ -33,7 +33,7 @@ public class ManagerContext : DbContext
 
         var user = modelBuilder.Entity<User>();
         user.HasIndex(u => u.UserName);
-
+  
         var projectTask = modelBuilder.Entity<ProjectTask>();
         projectTask.Property(p => p.TechnicalName).HasDefaultValueSql("NEWID()");
         projectTask.HasIndex(p => p.Name);

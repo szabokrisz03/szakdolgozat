@@ -20,10 +20,35 @@ public class TaskService : ITaskService
         this.dbContextFactory = dbContextFactory;
     }
 
+    public async Task<int> CountTasks(long projectId)
+    {
+        using(var dbcx = await dbContextFactory.CreateDbContextAsync())
+        {
+            return await dbcx.ProjectTask
+                .AsNoTracking()
+                .Where(t => t.ProjectId == projectId)
+                .CountAsync();
+        }
+    }
+
+    public async Task<List<TaskViewModel>> ListTasks(long projectId, int take = 10, int skip = 0)
+    {
+        using(var dbcx = await dbContextFactory.CreateDbContextAsync())
+        {
+            var lst = await dbcx.ProjectTask
+                .AsNoTracking()
+                .Where(t => t.ProjectId == projectId)
+                .Skip(skip)
+                .Take(take)
+                .ToListAsync();
+
+            return lst.Select(t => mapper.Map<TaskViewModel>(t)).ToList();
+        }
+    }
+
     public async Task<TaskViewModel> CreateTask(TaskViewModel taskView)
     {
         var task = mapper.Map<ProjectTask>(taskView);
-        task.RowId = 0;
         using (var dbcx = await dbContextFactory.CreateDbContextAsync())
         {
             await dbcx.ProjectTask.AddAsync(task);
