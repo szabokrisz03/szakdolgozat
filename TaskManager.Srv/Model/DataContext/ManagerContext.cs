@@ -37,7 +37,8 @@ public class ManagerContext : DbContext
         var projectTask = modelBuilder.Entity<ProjectTask>();
         projectTask.Property(p => p.TechnicalName).HasDefaultValueSql("NEWID()");
         projectTask.HasIndex(p => p.Name);
-        project.HasIndex(p => p.TechnicalName);
+        projectTask.HasIndex(p => p.TechnicalName).IsUnique(true);
+        projectTask.HasOne(p => p.Project).WithMany().HasForeignKey(p => p.ProjectId);
 
         base.OnModelCreating(modelBuilder);
     }
