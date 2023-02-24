@@ -2,5 +2,5 @@
 
 public interface ITaskViewService
 {
-    Task CreateTaskDialog();
+    Task CreateTaskDialog(string TechnicalName);
 }

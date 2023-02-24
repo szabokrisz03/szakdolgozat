@@ -27,7 +27,7 @@ public partial class ProjectTasks
 
     private async Task CreateTask()
     {
-        await TaskViewService.CreateTaskDialog();
+        await TaskViewService.CreateTaskDialog(TechnicalName);
     }
 
     private async Task<TableData<TaskViewModel>> LoadData(TableState state)

@@ -28,11 +28,7 @@ public partial class CreateTaskDialog
 
     private async Task CreateTask()
     {
-        await TaskService.CreateTask(taskViewModel);
-        if (taskViewModel.RowId != 0)
-        {
-            Dialog.Close(DialogResult.Ok(true));
-        }
+        Dialog.Close(DialogResult.Ok(taskViewModel));
     }
 
     public void Cancel()
