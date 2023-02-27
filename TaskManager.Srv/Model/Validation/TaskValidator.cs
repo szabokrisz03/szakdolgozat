@@ -11,9 +11,16 @@ public class TaskValidator : AbstractValidator<TaskViewModel>
     {
         RuleFor(x => x.Name)
             .NotEmpty().WithMessage("A név kitöltése kötelező")
-            .NotNull().WithMessage("A név kitöltése kötelező")
+            .NotNull().WithMessage("A név kitöltése kötelező");
 
-            .MustAsync(async (name, _) => !await taskDisplayService.TaskNameExistsAsync(name))
-            .WithMessage("Ilyen néven már létezik feladat!");
+        RuleFor(x => x.Name)
+            .CustomAsync(async (name, context, _) =>
+            {
+                var dto = context.InstanceToValidate;
+                if (await taskDisplayService.TaskNameExistsAsync(dto.ProjectId, dto.Name))
+                {
+                    context.AddFailure("Ezzel a névvel már létezik feladat a projektben!");
+                }
+            });
     }
 }

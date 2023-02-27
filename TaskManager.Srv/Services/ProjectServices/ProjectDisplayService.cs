@@ -44,6 +44,20 @@ public class ProjectDisplayService : IProjectDisplayService
         }
     }
 
+    public async Task<long> GetProjectIdAsync(Guid technicalName)
+    {
+        using(var dbcx = dbContextFactory.CreateDbContext())
+        {
+            var projectId = await dbcx.Project
+                .AsNoTracking()
+                .Where(p => p.TechnicalName == technicalName)
+                .Select(p => p.RowId)
+                .SingleOrDefaultAsync();
+
+            return projectId;
+        }   
+    }
+
     public async Task<ProjectViewModel?> GetProjectAsync(Guid technicalName)
     {
         Project? project;

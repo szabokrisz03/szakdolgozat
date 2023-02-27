@@ -2,5 +2,5 @@
 
 public interface ITaskDisplayService
 {
-    Task<bool> TaskNameExistsAsync(string name);
+    Task<bool> TaskNameExistsAsync(long projectId, string name);
 }

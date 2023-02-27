@@ -18,11 +18,14 @@ public class TaskDisplayService : ITaskDisplayService
         this.dbContextFactory = dbContextFactory;
     }
 
-    public async Task<bool> TaskNameExistsAsync(string name)
+    public async Task<bool> TaskNameExistsAsync(long projectId, string name)
     {
         using(var dbcx = dbContextFactory.CreateDbContext())
         {
-            return await dbcx.ProjectTask.AsNoTracking().Where(p => p.Name == name).AnyAsync();
+            return await dbcx.ProjectTask
+                .AsNoTracking()
+                .Where(p => p.ProjectId == projectId && p.Name == name)
+                .AnyAsync();
         }
     }
 }

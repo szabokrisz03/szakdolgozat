@@ -14,6 +14,7 @@ public partial class CreateTaskDialog
     private bool DisableSubmit = true;
 
     [Parameter] public string UserName { get; set; } = "";
+    [Parameter] public long ProjectId { get; set; }
 
     [Inject] private ITaskService TaskService { get; set; } = null!;
     [Inject] private ISnackbar Snackbar { get; set; } = null!;
@@ -24,6 +25,12 @@ public partial class CreateTaskDialog
     {
         DisableSubmit = !isValid;
         StateHasChanged();
+    }
+
+    protected override void OnParametersSet()
+    {
+        taskViewModel.ProjectId = ProjectId;
+        base.OnParametersSet();
     }
 
     private async Task CreateTask()

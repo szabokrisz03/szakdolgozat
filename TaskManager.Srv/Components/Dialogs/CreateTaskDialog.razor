@@ -3,7 +3,7 @@
 <MudMessageBox>
     <MessageContent>
     <MudText Typo="Typo.h6">Új feladat</MudText>
-    <CreateTaskForm OnValidate="@((isValid) => OnValidate(isValid))"/>
+    <CreateTaskForm OnValidate="@((isValid) => OnValidate(isValid))" taskViewModel="@taskViewModel" />
     </MessageContent>
     <CancelButton>
         <MudButton OnClick="Cancel">Mégse</MudButton>

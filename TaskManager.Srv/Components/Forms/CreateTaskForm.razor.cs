@@ -14,6 +14,7 @@ public partial class CreateTaskForm
     public bool IsValid { get; private set; }
     public string[] Errors { get; private set; } = new string[0];
 
+    [Parameter] public long ProjectId { get; set; }
     [Parameter] public TaskViewModel taskViewModel { get; set; } = new();
     [Parameter] public EventCallback<bool> OnValidate { get; set; }
 
@@ -21,7 +22,7 @@ public partial class CreateTaskForm
 
     public Func<object, string, Task<IEnumerable<string>>> FieldValidator => async (model, field) =>
     {
-        var result = await Validator.ValidateAsync(ValidationContext<TaskViewModel>.CreateWithOptions((TaskViewModel)model, x => x.IncludeProperties(field)));
+        var result = await Validator.ValidateAsync(ValidationContext<TaskViewModel>.CreateWithOptions((TaskViewModel)model, x => x.IncludeProperties(field).IncludeProperties(nameof(TaskViewModel.ProjectId))));
         IsValid = result.IsValid;
         await OnValidate.InvokeAsync(IsValid);
         return IsValid ? Array.Empty<string>() : result.Errors.Select(e => e.ErrorMessage).ToArray();
