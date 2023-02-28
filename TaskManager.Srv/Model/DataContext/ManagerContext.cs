@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using TaskManager.Srv.Model.DataModel;
+using TaskManager.Srv.Model.ViewModel;
 
 namespace TaskManager.Srv.Model.DataContext;
 
@@ -10,6 +11,7 @@ public class ManagerContext : DbContext
     public DbSet<User> User { get; set; }
     public DbSet<ProjectUser> ProjectUser { get; set; }
     public DbSet<WiLinkTemplate> WiLinkTemplate { get; set; }
+    public DbSet<ProjectTask> ProjectTask { get; set; }
 
     public ManagerContext(DbContextOptions options) : base(options)
     {
@@ -31,6 +33,14 @@ public class ManagerContext : DbContext
 
         var user = modelBuilder.Entity<User>();
         user.HasIndex(u => u.UserName);
+  
+        var projectTask = modelBuilder.Entity<ProjectTask>();
+        projectTask.Property(p => p.TechnicalName).HasDefaultValueSql("NEWID()");
+        projectTask.HasIndex(p => p.ProjectId);
+        projectTask.HasIndex(p => p.Name);
+        projectTask.HasIndex(p => p.TechnicalName).IsUnique(true);
+        projectTask.HasIndex(p => new { p.ProjectId, p.Name });
+        projectTask.HasOne(p => p.Project).WithMany().HasForeignKey(p => p.ProjectId);
 
         base.OnModelCreating(modelBuilder);
     }

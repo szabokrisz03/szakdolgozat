@@ -1,0 +1,3 @@
+﻿<MudForm @ref="MudForm" Model="@taskViewModel" Validation="@FieldValidator" @bind-IsValid="@IsValid" @bind-Errors="Errors">
+    <MudTextField Label="Név" For="(() => taskViewModel.Name)" @bind-Text="taskViewModel.Name" OnlyValidateIfDirty="true" Immediate="true" />
+</MudForm>

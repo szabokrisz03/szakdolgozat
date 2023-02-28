@@ -9,6 +9,7 @@ public interface IProjectDisplayService
     Task<List<ProjectViewModel>> ListUserProjectsAsync(string userName, string searchTerm, int take, int skip = 0);
     Task<List<ProjectViewModel>> ListUserProjectsAsync(string userName, DateTime visitedUntil, int take, int skip = 0);
     Task<ProjectViewModel?> GetProjectAsync(Guid technicalName);
+    Task<long> GetProjectIdAsync(Guid technicalName);
     Task<string?> GetProjectNameAsync(Guid technicalName);
     Task<ProjectViewModel?> GetProjectAsync(long rowId);
     Task<bool> ProjectTechnicalNameExistsAsync(Guid technicalName);
