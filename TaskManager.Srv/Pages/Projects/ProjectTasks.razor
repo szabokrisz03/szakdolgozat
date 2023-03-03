@@ -2,16 +2,15 @@
 @using TaskManager.Srv.Model.ViewModel;
 @using TaskManager.Srv.Components.TaskDetails;
 
-<MudText Typo="Typo.h6">Feladatok</MudText>
+<MudText class="taskTitle" Typo="Typo.h6">Feladatok</MudText>
+<MudButton class="newTaskButton" Variant="Variant.Filled" Color="Color.Primary" OnClick="CreateTask">Új Feladat</MudButton>
 
 <MudTable class="table"
             @ref="_table"
             ServerData="LoadData"
             Elevation="0"
             @bind-RowsPerPage="@PageSize">
-            <ToolBarContent>
-                 <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="CreateTask">Új Feladat</MudButton>
-            </ToolBarContent>
+
     <ColGroup>
         <col style="width: 50em"/>
         <col />
@@ -38,6 +37,9 @@
         }
     </ChildRowContent>
     <PagerContent>
-        <MudTablePager class="pagination" DisableRowsPerPage="true" InfoFormat="@infoFormat"/>
+        <div class="pagerContent">
+            <MudTablePager class="pagination" DisableRowsPerPage="true" HorizontalAlignment="HorizontalAlignment.Center" InfoFormat="@infoFormat" />
+        </div>
     </PagerContent>
 </MudTable>
+

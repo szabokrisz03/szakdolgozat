@@ -19,10 +19,9 @@
 }
 
 .element {
-	margin-left: 10px;
-	margin-top: 2px;
-	display: flex !important;
-	height: 40px;
+	margin-top: 0.1%;
+	display: flex;
+	height: 3em;
 }
 
 .paper {
@@ -131,8 +130,28 @@
 }
 
 .pagination {
-	position: fixed;
-	border: none;
-	left: 50%;
-	bottom: 0%;
+	border-top: 1px solid #4a4b54;
+	padding: 4%;
+}
+
+.pagerContent {
+	background-color: transparent;
+	width: 100%;
+}
+
+.transition {
+	transition: all;
+}
+
+.button {
+	min-width: 2.5em;
+	font-size: 15px;
+}
+
+.taskTitle {
+	float: left;
+}
+
+.newTaskButton {
+	float: right;
 }

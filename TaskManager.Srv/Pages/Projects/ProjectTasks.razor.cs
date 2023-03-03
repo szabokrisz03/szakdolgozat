@@ -29,7 +29,7 @@ public partial class ProjectTasks
 
     protected override void OnInitialized()
     {
-        PageSize = 8;
+        PageSize = 10;
     }
 
     protected override async Task OnParametersSetAsync()
