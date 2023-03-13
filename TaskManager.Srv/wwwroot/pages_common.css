@@ -56,24 +56,38 @@
 
 .wrapper {
 	width: 100%;
-	overflow: hidden;
-	height: 230px;
+	overflow: auto;
+	height: 33em;
 }
 
-.descriptionText {
-	position: relative;
-	bottom: 1%;
-	width: 45%;
+.discussionText {
 	padding: 0.1%;
 }
 
-.description {
-	position: relative;
-	width: 45%;
-	padding: 0.3%;
+.discussion {
+	height: 25em;
+	overflow: auto;
 	margin: 0%;
 	float: left;
-	border: 2px solid transparent;
+	border: 1px solid rgb(255, 255, 255, .1);
+	border-bottom: none;
+	border-radius: 5px 5px 0px 0px;
+
+}
+
+.discussionDiv {
+	width: 45%;
+	float: left;
+	display: grid;
+}
+
+.discussionInput {
+	float: left;
+	width: 20%;
+	border: 1px solid rgb(255, 255, 255, .1);
+	border-radius: 0px 0px 5px 5px;
+	padding: 0% 1% 1% 1%;
+	margin: 0;
 }
 
 .milestoneText {
@@ -115,7 +129,7 @@
 	border: 2px solid transparent;
 }
 
-.description:hover, .milestone:hover, .connectingWi:hover {
+.milestone:hover, .connectingWi:hover {
 	border: 2px solid rgb(255, 255, 255, .1);
 	border-radius: 5px;
 }	
@@ -137,10 +151,6 @@
 .pagerContent {
 	background-color: transparent;
 	width: 100%;
-}
-
-.transition {
-	transition: all;
 }
 
 .button {

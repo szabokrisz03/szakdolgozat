@@ -12,6 +12,7 @@ public class ManagerContext : DbContext
     public DbSet<ProjectUser> ProjectUser { get; set; }
     public DbSet<WiLinkTemplate> WiLinkTemplate { get; set; }
     public DbSet<ProjectTask> ProjectTask { get; set; }
+    public DbSet<CommentLine> CommentLine { get; set; }
 
     public ManagerContext(DbContextOptions options) : base(options)
     {
