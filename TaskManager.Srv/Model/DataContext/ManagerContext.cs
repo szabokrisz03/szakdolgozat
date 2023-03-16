@@ -43,6 +43,11 @@ public class ManagerContext : DbContext
         projectTask.HasIndex(p => new { p.ProjectId, p.Name });
         projectTask.HasOne(p => p.Project).WithMany().HasForeignKey(p => p.ProjectId);
 
+        var comment = modelBuilder.Entity<CommentLine>();
+        comment.HasOne(p => p.ProjectTask).WithMany().HasForeignKey(p => p.TaskId);
+        comment.HasIndex(p => p.UserId);
+        comment.Property(p => p.CreationDate).HasDefaultValueSql("GETDATE()");
+
         base.OnModelCreating(modelBuilder);
     }
 }
