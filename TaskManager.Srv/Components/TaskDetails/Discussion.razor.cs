@@ -4,27 +4,40 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.IdentityModel.Tokens;
 
 using TaskManager.Srv.Model.ViewModel;
+using TaskManager.Srv.Services.TaskServices.DiscussionServices;
 
 namespace TaskManager.Srv.Components.TaskDetails;
 
 public partial class Discussion
 {
+    [CascadingParameter (Name = "RowId")] long Id { get; set; }
     [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; }
     [Parameter] public string Comment { get; set; } = "";
-    private List<CommentViewModel> _comments = new();
-    private string userName = "";
 
-    public async void AddComments()
+    [Inject] private ICommentService commentService { get; set; } = null!;
+
+    private string authName = "";
+    private List<CommentViewModel> commentViewModels = new();
+
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await ListComments();
+    }
+
+    public async Task AddComments()
     {
         var authState = await authenticationStateTask;
-        userName = authState.User.Identity?.Name ?? "";
-        userName = userName?.Split('\\').Last();
+        authName = authState.User.Identity?.Name ?? "";
 
-        _comments.Add(new CommentViewModel
-        {
-            UserName = authState.User.Identity?.Name ?? "",
-            Comment = Comment,
-            CreationDate = DateTime.Now,
-        });
+        await commentService.CreateCommentAsync(Id, authName, Comment);
+        await ListComments();
+        Comment = "";
+    }
+
+    public async Task ListComments()
+    {
+        commentViewModels = await commentService.ListComments(Id);
     }
 }

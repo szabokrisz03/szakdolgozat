@@ -7,6 +7,7 @@ using TaskManager.Srv.Model.Options;
 using TaskManager.Srv.Services.AzdoServices;
 using TaskManager.Srv.Services.ProjectServices;
 using TaskManager.Srv.Services.TaskServices;
+using TaskManager.Srv.Services.TaskServices.DiscussionServices;
 using TaskManager.Srv.Services.UtilityServices;
 using TaskManager.Srv.Services.WiLinkService;
 
@@ -62,6 +63,7 @@ public static class ServiceRegistrationExtension
         services.AddScoped<ITaskDisplayService, TaskDisplayService>();
         services.AddScoped<ITaskViewService, TaskViewService>();
         services.AddScoped<ITaskService, TaskService>();
+        services.AddScoped<ICommentService, CommentService>();
         return services;
     }
 }

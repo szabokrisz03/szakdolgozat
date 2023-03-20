@@ -33,7 +33,9 @@
     <ChildRowContent>
         @if (context.RowId == ShownId)
         {
-            <Details></Details>
+            <CascadingValue Value="@Id" Name="RowId">
+                <Details></Details>
+            </CascadingValue>
         }
     </ChildRowContent>
     <PagerContent>

@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
+
+using System.Threading.Tasks;
 
 using TaskManager.Srv.Model.DataContext;
 using TaskManager.Srv.Model.DataModel;
@@ -22,17 +25,24 @@ public class CommentService : ICommentService
         this.userService = userService;
     }
 
-    public async Task<CommentViewModel> CreateCommentAsync(CommentViewModel commentViewModel)
+    public async Task CreateCommentAsync(long taskId, string userName, string content)
     {
-        var comment = mapper.Map<CommentLine>(commentViewModel);
+        var user = await userService.GetUser(userName);
+        long userId = user!.RowId;
+
+        CommentLine commentLine = new()
+        {
+            TaskId = taskId,
+            Comment = content,
+            UserId = userId,
+        };
+
         using (var dbcx = await dbContextFactory.CreateDbContextAsync())
         {
-            await dbcx.CommentLine.AddAsync(comment);
+            await dbcx.CommentLine.AddAsync(commentLine);
             await dbcx.SaveChangesAsync();
-            dbcx.Entry(comment).State = EntityState.Detached;
+            dbcx.Entry(commentLine).State = EntityState.Detached;
         }
-
-        return mapper.Map<CommentViewModel>(comment);
     }
 
     public async Task<List<CommentViewModel>> ListComments(long taskId)
@@ -41,11 +51,18 @@ public class CommentService : ICommentService
         {
             var lst = await dbcx.CommentLine
                 .AsNoTracking()
-                .Where(t => t.RowId == taskId)
-                .OrderBy(t => t.CreationDate)
+                .Where(t => t.TaskId == taskId)
+                .OrderByDescending(t => t.CreationDate)
+                .Join(dbcx.User.AsNoTracking(), t => t.UserId, u => u.RowId, (comm, user) => new { comm, user })
                 .ToListAsync();
 
-            return lst.Select(mapper.Map<CommentViewModel>).ToList();
+            return lst.Select(join =>
+            {
+                var commentVm = mapper.Map<CommentViewModel>(join.comm);
+                commentVm.UserName = join.user.UserName;
+
+                return commentVm;
+            }).ToList();
         }
     }
 }

@@ -1,26 +1,20 @@
 ﻿<MudText class="discussionText"><b>Csevegés</b></MudText>
 <div class="discussionDiv">
-    <MudTextField style="margin: 0; padding: 0" class="discussionInput" Clearable="true" Immediate="true" Lines="3" T="String" @bind-Value="Comment" DisableUnderLine="true" FullWidth="true" Margin="Margin.None"
+    <MudTextField style="margin: 0; padding: 0" Placeholder="Add a comment..." class="discussionInput" Clearable="true" Immediate="true" Lines="3" T="String" @bind-Value="Comment" DisableUnderLine="true" FullWidth="true" Margin="Margin.None"
                   Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Send" OnAdornmentClick="AddComments"></MudTextField>
     <MudCard class="discussion" style="margin-top: 0px;" Elevation="0">
-        @if(_comments != null)
+        @if(commentViewModels != null)
         {
-            @foreach(var item in _comments)
+            @foreach(var item in commentViewModels)
             {
                 <div>
                     <MudPaper class="commentPaper">
-                        <MudText style="font-size: 15px" class="papertext">@userName.Substring(0, 1).ToUpper()</MudText>
+                        <MudText style="font-size: 15px" class="papertext">@item.UserName.Split('\\').Last().Substring(0, 1).ToUpper()</MudText>
                     </MudPaper>
-                    <MudField class="comment" Margin="Margin.Normal" Variant="Variant.Outlined">
-                        <div>
-                            @item.UserName
-                        </div>
-                        <div>
-                            @item.Comment
-                        </div>
-                        <div style="float: right">
-                            @item.CreationDate
-                        </div>
+                    <MudField class="comment" Variant="Variant.Outlined">
+                        <span class="userName">@item.UserName.Split('\\').Last()</span>
+                        <div class="">@item.Comment</div>
+                        <span style="float: right">@item.CreationDate</span>
                     </MudField>
                 </div>
             }
