@@ -13,5 +13,6 @@ public class ManagerProfile: Profile
 		CreateMap<User, UserViewModel>().ReverseMap();
 		CreateMap<WiLinkTemplate, WiLinkTemplateViewModel>().ReverseMap();
 		CreateMap<ProjectTask, TaskViewModel>().ReverseMap();
+		CreateMap<CommentLine, CommentViewModel>().ReverseMap();
 	}
 }

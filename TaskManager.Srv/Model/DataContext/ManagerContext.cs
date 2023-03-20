@@ -12,6 +12,7 @@ public class ManagerContext : DbContext
     public DbSet<ProjectUser> ProjectUser { get; set; }
     public DbSet<WiLinkTemplate> WiLinkTemplate { get; set; }
     public DbSet<ProjectTask> ProjectTask { get; set; }
+    public DbSet<CommentLine> CommentLine { get; set; }
 
     public ManagerContext(DbContextOptions options) : base(options)
     {
@@ -41,6 +42,11 @@ public class ManagerContext : DbContext
         projectTask.HasIndex(p => p.TechnicalName).IsUnique(true);
         projectTask.HasIndex(p => new { p.ProjectId, p.Name });
         projectTask.HasOne(p => p.Project).WithMany().HasForeignKey(p => p.ProjectId);
+
+        var comment = modelBuilder.Entity<CommentLine>();
+        comment.HasOne(p => p.ProjectTask).WithMany().HasForeignKey(p => p.TaskId);
+        comment.HasIndex(p => p.UserId);
+        comment.Property(p => p.CreationDate).HasDefaultValueSql("GETDATE()");
 
         base.OnModelCreating(modelBuilder);
     }

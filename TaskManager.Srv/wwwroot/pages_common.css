@@ -18,6 +18,10 @@
 	margin-bottom: 10px;
 }
 
+.comment {
+	white-space: pre-line;
+}
+
 .element {
 	margin-top: 0.1%;
 	display: flex;
@@ -30,6 +34,23 @@
 	height: 50px;
 	border-radius: 5px;
 	margin-right: 20px;
+}
+
+.commentPaper {
+	background-color: purple;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	float: left;
+	width: 30px;
+	height: 30px;
+	border-radius: 5px;
+	margin-right: 1%;
+}
+
+.userName {
+	margin: 0;
+	font-size: 14px;
 }
 
 .papertext {
@@ -56,24 +77,36 @@
 
 .wrapper {
 	width: 100%;
-	overflow: hidden;
-	height: 230px;
+	overflow: auto;
+	max-height: 33em;
+	padding-bottom: 15px;
 }
 
-.descriptionText {
-	position: relative;
-	bottom: 1%;
-	width: 45%;
+.discussionText {
 	padding: 0.1%;
 }
 
-.description {
-	position: relative;
-	width: 45%;
-	padding: 0.3%;
+.discussion {
+	max-height: 25em;
+	overflow: auto;
 	margin: 0%;
 	float: left;
-	border: 2px solid transparent;
+}
+
+.discussionDiv {
+	width: 45%;
+	float: left;
+	display: grid;
+}
+
+.discussionInput {
+	float: left;
+	width: 20%;
+	border: 1px solid rgb(255, 255, 255, .1);
+	border-radius: 5px 5px 0px 0px;
+	padding: 0 5px 0 5px;
+	margin: 0;
+	max-height: 100px;
 }
 
 .milestoneText {
@@ -115,7 +148,7 @@
 	border: 2px solid transparent;
 }
 
-.description:hover, .milestone:hover, .connectingWi:hover {
+.milestone:hover, .connectingWi:hover {
 	border: 2px solid rgb(255, 255, 255, .1);
 	border-radius: 5px;
 }	
@@ -137,10 +170,6 @@
 .pagerContent {
 	background-color: transparent;
 	width: 100%;
-}
-
-.transition {
-	transition: all;
 }
 
 .button {

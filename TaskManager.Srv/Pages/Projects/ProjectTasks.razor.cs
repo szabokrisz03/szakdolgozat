@@ -17,6 +17,8 @@ public partial class ProjectTasks
     private long ShownId = 0;
     private MudTable<TaskViewModel> _table;
 
+    [CascadingParameter] long Id { get; set; }
+
     [Parameter] public string TechnicalName { get; set; } = "";
     [Parameter] public int PageSize { get; set; }
 
@@ -66,6 +68,7 @@ public partial class ProjectTasks
 
     private void ShowBtnPress(TaskViewModel taskView)
     {
-        ShownId = ShownId == taskView.RowId ? 0 : taskView.RowId;
+        Id = taskView.RowId;
+        ShownId = ShownId == taskView.RowId ? 0 : taskView.RowId;   
     }
 }
