@@ -19,8 +19,6 @@ public partial class Discussion
     private string authName = "";
     private List<CommentViewModel> commentViewModels = new();
 
-
-
     protected override async Task OnParametersSetAsync()
     {
         await ListComments();

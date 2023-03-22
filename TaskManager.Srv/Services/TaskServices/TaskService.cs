@@ -6,6 +6,7 @@ using TaskManager.Srv.Model.ViewModel;
 using TaskManager.Srv.Model.DataContext;
 using TaskManager.Srv.Services.UtilityServices;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace TaskManager.Srv.Services.TaskServices;
 
@@ -43,6 +44,20 @@ public class TaskService : ITaskService
                 .ToListAsync();
 
             return lst.Select(t => mapper.Map<TaskViewModel>(t)).ToList();
+        }
+    }
+
+    public async Task UpdateStatus(TaskViewModel taskViewModel)
+    {
+        var task = mapper.Map<ProjectTask>(taskViewModel);
+
+        using (var dbcx = await dbContextFactory.CreateDbContextAsync())
+        {
+            var entry = dbcx.Attach(task);
+            entry.Property(e => e.State).IsModified = true;
+            await dbcx.SaveChangesAsync();
+
+            entry.State = EntityState.Detached;
         }
     }
 
