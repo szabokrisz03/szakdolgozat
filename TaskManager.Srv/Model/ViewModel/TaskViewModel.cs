@@ -1,4 +1,6 @@
-﻿namespace TaskManager.Srv.Model.ViewModel;
+﻿using TaskManager.Srv.Model.DataModel;
+
+namespace TaskManager.Srv.Model.ViewModel;
 
 public class TaskViewModel
 {
@@ -6,5 +8,5 @@ public class TaskViewModel
     public long RowId { get; set; }
     public string Name { get; set; } = "";
     public string Description { get; set; } = "";
-    public string State { get; set; } = "";
+    public TaskState State { get; set; }
 }

@@ -20,6 +20,7 @@
 
 .comment {
 	white-space: pre-line;
+	margin-right: 1%;
 }
 
 .element {
@@ -51,6 +52,11 @@
 .userName {
 	margin: 0;
 	font-size: 14px;
+}
+
+.select-row {
+	width: 15%;
+	padding: 0;
 }
 
 .papertext {
@@ -154,7 +160,7 @@
 }	
 
 .cell {
-	width: 5%;
+	width: 40%;
 }
 
 .table {
@@ -175,6 +181,7 @@
 .button {
 	min-width: 2.5em;
 	font-size: 15px;
+	float: right;
 }
 
 .taskTitle {

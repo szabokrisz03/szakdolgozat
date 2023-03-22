@@ -2,6 +2,9 @@
 
 using MudBlazor;
 
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
+
 using TaskManager.Srv.Model.DataModel;
 using TaskManager.Srv.Model.ViewModel;
 using TaskManager.Srv.Services.ProjectServices;
@@ -26,12 +29,14 @@ public partial class ProjectTasks
     [Inject] private ITaskService TaskService { get; set; } = null!;
     [Inject] private IProjectDisplayService project { get; set; } = null!;
 
+    private List<(TaskState value, string name)> enumList = new();
     private Guid _lastTechnicalName;
     private long _projectId = 0;
 
     protected override void OnInitialized()
     {
         PageSize = 10;
+        ListTaskState();
     }
 
     protected override async Task OnParametersSetAsync()
@@ -64,6 +69,28 @@ public partial class ProjectTasks
             Items = tasks,
             TotalItems = size
         };
+    }
+
+    private async Task UpdateState(TaskViewModel model)
+    {
+        await TaskService.UpdateTask(model);
+    }
+
+    private void ListTaskState()
+    {
+        var type = typeof(TaskState);
+
+        enumList = Enum.GetValues(typeof(TaskState))
+            .Cast<TaskState>()
+            .Select(v =>
+            {
+                string valueName = v.ToString();
+                string name;
+                name = type.GetMember(valueName).FirstOrDefault()?.GetCustomAttribute<DisplayAttribute>()?.Name ?? valueName;
+
+                return (v, name);
+            })
+            .ToList();
     }
 
     private void ShowBtnPress(TaskViewModel taskView)
