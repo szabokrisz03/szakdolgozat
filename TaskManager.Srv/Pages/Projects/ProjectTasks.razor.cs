@@ -73,7 +73,7 @@ public partial class ProjectTasks
 
     private async Task UpdateState(TaskViewModel model)
     {
-        await TaskService.UpdateTestStatus(model);
+        await TaskService.UpdateStatus(model);
     }
 
     private void ListTaskState()
