@@ -47,7 +47,7 @@ public class TaskService : ITaskService
         }
     }
 
-    public async Task UpdateTask(TaskViewModel taskViewModel)
+    public async Task UpdateTestStatus(TaskViewModel taskViewModel)
     {
         var task = mapper.Map<ProjectTask>(taskViewModel);
 
