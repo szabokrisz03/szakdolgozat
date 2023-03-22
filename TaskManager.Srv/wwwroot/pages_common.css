@@ -1,4 +1,11 @@
-﻿.card {
+﻿
+*::-webkit-scrollbar-track {
+	border-radius: 8px;
+	background-color: transparent;
+	border: 1px solid rgb(255, 255, 255, .1);
+}
+
+.card {
 	height: 70px;
 	border-radius: inherit;
 	border-bottom: 1px solid rgb(255, 255, 255, .1);
@@ -21,6 +28,7 @@
 .comment {
 	white-space: pre-line;
 	margin-right: 1%;
+	overflow-wrap: break-word;
 }
 
 .element {
