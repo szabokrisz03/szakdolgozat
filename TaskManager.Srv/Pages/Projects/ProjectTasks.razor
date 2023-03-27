@@ -3,8 +3,8 @@
 @using TaskManager.Srv.Model.DataModel;
 @using TaskManager.Srv.Components.TaskDetails;
 
-<MudText class="taskTitle" Typo="Typo.h6">Feladatok</MudText>
-<MudButton class="newTaskButton" Variant="Variant.Filled" Color="Color.Primary" OnClick="CreateTask">Új Feladat</MudButton>
+<MudText class="task-title" Typo="Typo.h6">Feladatok</MudText>
+<MudButton class="new-task-button" Variant="Variant.Filled" Color="Color.Primary" OnClick="CreateTask">Új Feladat</MudButton>
 
 <MudTable class="table"
             @ref="_table"
@@ -25,15 +25,15 @@
     <RowTemplate>
         <MudTd>@context.Name</MudTd>
         <MudTd class="select-row">
-            <MudSelect class="select" T="TaskState" @bind-Value="context.State" SelectedValuesChanged="@(() => UpdateState(context))" AnchorOrigin="Origin.BottomCenter" DisableUnderLine="true" MultiSelection="false">
+            <MudSelect T="TaskState" @bind-Value="context.State" SelectedValuesChanged="@(() => UpdateState(context))" AnchorOrigin="Origin.BottomCenter" DisableUnderLine="true" MultiSelection="false">
                 @foreach(var (value, name) in enumList)
                 {
-                    <MudSelectItem T="TaskState" Value="@value" class="se">@name</MudSelectItem>
+                    <MudSelectItem T="TaskState" Value="@value">@name</MudSelectItem>
                 }
             </MudSelect>
         </MudTd>
         <MudTd class="cell">
-            <MudButton class="button" Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => ShowBtnPress(context))">
+            <MudButton class="dropdown-button" Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => ShowBtnPress(context))">
              @((context.RowId == ShownId) ? "-" : "+")
             </MudButton>
         </MudTd>
@@ -47,7 +47,7 @@
         }
     </ChildRowContent>
     <PagerContent>
-        <div class="pagerContent">
+        <div class="pager-content">
             <MudTablePager class="pagination" DisableRowsPerPage="true" HorizontalAlignment="HorizontalAlignment.Center" InfoFormat="@infoFormat" />
         </div>
     </PagerContent>

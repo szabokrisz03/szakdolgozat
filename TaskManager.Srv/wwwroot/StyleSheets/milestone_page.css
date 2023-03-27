@@ -1,0 +1,17 @@
+﻿*::-webkit-scrollbar-track {
+	border-radius: 8px;
+	background-color: transparent;
+	border: 1px solid rgb(255, 255, 255, .1);
+}
+
+.milestone-text {
+	float: left;
+	padding: 0 0 1% 0;
+}
+
+.milestone-div {
+	width: 45%;
+	float: left;
+	display: grid;
+	padding: 0 0 1% 1%;
+}

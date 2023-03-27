@@ -1,2 +1,20 @@
-﻿<MudText class="connectingWiText"><b>Kapcsolódó WI-k</b></MudText>
-<MudTextField class="connectingWi" style="margin-top: 0px;" T="string" Variant="Variant.Text" DisableUnderLine="true" Lines="2"/>
+﻿<div class="connecting-wi-div">
+    <MudText class="wi-text"><b>Kapcsolódó WI-k</b></MudText>
+    <MudField Variant="Variant.Text">
+        <div class="wi-first-div">
+            <MudIcon Icon="@Icons.Material.Filled.Task" Size="Size.Small"></MudIcon>
+            <MudPaper class="" Outlined="true">a</MudPaper>
+            <MudText class="wi-font">WIID - WINAME</MudText>
+        </div>
+        <div>
+            <MudText class="wi-font">ASSIGNEDTONAME - STATUS - LASTUPDATE</MudText>
+        </div>
+    </MudField>
+    <div class="wi-new">
+        <MudTextField class="wi-number" T="string" Placeholder="Wi szám..." Variant="Variant.Outlined" Immediate="true" Clearable="true" DisableUnderLine="true"></MudTextField>
+        <span class="wi-button-span">
+            <MudButton class="wi-button">+</MudButton>
+            <MudButton class="wi-button" Disabled="true">New</MudButton>
+        </span>
+    </div>
+</div>
