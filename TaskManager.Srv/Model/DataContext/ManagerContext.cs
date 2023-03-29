@@ -48,6 +48,12 @@ public class ManagerContext : DbContext
         comment.HasIndex(p => p.UserId);
         comment.Property(p => p.CreationDate).HasDefaultValueSql("GETDATE()");
 
+        var wi = modelBuilder.Entity<ConnectingWiDb>();
+        wi.HasIndex(p => p.WiId).IsUnique(true);
+        wi.HasIndex(p => p.TaskId).IsUnique(true);
+        wi.HasIndex(p => p.InsertUser);
+        wi.Property(p => p.InsertDate).HasDefaultValue("GETDATE()");
+
         base.OnModelCreating(modelBuilder);
     }
 }

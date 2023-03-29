@@ -57,7 +57,7 @@
 
 .wrapper {
 	width: 100%;
-	overflow: auto;
-	max-height: 33em;
+	overflow: hidden;
+	max-height: 35em;
 	padding-bottom: 15px;
 }

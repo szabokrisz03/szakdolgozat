@@ -1,20 +1,31 @@
 ﻿<div class="connecting-wi-div">
-    <MudText class="wi-text"><b>Kapcsolódó WI-k</b></MudText>
-    <MudField Variant="Variant.Text">
-        <div class="wi-first-div">
-            <MudIcon Icon="@Icons.Material.Filled.Task" Size="Size.Small"></MudIcon>
-            <MudPaper class="" Outlined="true">a</MudPaper>
-            <MudText class="wi-font">WIID - WINAME</MudText>
+    <MudText class="wi-text">Kapcsolódó WI-k</MudText>
+    <MudCard class="wi" style="margin-top: 0px;" Elevation="0">
+        <div class="wi-new">
+            <MudNumericField class="wi-number" @ref="_numField" @bind-Value="WiNumber" Label="Wi szám" Variant="Variant.Outlined" Immediate="true" Clearable="true" DisableUnderLine="true" HideSpinButtons="true"></MudNumericField>
+            <span class="wi-button-span">
+                <MudButton class="wi-button" OnClick="@(() => addWi())">+</MudButton>
+                <MudButton class="wi-button" Disabled="true">New</MudButton>
+            </span>
         </div>
-        <div>
-            <MudText class="wi-font">ASSIGNEDTONAME - STATUS - LASTUPDATE</MudText>
-        </div>
-    </MudField>
-    <div class="wi-new">
-        <MudTextField class="wi-number" T="string" Placeholder="Wi szám..." Variant="Variant.Outlined" Immediate="true" Clearable="true" DisableUnderLine="true"></MudTextField>
-        <span class="wi-button-span">
-            <MudButton class="wi-button">+</MudButton>
-            <MudButton class="wi-button" Disabled="true">New</MudButton>
-        </span>
-    </div>
+    @if (connectingWiViewModells != null)
+    {
+        @foreach (var item in connectingWiViewModells)
+        {
+            <MudField Variant="Variant.Text">
+                <div class="wi-first-div">
+                    <MudIcon Icon="@Icons.Material.Filled.Task" Size="Size.Small"></MudIcon>
+                    <span>@item.WiId - </span>
+                    <span>@item.Title</span>
+                </div>
+                <div class ="wi-first-div">
+                    <MudPaper class="wi-avatar" Outlined="true">a</MudPaper>
+                    <span>@item.AssignedTo - </span>
+                    <span>@item.Status - </span>
+                    <span>@item.LastUpdate</span>
+                </div>
+            </MudField>
+        }
+    }
+    </MudCard>
 </div>

@@ -4,17 +4,23 @@
 	border: 1px solid rgb(255, 255, 255, .1);
 }
 
+.wi {
+	max-height: 28.5em;
+	overflow: auto;
+	margin: 0%;
+}
+
 .wi-text {
 	float: left;
-	padding: 0 0 1% 0;
+	font-weight: bold;
 }
 
 .connecting-wi-div {
-	width: 45%;
+	width: 49%;
 	float: left;
 	display: grid;
-	padding-left: 1%;
-	border: 2px solid transparent;
+	margin-left: 2%;
+
 }
 
 .wi-new {
@@ -31,7 +37,12 @@
 	width: 10%;
 	height: 70%;
 	border: 1px solid rgb(255, 255, 255, .1);
-	padding: 5%;
+	padding: 5% 0 0 0;
+	margin: 6% 0 0 0;
+}
+
+.wi-number {
+	margin: 5% 0 0 0;
 }
 
 .wi-first-div {
@@ -41,8 +52,8 @@
 	width: 100%;
 }
 
-.wi-font {
+.wi-first-div span {
 	font-size: 13px;
-	word-spacing: 10px;
 	margin: 0 0 0 1%;
+	padding: 0 3% 0 0;
 }

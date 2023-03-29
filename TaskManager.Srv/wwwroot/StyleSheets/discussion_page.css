@@ -5,13 +5,14 @@
 }
 
 .discussion-div {
-	width: 45%;
+	width: 49%;
 	float: left;
 	display: grid;
 }
 
 .discussion-text {
 	padding: 0 0 1% 0;
+	font-weight: bold;
 }
 
 .discussion-input {
