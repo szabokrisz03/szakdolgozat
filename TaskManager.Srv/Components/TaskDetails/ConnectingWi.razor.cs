@@ -9,13 +9,13 @@ namespace TaskManager.Srv.Components.TaskDetails;
 public partial class ConnectingWi
 {
 
-    [CascadingParameter(Name = "RowId")] long Id { get; set; }
+    [CascadingParameter(Name = "TaskId")] long Id { get; set; }
     [Parameter] public long? WiNumber { get; set; }
 
     private List<ConnectingWiViewModell> connectingWiViewModells = new();
     private MudNumericField<long?> _numField;
 
-    public void addWi()
+    public void AddWi()
     {
         if(WiNumber != null)
         {
