@@ -1,0 +1,64 @@
+﻿.discussion-div {
+	width: 49%;
+	float: left;
+	display: grid;
+}
+
+.discussion-text {
+	padding: 0 0 1% 0;
+	font-weight: bold;
+}
+
+.discussion-input {
+	float: left;
+	width: 20%;
+	border: 1px solid rgb(255, 255, 255, .1);
+	border-radius: 5px 5px 0px 0px;
+	padding: 0 5px 0 5px;
+	margin: 0;
+	max-height: 100px;
+}
+
+.discussion {
+	max-height: 25em;
+	overflow: auto;
+	margin: 0%;
+	float: left;
+}
+
+.comment-paper {
+	background-color: purple;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	float: left;
+	width: 30px;
+	height: 30px;
+	border-radius: 5px;
+	margin-right: 1%;
+}
+
+.paper-text {
+	display: flex;
+	background: none;
+	justify-content: center;
+	padding-top: 6px;
+	font-size: 25px;
+}
+
+.comment {
+	white-space: pre-line;
+	margin-right: 1%;
+	overflow-wrap: break-word;
+}
+
+.comment-text {
+	padding: 2% 0 0 0;
+}
+
+.username {
+	margin: 0;
+	font-size: 14px;
+	float: left;
+	font-weight: bold;
+}

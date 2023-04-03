@@ -89,8 +89,7 @@ public partial class ProjectTasks
                 name = type.GetMember(valueName).FirstOrDefault()?.GetCustomAttribute<DisplayAttribute>()?.Name ?? valueName;
 
                 return (v, name);
-            })
-            .ToList();
+            }).ToList();
     }
 
     private void ShowBtnPress(TaskViewModel taskView)

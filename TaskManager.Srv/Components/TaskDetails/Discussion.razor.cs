@@ -10,7 +10,7 @@ namespace TaskManager.Srv.Components.TaskDetails;
 
 public partial class Discussion
 {
-    [CascadingParameter (Name = "RowId")] long Id { get; set; }
+    [CascadingParameter (Name = "TaskId")] long Id { get; set; }
     [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; }
     [Parameter] public string Comment { get; set; } = "";
 

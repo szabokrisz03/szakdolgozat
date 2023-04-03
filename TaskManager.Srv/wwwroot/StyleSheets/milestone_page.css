@@ -1,0 +1,12 @@
+﻿.milestone-text {
+	float: left;
+	padding: 0 0 1% 0;
+	font-weight: bold;
+}
+
+.milestone-div {
+	width: 49%;
+	float: left;
+	display: grid;
+	margin-left: 2%;
+}

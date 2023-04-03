@@ -1,6 +1,6 @@
-﻿<MudText class="discussionText"><b>Csevegés</b></MudText>
-<div class="discussionDiv">
-    <MudTextField style="margin: 0; padding: 0" Placeholder="Add a comment..." class="discussionInput" Clearable="true" Immediate="true" Lines="3" T="String" @bind-Value="Comment" DisableUnderLine="true" FullWidth="true" Margin="Margin.None"
+﻿<div class="discussion-div">
+<MudText class="discussion-text">Csevegés</MudText>
+    <MudTextField class="discussion-input" style="margin: 0; padding: 0" Placeholder="Add a comment..." Clearable="true" Immediate="true" Lines="3" T="String" @bind-Value="Comment" DisableUnderLine="true" FullWidth="true" Margin="Margin.None"
                   Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Send" OnAdornmentClick="AddComments"></MudTextField>
     <MudCard class="discussion" style="margin-top: 0px;" Elevation="0">
         @if(commentViewModels != null)
@@ -8,13 +8,12 @@
             @foreach(var item in commentViewModels)
             {
                 <div>
-                    <MudPaper class="commentPaper">
-                        <MudText style="font-size: 15px" class="papertext">@item.UserName.Split('\\').Last().Substring(0, 1).ToUpper()</MudText>
+                    <MudPaper class="comment-paper">
+                        <MudText class="paper-text" style="font-size: 15px">@item.UserName.Split('\\').Last().Substring(0, 1).ToUpper()</MudText>
                     </MudPaper>
                     <MudField class="comment" Variant="Variant.Outlined">
-                        <span class="userName">@item.UserName.Split('\\').Last()</span>
-                        <div class="">@item.Comment</div>
-                        <span style="float: right">@item.CreationDate</span>
+                        <span class="username">@item.UserName.Split('\\').Last() on @item.CreationDate</span>
+                        <div class="comment-text">@item.Comment</div>
                     </MudField>
                 </div>
             }
