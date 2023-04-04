@@ -2,6 +2,7 @@
 	width: 49%;
 	float: left;
 	display: grid;
+	transition: max-height 1s;
 }
 
 .discussion-text {

@@ -1,5 +1,5 @@
 ﻿.wi {
-	max-height: 28.5em;
+	max-height: 16em;
 	overflow: auto;
 	margin: 0%;
 }
@@ -7,11 +7,12 @@
 .wi-text {
 	float: left;
 	font-weight: bold;
+	padding-top: 1%; 
 }
 
 .connecting-wi-div {
 	width: 49%;
-	float: left;
+	float: right;
 	display: grid;
 	margin-left: 2%;
 

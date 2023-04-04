@@ -1,3 +1,35 @@
-﻿<div class="milestone-div">
+﻿@using TaskManager.Srv.Model.ViewModel;
+<div class="milestone-div">
     <MudText class="milestone-text" onclick="@(() => ToggleDrawer())"><b>Mérföldkövek</b></MudText>
+    
+    @if (IsOpen)
+    {
+        <MudCard class="milestone" style="margin-top: 0px;" Elevation="0">
+        <MudDropContainer T="MilestoneViewModel" Items="@MilestoneList" ItemsSelector="@((item,zone) => item.Id == zone)" ItemDropped="Update">
+            <ChildContent>
+
+
+                <MudPaper Elevation="0">
+                    <MudList Clickable="true">
+                        <MudDropZone T="MilestoneViewModel" Identifier="main" ItemDraggingClass="mud-info-text" AllowReorder="true"></MudDropZone>
+                    </MudList>
+                </MudPaper>
+                
+            </ChildContent>
+            <ItemRenderer>
+                <MudListItem class="mud-list-item" Dense="true">
+                    <div class="name-date-text">
+                    <MudText>@context.Name</MudText>
+                    <MudText>@context.Date</MudText>
+                    </div>
+                    <span class="add-delete-done-button">
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete"></MudIconButton>
+                    <MudIconButton Icon="@Icons.Material.Filled.Done"></MudIconButton>
+                    </span>
+
+                </MudListItem>
+            </ItemRenderer/>
+        </MudDropContainer>
+         </MudCard>
+    }
 </div>
