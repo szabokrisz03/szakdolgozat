@@ -15,5 +15,6 @@ public class ManagerProfile: Profile
 		CreateMap<ProjectTask, TaskViewModel>().ReverseMap();
 		CreateMap<CommentLine, CommentViewModel>().ReverseMap();
 		CreateMap<ConnectingWiDb, ConnectingWiViewModell>().ReverseMap();
+		CreateMap<TaskMilestone, MilestoneViewModel>().ReverseMap();
 	}
 }

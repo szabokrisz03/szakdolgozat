@@ -5,6 +5,7 @@ using Microsoft.Net.Http.Headers;
 using TaskManager.Srv.Model.DataContext;
 using TaskManager.Srv.Model.Options;
 using TaskManager.Srv.Services.AzdoServices;
+using TaskManager.Srv.Services.MilestoneServices;
 using TaskManager.Srv.Services.ProjectServices;
 using TaskManager.Srv.Services.TaskServices;
 using TaskManager.Srv.Services.TaskServices.DiscussionServices;
@@ -64,6 +65,7 @@ public static class ServiceRegistrationExtension
         services.AddScoped<ITaskViewService, TaskViewService>();
         services.AddScoped<ITaskService, TaskService>();
         services.AddScoped<ICommentService, CommentService>();
+        services.AddScoped<IMilestoneService, MilestoneService>();
         return services;
     }
 }

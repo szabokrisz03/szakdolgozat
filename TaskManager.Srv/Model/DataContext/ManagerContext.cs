@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
+using System.Runtime.CompilerServices;
+
 using TaskManager.Srv.Model.DataModel;
 using TaskManager.Srv.Model.ViewModel;
 
@@ -13,6 +15,7 @@ public class ManagerContext : DbContext
     public DbSet<WiLinkTemplate> WiLinkTemplate { get; set; }
     public DbSet<ProjectTask> ProjectTask { get; set; }
     public DbSet<CommentLine> CommentLine { get; set; }
+    public DbSet<TaskMilestone> TaskMilestone { get; set; }
 
     public ManagerContext(DbContextOptions options) : base(options)
     {
@@ -51,6 +54,11 @@ public class ManagerContext : DbContext
         var wi = modelBuilder.Entity<ConnectingWiDb>();
         wi.HasIndex(p => new { p.TaskId, p.WiId }).IsUnique(true);
         wi.Property(p => p.InsertDate).HasDefaultValueSql("GETDATE()");
+
+        var milestone = modelBuilder.Entity<TaskMilestone>();
+        milestone.HasOne(p => p.Task).WithMany().HasForeignKey(p => p.TaskId);
+        milestone.HasIndex(p => p.Name);
+        milestone.Property(p => p.Actual).HasDefaultValueSql("GETDATE()");
 
         base.OnModelCreating(modelBuilder);
     }

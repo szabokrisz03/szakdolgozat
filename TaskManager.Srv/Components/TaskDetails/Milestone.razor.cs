@@ -4,6 +4,7 @@ using MudBlazor;
 using MudBlazor.Utilities;
 
 using TaskManager.Srv.Model.ViewModel;
+using TaskManager.Srv.Services.MilestoneServices;
 
 namespace TaskManager.Srv.Components.TaskDetails;
 
@@ -11,6 +12,7 @@ public partial class Milestone
 {
     [Parameter]
     public bool IsOpen { get; set; }
+    [Inject] public IMilestoneService milestoneService { get; set; }
 
     private List<MilestoneViewModel> MilestoneList = new()
     {
