@@ -1,4 +1,8 @@
-﻿.new-task-button {
+﻿* {
+	animation: table_animation 2s linear 0s steps(1, start) normal forwards;
+}
+
+.new-task-button {
 	float: right;
 }
 

@@ -4,8 +4,11 @@
     
     @if (IsOpen)
     {
+        <div>
+            <MudIconButton class="add-btn" Icon="@Icons.Material.Filled.Add"></MudIconButton>
+        </div>
         <MudCard class="milestone" style="margin-top: 0px;" Elevation="0">
-        <MudDropContainer T="MilestoneViewModel" Items="@MilestoneList" ItemsSelector="@((item,zone) => item.Id == zone)" ItemDropped="Update">
+        <MudDropContainer T="MilestoneViewModel" Items="@MilestoneList" ItemsSelector="@((item,zone) => item.Table == zone)" ItemDropped="Update">
             <ChildContent>
 
 

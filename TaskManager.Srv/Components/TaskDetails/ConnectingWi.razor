@@ -1,6 +1,6 @@
 ﻿<div class="connecting-wi-div">
     <MudText class="wi-text">Kapcsolódó WI-k</MudText>
-    <MudCard class="wi" style="margin-top: 0px;" Elevation="0">
+    
         <div class="wi-new">
             <MudNumericField class="wi-number" @ref="_numField" @bind-Value="WiNumber" Label="Wi szám" Variant="Variant.Outlined" Immediate="true" Clearable="true" DisableUnderLine="true" HideSpinButtons="true"></MudNumericField>
             <span class="wi-button-span">
@@ -8,11 +8,12 @@
                 <MudButton class="wi-button" Disabled="true">New</MudButton>
             </span>
         </div>
+    <MudCard class="wi" style="margin-top: 0px;" Elevation="0">
     @if (connectingWiViewModells != null)
     {
         @foreach (var item in connectingWiViewModells)
         {
-            <MudField Variant="Variant.Text">
+            <MudField class="field" Variant="Variant.Text">
                 <div class="wi-first-div">
                     <MudIcon Icon="@Icons.Material.Filled.Task" Size="Size.Small"></MudIcon>
                     <span>@item.WiId - </span>

@@ -2,8 +2,9 @@
 
 public class Milestone: DbTable
 {
-    public long ProjectId { get; set; }
+    public long TaskId { get; set; }
     public string Name { get; set; } = "";
+    public DateTime Deadline { get; set; }
 
     public Project Project { get; set; }
 }

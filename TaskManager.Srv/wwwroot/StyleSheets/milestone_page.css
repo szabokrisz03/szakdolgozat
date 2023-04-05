@@ -6,6 +6,8 @@
 .milestone {
 	max-height: 13em;
 	overflow: auto;
+	animation: table_animation 300ms ease-in-out forwards;
+	transform-origin: top center;
 }
 
 .milestone-div {
@@ -26,6 +28,17 @@
 	float: left;
 	position: absolute;
 	top: 30%;
+}
+
+.add-btn {
+	float: right;
+	width: fit-content;
+	display: flex;
+	text-align: end;
+	align-content: end;
+	align-items: end;
+	justify-content: end;
+	justify-items: end;
 }
 
 .add-delete-done-button {

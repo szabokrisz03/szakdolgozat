@@ -21,7 +21,7 @@
 }
 
 .discussion {
-	max-height: 25em;
+	max-height: 40em;
 	overflow: auto;
 	margin: 0%;
 	float: left;
