@@ -58,7 +58,6 @@ public class ManagerContext : DbContext
         var milestone = modelBuilder.Entity<TaskMilestone>();
         milestone.HasOne(p => p.Task).WithMany().HasForeignKey(p => p.TaskId);
         milestone.HasIndex(p => p.Name);
-        milestone.Property(p => p.Actual).HasDefaultValueSql("GETDATE()");
 
         base.OnModelCreating(modelBuilder);
     }

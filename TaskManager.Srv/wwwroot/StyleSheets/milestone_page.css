@@ -25,9 +25,9 @@
 .name-date-text {
 	float: left;
 	display: inline-flex;
-	float: left;
 	position: absolute;
 	top: 30%;
+	width: 85%
 }
 
 .add-btn {
@@ -39,6 +39,13 @@
 	float: right;
 }
 
+.milestone-form-1 {
+	width: 70%;
+}
+
+.milestone-form-1 {
+	display: flex;
+}
 
 .milestone-text:hover {
 	background-color: rgba(52,52,60,255);

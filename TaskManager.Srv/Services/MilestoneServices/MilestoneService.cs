@@ -2,9 +2,14 @@
 
 using Microsoft.EntityFrameworkCore;
 
+using MudBlazor;
+
+using TaskManager.Srv.Components.Dialogs;
 using TaskManager.Srv.Model.DataContext;
 using TaskManager.Srv.Model.DataModel;
 using TaskManager.Srv.Model.ViewModel;
+using TaskManager.Srv.Services.ProjectServices;
+using TaskManager.Srv.Services.TaskServices;
 
 namespace TaskManager.Srv.Services.MilestoneServices;
 
@@ -21,7 +26,6 @@ public class MilestoneService : IMilestoneService
 
     public async Task<List<MilestoneViewModel>> ListMilestones(long TaskId)
     {
-
         using (var dbcx = await dbContextFactory.CreateDbContextAsync())
         {
             var lst = await dbcx.TaskMilestone
@@ -31,7 +35,6 @@ public class MilestoneService : IMilestoneService
 
             return lst.Select(m => mapper.Map<MilestoneViewModel>(m)).ToList();
         }
-
     }
 
     public async Task<MilestoneViewModel> CreateMilestone(MilestoneViewModel milestoneView)

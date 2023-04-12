@@ -5,12 +5,11 @@
     @if (IsOpen)
     {
         <div>
-            <MudIconButton class="add-btn" Icon="@Icons.Material.Filled.Add"></MudIconButton>
+            <MudIconButton class="add-btn" Icon="@Icons.Material.Filled.Add" OnClick="CreateMilestone"></MudIconButton>
         </div>
         <MudCard class="milestone" style="margin-top: 0px;" Elevation="0">
-        <MudDropContainer T="MilestoneViewModel" Items="@MilestoneList" ItemsSelector="@((item,zone) => item.Table == zone)" ItemDropped="Update">
+        <MudDropContainer T="MilestoneViewModel" Items="@milestoneList" ItemsSelector="@((item,zone) => item.Table == zone)" ItemDropped="Update">
             <ChildContent>
-
 
                 <MudPaper Elevation="0">
                     <MudList Clickable="true">
@@ -22,8 +21,12 @@
             <ItemRenderer>
                 <MudListItem class="mud-list-item" Dense="true">
                     <div class="name-date-text">
-                    <MudText>@context.Name</MudText>
-                    <MudText>@context.Date</MudText>
+                        <div class="milestone-form-1">
+                            <MudText>@context.Name</MudText>
+                        </div>
+                        <div class="milestone-form-2">
+                            <MudText>@context.Planned</MudText>
+                        </div>
                     </div>
                     <span class="add-delete-done-button">
                     <MudIconButton Icon="@Icons.Material.Filled.Delete"></MudIconButton>

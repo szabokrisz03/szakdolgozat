@@ -66,6 +66,9 @@ public static class ServiceRegistrationExtension
         services.AddScoped<ITaskService, TaskService>();
         services.AddScoped<ICommentService, CommentService>();
         services.AddScoped<IMilestoneService, MilestoneService>();
+        services.AddScoped<IMilestoneDisplayService, MilestoneDisplayService>();
+        services.AddScoped<IMilestoneViewService, MilestoneViewService>();
+
         return services;
     }
 }
