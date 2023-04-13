@@ -1,20 +1,27 @@
 ﻿.wi {
-	max-height: 28.5em;
+	max-height: 25em;
 	overflow: auto;
 	margin: 0%;
+	margin-top: 0px;
 }
 
 .wi-text {
 	float: left;
 	font-weight: bold;
+	padding-top: 5%;
+	padding-bottom: 1%;
 }
 
 .connecting-wi-div {
 	width: 49%;
-	float: left;
+	float: right;
 	display: grid;
 	margin-left: 2%;
 
+}
+
+.field:last-child {
+	margin-bottom: 3%;
 }
 
 .wi-new {

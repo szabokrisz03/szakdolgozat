@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TaskManager.Srv.Model.DataContext;
 
@@ -11,9 +12,11 @@ using TaskManager.Srv.Model.DataContext;
 namespace TaskManager.Srv.Migrations
 {
     [DbContext(typeof(ManagerContext))]
-    partial class ManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20230405082347_TaskMilestone")]
+    partial class TaskMilestone
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -234,8 +237,10 @@ namespace TaskManager.Srv.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("RowId"));
 
                     b.Property<DateTime?>("Actual")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasColumnName("actual");
+                        .HasColumnName("actual")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<long>("MilestoneId")
                         .HasColumnType("bigint")

@@ -1,7 +1,13 @@
 ﻿.milestone-text {
 	float: left;
-	padding: 0 0 1% 0;
 	font-weight: bold;
+}
+
+.milestone {
+	max-height: 13em;
+	overflow: auto;
+	animation: table_animation 300ms ease-in-out forwards;
+	transform-origin: top center;
 }
 
 .milestone-div {
@@ -9,4 +15,39 @@
 	float: left;
 	display: grid;
 	margin-left: 2%;
+}
+
+.mud-list-item {
+	border: 1px solid rgb(255, 255, 255, .1);
+	height: 4em;
+}
+
+.name-date-text {
+	float: left;
+	display: inline-flex;
+	position: absolute;
+	top: 30%;
+	width: 85%
+}
+
+.add-btn {
+	float: right;
+	width: fit-content;
+}
+
+.add-delete-done-button {
+	float: right;
+}
+
+.milestone-form-1 {
+	width: 70%;
+}
+
+.milestone-form-1 {
+	display: flex;
+}
+
+.milestone-text:hover {
+	background-color: rgba(52,52,60,255);
+	cursor: pointer;
 }

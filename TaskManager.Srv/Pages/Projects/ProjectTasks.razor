@@ -33,7 +33,7 @@
             </MudSelect>
         </MudTd>
         <MudTd class="cell">
-            <MudButton class="dropdown-button" Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => ShowBtnPress(context))">
+            <MudButton class="dropdown-button" id="btn" Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => ShowBtnPress(context))">
              @((context.RowId == ShownId) ? "-" : "+")
             </MudButton>
         </MudTd>
@@ -42,7 +42,7 @@
         @if (context.RowId == ShownId)
         {
             <CascadingValue Value="@Id" Name="TaskId">
-                <Details></Details>
+            <Details></Details>
             </CascadingValue>
         }
     </ChildRowContent>

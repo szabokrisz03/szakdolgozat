@@ -2,6 +2,7 @@
 	width: 49%;
 	float: left;
 	display: grid;
+	transition: max-height 1s;
 }
 
 .discussion-text {
@@ -20,7 +21,7 @@
 }
 
 .discussion {
-	max-height: 25em;
+	max-height: 40em;
 	overflow: auto;
 	margin: 0%;
 	float: left;
