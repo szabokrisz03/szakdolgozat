@@ -13,9 +13,6 @@ public partial class CreateMilestoneDialog
 
     [Parameter] public long TaskId { get; set; }
 
-    [Inject] private IMilestoneService MilestoneService { get; set; } = null!;
-    [Inject] private ISnackbar Snackbar { get; set; } = null!;
-
     [CascadingParameter] private MudDialogInstance Dialog { get; set; } = null!;
 
     private void OnValidate(bool isValid)
