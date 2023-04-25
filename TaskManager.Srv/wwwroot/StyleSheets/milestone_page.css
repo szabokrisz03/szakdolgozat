@@ -4,10 +4,11 @@
 }
 
 .milestone {
-	max-height: 13em;
+	max-height: 16em;
 	overflow: auto;
 	animation: table_animation 300ms ease-in-out forwards;
 	transform-origin: top center;
+	margin-top: 0px;
 }
 
 .milestone-div {
@@ -33,6 +34,8 @@
 .add-btn {
 	float: right;
 	width: fit-content;
+	margin: 0 0 0 14%;
+	padding: 0;
 }
 
 .add-delete-done-button {
@@ -50,4 +53,12 @@
 .milestone-text:hover {
 	background-color: rgba(52,52,60,255);
 	cursor: pointer;
+}
+
+.milestone-th{
+	width: 15%;
+}
+
+.milestone-delete-done {
+	width: 13%;
 }
