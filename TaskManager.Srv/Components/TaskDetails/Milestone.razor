@@ -1,41 +1,37 @@
 ﻿@using TaskManager.Srv.Model.ViewModel;
+
 <div class="milestone-div">
-    <MudText class="milestone-text" onclick="@(() => ToggleDrawer())"><b>Mérföldkövek</b></MudText>
-    
+    <div>
+        <MudText class="milestone-text" onclick="@(() => ToggleDrawer())"><b>Határidők</b></MudText>
+        <MudIconButton class="add-btn" Icon="@Icons.Material.Filled.Add" OnClick="CreateMilestone"></MudIconButton>
+    </div>
+
+
     @if (IsOpen)
     {
-        <div>
-            <MudIconButton class="add-btn" Icon="@Icons.Material.Filled.Add" OnClick="CreateMilestone"></MudIconButton>
-        </div>
-        <MudCard class="milestone" style="margin-top: 0px;" Elevation="0">
-        <MudDropContainer T="MilestoneViewModel" Items="@milestoneList" ItemsSelector="@((item,zone) => item.Table == zone)" ItemDropped="Update">
-            <ChildContent>
-
-                <MudPaper Elevation="0">
-                    <MudList Clickable="true">
-                        <MudDropZone T="MilestoneViewModel" Identifier="main" ItemDraggingClass="mud-info-text" AllowReorder="true"></MudDropZone>
-                    </MudList>
-                </MudPaper>
-                
-            </ChildContent>
-            <ItemRenderer>
-                <MudListItem class="mud-list-item" Dense="true">
-                    <div class="name-date-text">
-                        <div class="milestone-form-1">
-                            <MudText>@context.Name</MudText>
-                        </div>
-                        <div class="milestone-form-2">
-                            <MudText>@context.Planned</MudText>
-                        </div>
-                    </div>
-                    <span class="add-delete-done-button">
-                    <MudIconButton Icon="@Icons.Material.Filled.Delete"></MudIconButton>
-                    <MudIconButton Icon="@Icons.Material.Filled.Done"></MudIconButton>
-                    </span>
-
-                </MudListItem>
-            </ItemRenderer/>
-        </MudDropContainer>
-         </MudCard>
+        <MudTable class="milestone" @ref="milestoneTable" Items="milestoneList" Dense="true" Hover="true" SortLabel="Sort By">
+            <ColGroup>
+                <col />
+                <col class="milestone-th" />
+                <col class="milestone-th" />
+                <col class="milestone-delete-done"/>	
+            </ColGroup>
+            <HeaderContent>
+                <MudTh>Név</MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<MilestoneViewModel, object>(x => x.Planned!)">Tervezett határidő</MudTableSortLabel></MudTh>
+                <MudTh>Teljesítés dátuma</MudTh>
+                <MudTh></MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Név">@context.Name</MudTd>    
+                <MudTd DataLabel="Tervezett határidő">@Convert.ToDateTime(@context.Planned).ToString("yyyy/MM/dd")</MudTd>
+				<MudTd DataLabel="Teljesítés dátuma">@if (context.Actual != null) { @Convert.ToDateTime(@context.Actual).ToString("yyyy/MM/dd") }</MudTd>
+				<MudTd>
+                <MudIconButton class="add-btn" Icon="@Icons.Material.Filled.Done" OnClick="(() => PopUpButton(context))"></MudIconButton>
+                <MudIconButton class="add-btn" Disabled="true" Icon="@Icons.Material.Filled.Delete"></MudIconButton>
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
     }
+    
 </div>

@@ -24,6 +24,15 @@ public class MilestoneService : IMilestoneService
         this.dbContextFactory = dbContextFactory;
     }
 
+	public async Task CloseMilestone(long milestoneId){
+		using (var dbcx = await dbContextFactory.CreateDbContextAsync())
+		{
+			var result = await dbcx.TaskMilestone
+					.Where(p => p.RowId == milestoneId)
+					.ExecuteUpdateAsync(b => b.SetProperty(u => u.Actual, DateTime.Now));
+		}
+	} 
+
     public async Task<List<MilestoneViewModel>> ListMilestones(long TaskId)
     {
         using (var dbcx = await dbContextFactory.CreateDbContextAsync())
