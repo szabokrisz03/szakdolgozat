@@ -38,5 +38,4 @@ public class MilestoneViewService : IMilestoneViewService
             await milestoneService.CreateMilestone(milestoneViewModel);
         }
     }
-
 }

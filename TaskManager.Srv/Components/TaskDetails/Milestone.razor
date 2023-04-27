@@ -27,7 +27,6 @@
                 <MudTd DataLabel="Tervezett határidő">@Convert.ToDateTime(@context.Planned).ToString("yyyy/MM/dd")</MudTd>
 				<MudTd DataLabel="Teljesítés dátuma">@if (context.Actual != null) { @Convert.ToDateTime(@context.Actual).ToString("yyyy/MM/dd") }</MudTd>
 				<MudTd>
-				<CascadingValue Value="@milestoneId" Name="milestoneId"></CascadingValue>
                 <MudIconButton class="add-btn" Icon="@Icons.Material.Filled.Done" OnClick="(() => PopUpButton(context))"></MudIconButton>
                 <MudIconButton class="add-btn" Disabled="true" Icon="@Icons.Material.Filled.Delete"></MudIconButton>
                 </MudTd>

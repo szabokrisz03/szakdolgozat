@@ -15,7 +15,6 @@ public partial class Milestone
 {
 	[Parameter]
 	public bool IsOpen { get; set; }
-	[CascadingParameter] long milestoneId { get; set; }
 	private MudTable<MilestoneViewModel> milestoneTable;
 	public List<MilestoneViewModel> milestoneList = new();
 	[CascadingParameter(Name = "TaskId")] long Id { get; set; }
@@ -47,7 +46,6 @@ public partial class Milestone
 	private async void PopUpButton(MilestoneViewModel milestoneView) {
 		if(milestoneView.Actual == null)
 		{
-			milestoneId = milestoneView.RowId;
 			bool? result = await DialogService.ShowMessageBox(
 			"Határidő lezárása", (MarkupString)$"Biztos lezárod a határidőt? <br /> A határidő lezárása nem vonható vissza!",
 			yesText: "Lezárás", cancelText: "Mégse"
@@ -55,7 +53,7 @@ public partial class Milestone
 
 			if (result != null)
 			{
-				await CloseMilestone(milestoneId);
+				await CloseMilestone(milestoneView.RowId);
 				await milestoneTable.ReloadServerData();
 			}
 			StateHasChanged();
