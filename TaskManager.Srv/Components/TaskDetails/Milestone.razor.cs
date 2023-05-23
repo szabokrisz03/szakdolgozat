@@ -43,7 +43,7 @@ public partial class Milestone
 		milestoneList = await milestoneService!.ListMilestones(Id);
 	}
 
-	private async void PopUpButton(MilestoneViewModel milestoneView) {
+	private async Task PopUpButton(MilestoneViewModel milestoneView) {
 		if(milestoneView.Actual == null)
 		{
 			bool? result = await DialogService.ShowMessageBox(
@@ -54,13 +54,37 @@ public partial class Milestone
 			if (result != null)
 			{
 				await CloseMilestone(milestoneView.RowId);
-				await milestoneTable.ReloadServerData();
+                await ListMilestones();
+                await milestoneTable.ReloadServerData();
 			}
+
 			StateHasChanged();
 		}
 	}
 
-	private async Task CloseMilestone(long milestoneId) {
+	private async Task DeletePopUpButton(MilestoneViewModel milestone)
+	{
+        bool? result = await DialogService.ShowMessageBox(
+        "Határidő törlése", (MarkupString)$"Biztos törlöd a határidőt? <br /> A határidő törlése nem vonható vissza!",
+        yesText: "Törlés", cancelText: "Mégse"
+        );
+
+        if (result != null)
+        {
+            await Delete(milestone.RowId);
+            await ListMilestones();
+            await milestoneTable.ReloadServerData();
+        }
+
+        StateHasChanged();
+    }
+
+    private async Task Delete(long milestoneId)
+    {
+        await milestoneService!.DeleteMilestone(milestoneId);
+    }
+
+    private async Task CloseMilestone(long milestoneId) {
 		await milestoneService!.CloseMilestone(milestoneId);
 	}
 

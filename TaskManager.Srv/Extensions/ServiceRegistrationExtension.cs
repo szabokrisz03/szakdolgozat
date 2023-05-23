@@ -11,6 +11,7 @@ using TaskManager.Srv.Services.TaskServices;
 using TaskManager.Srv.Services.TaskServices.DiscussionServices;
 using TaskManager.Srv.Services.UtilityServices;
 using TaskManager.Srv.Services.WiLinkService;
+using TaskManager.Srv.Services.WiServices;
 
 namespace TaskManager.Srv.Extensions;
 
@@ -68,7 +69,9 @@ public static class ServiceRegistrationExtension
         services.AddScoped<IMilestoneService, MilestoneService>();
         services.AddScoped<IMilestoneDisplayService, MilestoneDisplayService>();
         services.AddScoped<IMilestoneViewService, MilestoneViewService>();
+        services.AddScoped<IWiStateService, WiStateService>();
+		services.AddScoped<IWiService, WiService>();
 
-        return services;
+		return services;
     }
 }

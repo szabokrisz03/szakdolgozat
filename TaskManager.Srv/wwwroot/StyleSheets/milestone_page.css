@@ -62,3 +62,7 @@
 .milestone-delete-done {
 	width: 13%;
 }
+
+.th {
+	overflow: hidden;
+}

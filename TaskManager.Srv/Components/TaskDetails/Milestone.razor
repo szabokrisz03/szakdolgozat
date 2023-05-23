@@ -6,7 +6,6 @@
         <MudIconButton class="add-btn" Icon="@Icons.Material.Filled.Add" OnClick="CreateMilestone"></MudIconButton>
     </div>
 
-
     @if (IsOpen)
     {
         <MudTable class="milestone" @ref="milestoneTable" Items="milestoneList" Dense="true" Hover="true" SortLabel="Sort By">
@@ -18,8 +17,8 @@
             </ColGroup>
             <HeaderContent>
                 <MudTh>Név</MudTh>
-                <MudTh><MudTableSortLabel SortBy="new Func<MilestoneViewModel, object>(x => x.Planned!)">Tervezett határidő</MudTableSortLabel></MudTh>
-                <MudTh>Teljesítés dátuma</MudTh>
+				<MudTh><MudTableSortLabel SortBy="new Func<MilestoneViewModel, object>(x => x.Planned!)">Tervezett határidő</MudTableSortLabel></MudTh>
+				<MudTh>Teljesítés dátuma</MudTh>
                 <MudTh></MudTh>
             </HeaderContent>
             <RowTemplate>
@@ -28,7 +27,7 @@
 				<MudTd DataLabel="Teljesítés dátuma">@if (context.Actual != null) { @Convert.ToDateTime(@context.Actual).ToString("yyyy/MM/dd") }</MudTd>
 				<MudTd>
                 <MudIconButton class="add-btn" Icon="@Icons.Material.Filled.Done" OnClick="(() => PopUpButton(context))"></MudIconButton>
-                <MudIconButton class="add-btn" Disabled="true" Icon="@Icons.Material.Filled.Delete"></MudIconButton>
+                <MudIconButton class="add-btn" Icon="@Icons.Material.Filled.Delete" OnClick="(() => DeletePopUpButton(context))"></MudIconButton>
                 </MudTd>
             </RowTemplate>
         </MudTable>

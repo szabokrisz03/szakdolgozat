@@ -45,6 +45,24 @@ public class CommentService : ICommentService
         }
     }
 
+    public async Task DeleteCommentAsync(string userName, string loggedUser, long commentId)
+    {
+        var createdUser = await userService.GetUser(userName);
+		long createdUserId = createdUser!.RowId;
+        var logged = await userService.GetUser(loggedUser);
+		var loggedId = logged!.RowId;
+
+		if (loggedId == createdUserId)
+		{
+			using (var dbcx = await dbContextFactory.CreateDbContextAsync())
+			{
+				await dbcx.CommentLine
+					.Where(p => p.RowId == commentId)
+					.ExecuteDeleteAsync();
+			}
+		}
+    }
+
     public async Task<List<CommentViewModel>> ListComments(long taskId)
     {
         using (var dbcx = await dbContextFactory.CreateDbContextAsync())
