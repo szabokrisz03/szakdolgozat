@@ -20,20 +20,23 @@ public class WiService : IWiService
 		this.mapper = mapper;
 	}
 
-	public async Task<WiViewModel> CreateWiAsync(WiViewModel wiViewModel)
+	public async Task CreateWiAsync(int wiId, long taskId)
 	{
-		var wi = mapper.Map<ConnectingWiDb>(wiViewModel);
+		ConnectingWiDb wi = new()
+		{
+			WiId = wiId,
+			TaskId = taskId,
+		};
+
 		using (var dbcx = await dbContextFactory.CreateDbContextAsync())
 		{
 			await dbcx.ConnectingWiDb.AddAsync(wi);
 			await dbcx.SaveChangesAsync();
 			dbcx.Entry(wi).State = EntityState.Detached;
 		}
-
-		return mapper.Map<WiViewModel>(wi);
 	}
 
-	public async Task<List<WiViewModel>> ListWorkItem(long taskId)
+	public async Task<int[]> ListWorkItem(long taskId)
 	{
 		using (var dbcx = await dbContextFactory.CreateDbContextAsync())
 		{
@@ -42,7 +45,7 @@ public class WiService : IWiService
 				.Where(wi => wi.TaskId == taskId)
 				.ToListAsync();
 
-			return lst.Select(p => mapper.Map<WiViewModel>(p)).ToList();
+			return lst.Select(p => p.WiId).ToArray();
 		}
 	}
 

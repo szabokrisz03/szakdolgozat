@@ -4,7 +4,7 @@
 }
 
 .milestone {
-	max-height: 16em;
+	max-height: 15em;
 	overflow: auto;
 	animation: table_animation 300ms ease-in-out forwards;
 	transform-origin: top center;

@@ -1,8 +1,11 @@
-﻿using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
+﻿using TaskManager.Srv.Model.DTO;
 
 namespace TaskManager.Srv.Services.WiServices;
 
 public interface IWiStateService
 {
-	Task<IList<WorkItem>> GetWorkItem(IEnumerable<int> wiId);
+	HashSet<int> ListWIs(int wiId);
+	void PropertyWis(IEnumerable<int> source, List<WorkItem> collector);
+	List<WorkItem> DetailWIs(IEnumerable<int> sources, int capacity = 0);
+	HashSet<int> ListConnectingWis(int wiId);
 }

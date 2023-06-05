@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.TeamFoundation.Build.WebApi;
-using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 
 using MudBlazor;
 
-using Newtonsoft.Json.Linq;
-
-using TaskManager.Srv.Model.ViewModel;
+using TaskManager.Srv.Model.DTO;
 using TaskManager.Srv.Services.WiServices;
 
 namespace TaskManager.Srv.Components.TaskDetails;
@@ -14,72 +10,54 @@ namespace TaskManager.Srv.Components.TaskDetails;
 public partial class ConnectingWi
 {
 
-	[CascadingParameter(Name = "TaskId")] long Id { get; set; }
+	[CascadingParameter(Name = "TaskId")] private long Id { get; set; }
 	[Parameter] public int? WiNumber { get; set; }
 	[Inject] public IWiService? wiService { get; set; }
 	[Inject] public IWiStateService? wiStateService { get; set; }
 
-	private List<WiViewModel> wiViewModels = new();
-	private List<WiViewModel> wiFinalList = new();
+	private int[] wiIdArray;
+	private List<WorkItem>? workItems;
 	private MudNumericField<int?> _numField;
 
 	protected override async Task OnInitializedAsync()
 	{
-		await ListWi();
+		await ListWis();
 	}
 
-	public async Task ListWi()
+	public async Task ListWis()
 	{
-		wiViewModels = await wiService!.ListWorkItem(Id);
-		int[] wiArray = wiViewModels.Select(p => p.WiId!.Value).ToArray();
-		var workitems = await wiStateService!.GetWorkItem(wiArray);
-		wiFinalList = setWorkItemProprty(workitems);
-		Console.WriteLine();
+		wiIdArray = await wiService!.ListWorkItem(Id);
+		workItems = wiStateService!.DetailWIs(wiIdArray, 0);
 	}
 
-	public List<WiViewModel> setWorkItemProprty(IList<WorkItem> wi)
+	public async Task AddWi()
 	{
-		List<WiViewModel> wiList = new();
-
-		if(wi != null)
+		if (WiNumber != null)
 		{
-			foreach(var item in wi)
+			foreach (var id in wiIdArray)
 			{
-				wiList.Add(new WiViewModel
-				{
-					WiId = item.Id,
-					TaskId = Id,
-					WiState = item.Fields["System.State"].ToString()!,
-					WiName = item.Fields["System.Title"].ToString()!,
-					WiDate = item.Fields["System.ChangedDate"].ToString()!,
-				});
-			}
-		}
-
-		return wiList;
-	}
-
-    public async Task AddWi()
-    {
-        if(WiNumber != null)
-        {
-			foreach (var item in wiFinalList)
-			{
-				if (WiNumber == item.WiId)
+				if (WiNumber == id)
 				{
 					_numField.Reset();
 					return;
 				}
 			}
 
-			int[] value = new int[] { WiNumber.Value };
-			var workItems = await wiStateService!.GetWorkItem(value);
-			var wi = setWorkItemProprty(workItems);
-			wiFinalList.Add(wi.First());
-			WiViewModel wiViewModel = wiFinalList.Find(p => p.WiId == WiNumber)!;
-			await wiService!.CreateWiAsync(wiViewModel);
+			var wisLoaded = wiStateService?.ListWIs(WiNumber.Value);
+
+			if (wisLoaded?.Count <= 0)
+			{
+				_numField.Reset();
+				return;
+			}
+
+			var wi = wiStateService.ListConnectingWis(WiNumber.Value);
+			var wiis = wiStateService!.DetailWIs(wi, 0);
+			wiService?.CreateWiAsync(WiNumber.Value, Id);
+			await ListWis();
+
 		}
 
 		_numField.Reset();
-    }
+	}
 }

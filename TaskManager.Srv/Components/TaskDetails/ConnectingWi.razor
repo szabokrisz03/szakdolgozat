@@ -9,21 +9,21 @@
             </span>
         </div>
     <MudCard class="wi" Elevation="0">
-    @if (wiFinalList != null)
+    @if (workItems != null)
     {
-			@foreach (var item in wiFinalList)
+			@foreach (var item in workItems)
         {
             <MudField class="field" Variant="Variant.Text">
                 <div class="wi-first-div">
                     <MudIcon Icon="@Icons.Material.Filled.Task" Size="Size.Small"></MudIcon>
-                    <span>@item.WiId - </span>
-                    <span>@item.WiName</span>
+                    <span>@item.Id- </span>
+                    <span>@item.Title</span>
                 </div>
                 <div class ="wi-first-div">
                     <MudPaper class="wi-avatar" Outlined="true">a</MudPaper>
-                    <span>@item.AssignedTo - </span>
-                    <span>@item.WiState - </span>
-                    <span>@item.WiDate</span>
+                    <span>@item.AssignedTo?.DisplayName - </span>
+                    <span>@item.State - </span>
+                    <span>@item.ChangedDate</span>
                 </div>
             </MudField>
         }
