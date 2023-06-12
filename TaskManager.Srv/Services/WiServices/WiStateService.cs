@@ -1,4 +1,6 @@
 ﻿
+using Azure.Core;
+
 using Newtonsoft.Json;
 
 using System.Collections.Immutable;
@@ -32,7 +34,7 @@ public class WiStateService : IWiStateService
 
 	private static readonly ImmutableArray<string> WiFields = new string[]
 	{
-		"System.Title", "System.AssignedTo", "System.Id", "System.State", "System.ChangedDate", "System.WorkItemType", "System.CreatedDate"
+		"System.Title", "System.AssignedTo", "System.Id", "System.State", "System.ChangedDate", "System.WorkItemType", "System.CreatedDate", "System.TeamProject"
 	}.ToImmutableArray();
 
 	public List<WorkItem> ListConnectingWis(int wiId)
@@ -91,14 +93,14 @@ public class WiStateService : IWiStateService
 		}
 	}
 
-	public Dictionary<int, List<WorkItem>>? queryMaker(IEnumerable<int> source)
+	public Dictionary<int, List<WorkItem>> queryMaker(IEnumerable<int> source)
 	{
 
 		Dictionary<int, List<WorkItem>> parentChildrenPairs = new();
 
 		if (source == null)
 		{
-			return null;
+			return parentChildrenPairs;
 		}
 
 		foreach(var id in source)
@@ -174,16 +176,30 @@ public class WiStateService : IWiStateService
 						throw new NonFatalException(errMsg);
 					}
 
+					var value = responseDto.Value.First();
+
+					if(value.Fields.Type != "Igény")
+					{
+						return;
+					}
+
 					collector.AddRange(responseDto.Value.Select(v =>
 					{
 						var wi = v.Fields;
 						wi.Id = v.Id;
 						wi.Url = v.Url;
+						wi.AzdoLink = UrlBuilder(wi.TeamProject, wi.Id);
 						return wi;
 					}));
 				}
 			}
 		}
+	}
+
+	public string UrlBuilder(string teamProject, int id)
+	{
+		var config = GetConfig();
+		return ADOSUrls.GetAzdoUrl(config) + $"{teamProject}/_workitems/edit/{id}";
 	}
 
 	public static T? ReadJSONResponse<T>(Stream jsonData)

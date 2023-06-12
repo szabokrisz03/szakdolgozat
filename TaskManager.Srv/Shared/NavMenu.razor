@@ -1,11 +1,11 @@
 ﻿<MudNavMenu>
-    <MudNavLink Href="mytasks">Saját feladatok</MudNavLink>
+	<MudNavLink Href="mytasks" Disabled="true">Saját feladatok</MudNavLink>
 
     @if (projectTechnicalName != null){
         <MudNavGroup Title="@projectName" Expanded="true">
             <MudNavLink Href="@($"projects/{projectTechnicalName}/tasks")">Feladatok</MudNavLink>
-            <MudNavLink Href="@($"projects/{projectTechnicalName}/milestones")">Mérföldkövek</MudNavLink>
-            <MudNavLink Href="@($"projects/{projectTechnicalName}/witemplates")">WI Sablonok</MudNavLink>
+            <MudNavLink Href="@($"projects/{projectTechnicalName}/milestones")" Disabled="true">Mérföldkövek</MudNavLink>
+			<MudNavLink Href="@($"projects/{projectTechnicalName}/witemplates")" Disabled="true">WI Sablonok</MudNavLink>
         </MudNavGroup>
     }
 </MudNavMenu>

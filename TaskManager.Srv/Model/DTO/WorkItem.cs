@@ -29,11 +29,15 @@ public class WorkItem : IComparable<WorkItem>
 	[JsonProperty("System.Url")]
 	public string Url { get; set; } = "";
 
+	[JsonProperty("System.TeamProject")]
+	public string TeamProject { get; set; } = "";
+
 	[JsonIgnore]
 	public string? AssignedToId => AssignedTo?.UniqueName;
 
 	public bool IsOpen { get; set; } = false;
 	public string ClearState { get; set; } = "";
+	public string AzdoLink { get; set; } = "";
 
 	public int CompareTo(WorkItem? other)
 	{

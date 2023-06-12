@@ -10,6 +10,9 @@ public class ADOSUrls
 	private static string GetQueryUrl(ADOSConfig config)
 	=> $"https://{config.Host}/{config.Collection}/{config.TeamProject}/_apis/wit/wiql?api-version={config.ApiVer}";
 
+	private static string GetAzdoUrls(ADOSConfig config)
+		=> $"https://{config.Host}/{config.Collection}/";
+
 	public static string GetDetailUrl(ADOSConfig config, IEnumerable<int> wis, IEnumerable<string> fields)
 	{
 		return GetWiDetailsUrl(config, wis, fields);
@@ -18,5 +21,10 @@ public class ADOSUrls
 	public static string GetUrl(ADOSConfig config)
 	{
 		return GetQueryUrl(config);
+	}
+
+	public static string GetAzdoUrl(ADOSConfig config)
+	{
+		return GetAzdoUrls(config);
 	}
 }
