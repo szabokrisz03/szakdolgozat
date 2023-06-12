@@ -38,10 +38,10 @@ public partial class Discussion
 
     public async Task DeleteComment(string username, CommentViewModel commentView)
     {
-        var authState = await authenticationStateTask;
-        authName = authState.User.Identity?.Name ?? "";
+		var authState = await authenticationStateTask;
+		authName = authState.User.Identity?.Name ?? "";
 
-        await commentService.DeleteCommentAsync(username, authName, commentView.RowId);
+		await commentService.DeleteCommentAsync(username, authName, commentView.RowId);
 		await ListComments();
     }
 

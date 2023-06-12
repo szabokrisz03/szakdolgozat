@@ -53,23 +53,23 @@ public static class ServiceRegistrationExtension
 
     public static IServiceCollection RegisterApplicationServices(this IServiceCollection services)
     {
-        services.AddMemoryCache();
-        services.AddTransient<IClaimsTransformation, ClaimsTransformation>();
-        services.AddTransient<IAzdoTeamProjectService, AzdoTeamProjectService>();
-        services.AddScoped<IProjectAdminService, ProjectAdminService>();
-        services.AddScoped<IProjectDisplayService, ProjectDisplayService>();
-        services.AddScoped<IProjectViewService, ProjectViewService>();
-        services.AddScoped<IUserService, UserService>();
-        services.AddScoped<IWiLinkTemplateService, WiLinkTemplateService>();
-        services.AddScoped<IWiLinkTemplateViewService, WiLinkTemplateViewService>();
-        services.AddScoped<ITaskDisplayService, TaskDisplayService>();
-        services.AddScoped<ITaskViewService, TaskViewService>();
-        services.AddScoped<ITaskService, TaskService>();
-        services.AddScoped<ICommentService, CommentService>();
-        services.AddScoped<IMilestoneService, MilestoneService>();
-        services.AddScoped<IMilestoneDisplayService, MilestoneDisplayService>();
-        services.AddScoped<IMilestoneViewService, MilestoneViewService>();
-        services.AddScoped<IWiStateService, WiStateService>();
+		services.AddMemoryCache();
+		services.AddTransient<IClaimsTransformation, ClaimsTransformation>();
+		services.AddTransient<IAzdoTeamProjectService, AzdoTeamProjectService>();
+		services.AddScoped<IProjectAdminService, ProjectAdminService>();
+		services.AddScoped<IProjectDisplayService, ProjectDisplayService>();
+		services.AddScoped<IProjectViewService, ProjectViewService>();
+		services.AddScoped<IUserService, UserService>();
+		services.AddScoped<IWiLinkTemplateService, WiLinkTemplateService>();
+		services.AddScoped<IWiLinkTemplateViewService, WiLinkTemplateViewService>();
+		services.AddScoped<ITaskDisplayService, TaskDisplayService>();
+		services.AddScoped<ITaskViewService, TaskViewService>();
+		services.AddScoped<ITaskService, TaskService>();
+		services.AddScoped<ICommentService, CommentService>();
+		services.AddScoped<IMilestoneService, MilestoneService>();
+		services.AddScoped<IMilestoneDisplayService, MilestoneDisplayService>();
+		services.AddScoped<IMilestoneViewService, MilestoneViewService>();
+		services.AddScoped<IWiStateService, WiStateService>();
 		services.AddScoped<IWiService, WiService>();
 
 		return services;

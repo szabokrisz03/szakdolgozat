@@ -27,7 +27,7 @@
 						<span><b>Állapot: </b>@((item.ClearState == "") ? "-" : item.ClearState)</span>
 						<span><b>Módosítva: </b>@item.ChangedDate.ToString("yyyy.MM.dd")</span>
 					</div>
-						<MudIconButton class="expand-button" Icon="@Icons.Material.Filled.ExpandMore" OnClick="@(() => showConnectingWi(item.Id))"></MudIconButton>
+						<MudIconButton class="expand-button" Icon="@Icons.Material.Filled.ExpandMore" OnClick="@(() => ShowConnectingWi(item.Id))"></MudIconButton>
 				</div>
             </MudField>
 
