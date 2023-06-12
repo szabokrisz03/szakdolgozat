@@ -81,7 +81,7 @@ public partial class ConnectingWi
 
 			wi = lastDone != null
 				? sortedWis.Where(x => (x.State == "To Do" || x.State == "New") && (x.CompareTo(lastDone) > 0)).FirstOrDefault()
-				: sortedWis.Where(x => x.State == "To Do" || x.State == "New").FirstOrDefault();
+				: sortedWis.Where(x => (x.State == "To Do" || x.State == "New")).FirstOrDefault();
 
 			wi ??= sortedWis.Where(x => x.State == "Done").LastOrDefault();
 		}
