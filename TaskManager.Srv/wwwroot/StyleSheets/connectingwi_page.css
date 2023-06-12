@@ -47,14 +47,32 @@
 }
 
 .wi-first-div {
-	display: inline-flex;
 	border: none;
 	font-size: 15px;
-	width: 100%;
+	width: 93%;
+	float: left;
 }
 
 .wi-first-div span {
 	font-size: 13px;
 	margin: 0 0 0 1%;
-	padding: 0 3% 0 0;
+	padding: 0 2% 0 0;
+}
+
+.wi-div {
+	display: inline-block;
+	width: 100%;
+	height: min-content;
+}
+
+.loading-spinner {
+	position: relative;
+	left: 45%;
+}
+
+.conn-wi-div {
+	display: inline-block;
+	width: 100%;
+	height: min-content;
+	border: 1px solid rgb(255, 255, 255, .1);
 }

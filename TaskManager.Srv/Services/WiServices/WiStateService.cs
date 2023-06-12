@@ -1,16 +1,12 @@
-﻿using Microsoft.VisualStudio.Services.Commerce;
-
+﻿
 using Newtonsoft.Json;
 
 using System.Collections.Immutable;
 using System.Text;
 
-using TaskManager.Srv.Model.DataModel;
 using TaskManager.Srv.Model.DTO;
 using TaskManager.Srv.Utilities;
 using WhExportShared.Exceptions;
-
-using static MudBlazor.CategoryTypes;
 
 namespace TaskManager.Srv.Services.WiServices;
 
@@ -23,27 +19,23 @@ public class WiStateService : IWiStateService
 		this.configuration = configuration;
 	}
 
-	private const string WiQuery =
-		"Select [System.Id] " +
-		"From WorkItems " +
-		"Where [System.Id] = '{0}' " +
-		"And [System.TeamProject] = 't_taskmanager' " +
-		"Order By [State] Asc, [Changed Date] Desc";
-
 	private const string ConnectingWiQuery =
-		"SELECT [System.ID], [System.Title], [System.State], [System.IterationPath] " +
+		"SELECT [System.ID], [System.Title], [System.State], [System.IterationPath], [System.WorkItemType] " +
 		"FROM workitemLinks " +
 		"WHERE [System.Links.LinkType] = 'System.LinkTypes.Hierarchy-Forward' " +
 		"AND [Source].[System.ID] IN ({0}) " +
+		"AND [Target].[State] != 'Rejected' " +
+		"AND [Target].[State] != 'Removed' " +
+		"AND [Target].[State] != 'Teljesítés nélkül lezárva' " +
 		"ORDER BY [Microsoft.VSTS.Common.Priority], [System.CreatedDate] DESC " +
-		"MODE (Recursive)";
+		"MODE (Recursive) ";
 
 	private static readonly ImmutableArray<string> WiFields = new string[]
 	{
-		"System.Title", "System.AssignedTo", "System.Id", "System.State", "System.ChangedDate"
+		"System.Title", "System.AssignedTo", "System.Id", "System.State", "System.ChangedDate", "System.WorkItemType", "System.CreatedDate"
 	}.ToImmutableArray();
 
-	public HashSet<int> ListConnectingWis(int wiId)
+	public List<WorkItem> ListConnectingWis(int wiId)
 	{
 		HttpClient httpClient;
 		HttpRequestMessage httpRequestMessage;
@@ -53,6 +45,7 @@ public class WiStateService : IWiStateService
 		{
 			var config = GetConfig();
 			var uri = ADOSUrls.GetUrl(config);
+
 			string query = string.Format(ConnectingWiQuery, wiId);
 
 			using (httpRequestMessage = new(HttpMethod.Post, uri))
@@ -90,60 +83,39 @@ public class WiStateService : IWiStateService
 						throw new NonFatalException(errMsg);
 					}
 
-					return responseDto.workItemRelations.Select(wib => wib.target.id).ToHashSet();
+					var idArray = responseDto.workItemRelations.Select(t => t.target.id).ToArray();
+
+					return DetailWIs(idArray, idArray.Length);
 				}
 			}
 		}
 	}
 
-	public HashSet<int> ListWIs(int wiId)
+	public Dictionary<int, List<WorkItem>>? queryMaker(IEnumerable<int> source)
 	{
-		HttpClient httpClient;
-		HttpRequestMessage httpRequestMessage;
-		HttpResponseMessage httpResponseMessage;
 
-		using (httpClient = new HttpClient(new HttpClientHandler() { UseDefaultCredentials = true }))
+		Dictionary<int, List<WorkItem>> parentChildrenPairs = new();
+
+		if (source == null)
 		{
-			var config = GetConfig();
-			var uri = ADOSUrls.GetUrl(config);
-			string query = string.Format(WiQuery, wiId);
-
-			using (httpRequestMessage = new(HttpMethod.Post, uri))
-			{
-				httpRequestMessage.Content = new StringContent(JsonConvert.SerializeObject(new { Query = query }), Encoding.UTF8, "application/json");
-
-				using (httpResponseMessage = httpClient.Send(httpRequestMessage))
-				{
-					string mediaType = httpResponseMessage.Content.Headers.ContentType?.MediaType?.ToLower() ?? "";
-					string encoding = httpResponseMessage.Content.Headers.ContentType?.CharSet?.ToLower() ?? "";
-
-					if (mediaType != "application/json")
-						throw new NonFatalException($"Hibás MediaType: {mediaType}! Várt: application/json");
-					if (encoding != "utf-8")
-						throw new NonFatalException($"Hibás MediaType: {mediaType}! Várt: utf-8");
-
-					WIQLResponse? responseDto;
-
-					try
-					{
-						using (var jsonData = httpResponseMessage.Content.ReadAsStream())
-							responseDto = ReadJSONResponse<WIQLResponse>(jsonData);
-					}
-					catch (Exception ex)
-					{
-						throw new NonFatalException("JSON exception: " + ex.Message, ex);
-					}
-
-					if (responseDto is null)
-					{
-						string errMsg = "A WI listázó REST kérés NULL értéket (JSON) adott vissza!";
-						throw new NonFatalException(errMsg);
-					}
-
-					return responseDto.WorkItems.Select(wib => wib.Id).ToHashSet();
-				}
-			}
+			return null;
 		}
+
+		foreach(var id in source)
+		{
+			var wiList = ListConnectingWis(id);
+			
+			if(wiList.Count <= 1)
+			{
+				continue;
+			}
+
+			wiList.RemoveAll(x => x.Id == id);
+
+			parentChildrenPairs.Add(id, wiList);
+		}
+
+		return parentChildrenPairs;
 	}
 
 	public List<WorkItem> DetailWIs(IEnumerable<int> sources, int capacity = 0)
@@ -206,6 +178,7 @@ public class WiStateService : IWiStateService
 					{
 						var wi = v.Fields;
 						wi.Id = v.Id;
+						wi.Url = v.Url;
 						return wi;
 					}));
 				}

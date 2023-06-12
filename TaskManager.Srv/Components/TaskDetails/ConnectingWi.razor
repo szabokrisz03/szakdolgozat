@@ -9,24 +9,52 @@
             </span>
         </div>
     <MudCard class="wi" Elevation="0">
+
+
     @if (workItems != null)
     {
-			@foreach (var item in workItems)
+		@foreach (var item in workItems)
         {
             <MudField class="field" Variant="Variant.Text">
-                <div class="wi-first-div">
-                    <MudIcon Icon="@Icons.Material.Filled.Task" Size="Size.Small"></MudIcon>
-                    <span>@item.Id- </span>
-                    <span>@item.Title</span>
-                </div>
-                <div class ="wi-first-div">
-                    <MudPaper class="wi-avatar" Outlined="true">a</MudPaper>
-                    <span>@item.AssignedTo?.DisplayName - </span>
-                    <span>@item.State - </span>
-                    <span>@item.ChangedDate</span>
-                </div>
+				<div class="wi-div">
+					<div class="wi-first-div">
+						<MudIcon Icon="@Icons.Material.Filled.Task" Size="Size.Small"></MudIcon>
+						<MudLink Href="@item.Url" Target="_blank">#@item.Id- </MudLink>
+						<span>@item.Title</span>
+					</div>
+					<div class="wi-first-div">
+						<span>@((item.AssignedTo?.DisplayName == null) ? "-" : item.AssignedTo?.DisplayName)</span>
+						<span><b>Állapot: </b>@item.ClearState</span>
+						<span><b>Módosítva: </b>@item.ChangedDate.ToString("yyyy.MM.dd")</span>
+					</div>
+						<MudIconButton class="expand-button" Icon="@Icons.Material.Filled.ExpandMore" OnClick="@(() => showConnectingWi(item.Id))"></MudIconButton>
+				</div>
             </MudField>
-        }
-    }
-    </MudCard>
+
+				@if (item.IsOpen && workItemChildrens != null && workItemChildrens.Count != 0)
+				{
+					@foreach (var wi in workItemChildrens)
+					{
+						<div class="conn-wi-div">
+							<div>
+								<MudLink Href="@wi.Url" Target="_blank">#@wi.Id </MudLink>
+								<span>@wi.Title</span>
+							</div>
+							<div class="wi-first-div">
+								<span>@wi.AssignedTo?.DisplayName</span>
+								<span>@wi.State</span>
+								<span>Módosítva: @wi.ChangedDate.ToString("yyyy.MM.dd")</span>
+								<span>Típus: @wi.Type</span>
+							</div>
+						</div>
+					}
+				}
+			}
+
+		}
+		else
+		{
+			<MudProgressCircular class="loading-spinner" Size="Size.Small" Color="Color.Secondary" Indeterminate="true" />
+		}
+	</MudCard>
 </div>

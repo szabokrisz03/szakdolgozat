@@ -36,7 +36,6 @@ public class Wi
 {
 	public string rel { get; set; } = "";
 	public TargetWis target { get; set; }
-	public TargetWis source { get; set; }
 }
 
 [Serializable]
