@@ -2,6 +2,6 @@
 
 public class WiViewModel
 {
-	public int? WiId { get; set; }
-	public long TaskId { get; set; }
+    public int? WiId { get; set; }
+    public long TaskId { get; set; }
 }

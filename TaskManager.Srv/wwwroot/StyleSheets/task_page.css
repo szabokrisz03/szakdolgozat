@@ -1,41 +1,41 @@
 ﻿* {
-	animation: table_animation 2s linear 0s steps(1, start) normal forwards;
+    animation: table_animation 2s linear 0s steps(1, start) normal forwards;
 }
 
 .new-task-button {
-	float: right;
+    float: right;
 }
 
 .task-title {
-	float: left;
+    float: left;
 }
 
 .table {
-	display: block;
-	background-color: transparent;
+    display: block;
+    background-color: transparent;
 }
 
 .select-row {
-	width: 15%;
-	padding: 0;
+    width: 15%;
+    padding: 0;
 }
 
 .cell {
-	width: 40%;
+    width: 40%;
 }
 
 .dropdown-button {
-	min-width: 2.5em;
-	font-size: 15px;
-	float: right;
+    min-width: 2.5em;
+    font-size: 15px;
+    float: right;
 }
 
 .pager-content {
-	background-color: transparent;
-	width: 100%;
+    background-color: transparent;
+    width: 100%;
 }
 
 .pagination {
-	border-top: 1px solid #4a4b54;
-	padding: 4%;
+    border-top: 1px solid #4a4b54;
+    padding: 4%;
 }

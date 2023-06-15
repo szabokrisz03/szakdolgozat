@@ -18,7 +18,7 @@ public class ManagerContext : DbContext
     public DbSet<TaskMilestone> TaskMilestone { get; set; }
     public DbSet<ConnectingWiDb> ConnectingWiDb { get; set; }
 
-	public ManagerContext(DbContextOptions options) : base(options)
+    public ManagerContext(DbContextOptions options) : base(options)
     {
     }
 
@@ -53,10 +53,10 @@ public class ManagerContext : DbContext
         comment.Property(p => p.CreationDate).HasDefaultValueSql("GETDATE()");
 
         var wi = modelBuilder.Entity<ConnectingWiDb>();
-		wi.HasIndex(p => p.TaskId);
-		wi.HasIndex(p => p.WiId);
+        wi.HasIndex(p => p.TaskId);
+        wi.HasIndex(p => p.WiId);
 
-		var milestone = modelBuilder.Entity<TaskMilestone>();
+        var milestone = modelBuilder.Entity<TaskMilestone>();
         milestone.HasOne(p => p.Task).WithMany().HasForeignKey(p => p.TaskId);
         milestone.HasIndex(p => p.Name);
 

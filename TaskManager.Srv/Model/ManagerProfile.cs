@@ -7,14 +7,14 @@ namespace TaskManager.Srv.Model;
 
 public class ManagerProfile: Profile
 {
-	public ManagerProfile()
-	{
-		CreateMap<Project, ProjectViewModel>().ReverseMap();
-		CreateMap<User, UserViewModel>().ReverseMap();
-		CreateMap<WiLinkTemplate, WiLinkTemplateViewModel>().ReverseMap();
-		CreateMap<ProjectTask, TaskViewModel>().ReverseMap();
-		CreateMap<CommentLine, CommentViewModel>().ReverseMap();
-		CreateMap<ConnectingWiDb, WiViewModel>().ReverseMap();
-		CreateMap<TaskMilestone, MilestoneViewModel>().ReverseMap();
-	}
+    public ManagerProfile()
+    {
+        CreateMap<Project, ProjectViewModel>().ReverseMap();
+        CreateMap<User, UserViewModel>().ReverseMap();
+        CreateMap<WiLinkTemplate, WiLinkTemplateViewModel>().ReverseMap();
+        CreateMap<ProjectTask, TaskViewModel>().ReverseMap();
+        CreateMap<CommentLine, CommentViewModel>().ReverseMap();
+        CreateMap<ConnectingWiDb, WiViewModel>().ReverseMap();
+        CreateMap<TaskMilestone, MilestoneViewModel>().ReverseMap();
+    }
 }
