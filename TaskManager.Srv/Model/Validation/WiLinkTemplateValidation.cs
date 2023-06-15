@@ -10,15 +10,15 @@ public class WiLinkTemplateValidation: AbstractValidator<WiLinkTemplateViewModel
     private readonly IAzdoTeamProjectService teamsService;
 
     public WiLinkTemplateValidation(
-		IAzdoTeamProjectService teamsService)
-	{
+        IAzdoTeamProjectService teamsService)
+    {
         this.teamsService = teamsService;
 
         MakeRules();
     }
 
-	private void MakeRules()
-	{
+    private void MakeRules()
+    {
         RuleFor(t => t.Name)
             .NotEmpty().WithMessage("Kötelező kitölteni")
             .NotNull().WithMessage("Kötelező kitölteni");
@@ -31,5 +31,5 @@ public class WiLinkTemplateValidation: AbstractValidator<WiLinkTemplateViewModel
                 var teamProjects = await teamsService.GetTeamProjects();
                 return teamProjects.Any(p => p.Name == t);
             }).WithMessage("Csak létező TP használható!");
-	}
+    }
 }

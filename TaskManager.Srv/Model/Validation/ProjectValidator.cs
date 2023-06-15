@@ -7,14 +7,14 @@ namespace TaskManager.Srv.Model.Validation;
 
 public class ProjectValidator: AbstractValidator<ProjectViewModel>
 {
-	public ProjectValidator(
-		IProjectDisplayService projectDisplayService)
-	{
-		RuleFor(x => x.Name)
-			.NotEmpty()
-			.WithMessage("A név kitöltése kötelező")
-			
-			.MustAsync(async (name, _) => !await projectDisplayService.ProjectNameExistsAsync(name))
-			.WithMessage("Ilyen néven már létezik projekt!");
-	}
+    public ProjectValidator(
+        IProjectDisplayService projectDisplayService)
+    {
+        RuleFor(x => x.Name)
+            .NotEmpty()
+            .WithMessage("A név kitöltése kötelező")
+            
+            .MustAsync(async (name, _) => !await projectDisplayService.ProjectNameExistsAsync(name))
+            .WithMessage("Ilyen néven már létezik projekt!");
+    }
 }

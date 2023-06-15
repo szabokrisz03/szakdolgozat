@@ -1,69 +1,69 @@
 ﻿.border {
-	border: 1px solid rgb(255, 255, 255, .1);
-	border-bottom: none;
-	border-radius: 5px;
-	overflow: hidden;
+    border: 1px solid rgb(255, 255, 255, .1);
+    border-bottom: none;
+    border-radius: 5px;
+    overflow: hidden;
 }
 
 .card {
-	height: 70px;
-	border-radius: inherit;
-	border-bottom: 1px solid rgb(255, 255, 255, .1);
-	display: flex;
-	align-items: center;
-	padding-left: 20px;
+    height: 70px;
+    border-radius: inherit;
+    border-bottom: 1px solid rgb(255, 255, 255, .1);
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
 }
 
 .paper {
-	background-color: darkgray;
-	width: 50px;
-	height: 50px;
-	border-radius: 5px;
-	margin-right: 20px;
+    background-color: darkgray;
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    margin-right: 20px;
 }
 
 .paper-text {
-	display: flex;
-	background: none;
-	justify-content: center;
-	padding-top: 6px;
-	font-size: 25px;
+    display: flex;
+    background: none;
+    justify-content: center;
+    padding-top: 6px;
+    font-size: 25px;
 }
 
 .margin-bottom {
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .element {
-	margin-top: 0.1%;
-	display: flex;
-	height: 3em;
+    margin-top: 0.1%;
+    display: flex;
+    height: 3em;
 }
 
 .search {
-	padding-bottom: 10px;
+    padding-bottom: 10px;
 }
 
 .box:hover {
-	background-color: #25252C;
-	cursor: pointer;
+    background-color: #25252C;
+    cursor: pointer;
 }
 
 .wrapper {
-	width: 100%;
-	overflow: hidden;
-	max-height: 50em;
-	padding-bottom: 15px;
-	animation: table_animation 300ms ease-in-out forwards;
-	transform-origin: top center;
+    width: 100%;
+    overflow: hidden;
+    max-height: 50em;
+    padding-bottom: 15px;
+    animation: table_animation 300ms ease-in-out forwards;
+    transform-origin: top center;
 }
 
 @keyframes table_animation {
-	0% {
-		transform: rotateX(-90deg)
-	}
+    0% {
+        transform: rotateX(-90deg)
+    }
 
-	100% {
-		transform: rotateX(0deg)
-	}
+    100% {
+        transform: rotateX(0deg)
+    }
 }

@@ -1,60 +1,82 @@
-﻿.wi {
-	max-height: 25em;
-	overflow: auto;
-	margin: 0%;
-	margin-top: 0px;
+﻿* {
+    
+}
+
+.wi {
+    max-height: 22em;
+    overflow: auto;
+    margin: 0%;
+    margin-top: 0px;
 }
 
 .wi-text {
-	float: left;
-	font-weight: bold;
-	padding-top: 5%;
-	padding-bottom: 1%;
+    float: left;
+    font-weight: bold;
+    padding-top: 5%;
+    padding-bottom: 1%;
 }
 
 .connecting-wi-div {
-	width: 49%;
-	float: right;
-	display: grid;
-	margin-left: 2%;
+    width: 49%;
+    float: right;
+    display: grid;
+    margin-left: 2%;
 
 }
 
 .field:last-child {
-	margin-bottom: 3%;
+    margin-bottom: 3%;
 }
 
 .wi-new {
-	display: inline-flex;
-	width: 30%;
+    display: inline-flex;
+    width: 30%;
 }
 
 .wi-button-span {
-	display: grid;
-	margin: 3% 0 0 5%;
+    display: grid;
+    margin: 3% 0 0 5%;
 }
 
 .wi-button {
-	width: 10%;
-	height: 70%;
-	border: 1px solid rgb(255, 255, 255, .1);
-	padding: 5% 0 0 0;
-	margin: 6% 0 0 0;
+    width: 10%;
+    height: 70%;
+    border: 1px solid rgb(255, 255, 255, .1);
+    padding: 5% 0 0 0;
+    margin: 6% 0 0 0;
 }
 
 .wi-number {
-	margin: 5% 0 0 0;
+    margin: 5% 0 0 0;
 }
 
 .wi-first-div {
-	display: inline-flex;
-	border: none;
-	font-size: 15px;
-	width: 100%;
+    border: none;
+    font-size: 15px;
+    width: 93%;
+    float: left;
 }
 
 .wi-first-div span {
-	font-size: 13px;
-	margin: 0 0 0 1%;
-	padding: 0 3% 0 0;
+    font-size: 13px;
+    margin: 0 0 0 1%;
+    padding: 0 2% 0 0;
+}
+
+.wi-div {
+    display: inline-block;
+    width: 100%;
+    height: min-content;
+}
+
+.loading-spinner {
+    position: relative;
+    left: 45%;
+}
+
+.conn-wi-div {
+    display: inline-block;
+    width: 100%;
+    height: min-content;
+    border: 1px solid rgb(255, 255, 255, .1);
 }

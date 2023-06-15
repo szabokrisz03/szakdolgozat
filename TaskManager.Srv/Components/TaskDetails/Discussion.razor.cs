@@ -19,8 +19,10 @@ public partial class Discussion
     private string authName = "";
     private List<CommentViewModel> commentViewModels = new();
 
-    protected override async Task OnParametersSetAsync()
+    protected override async Task OnInitializedAsync()
     {
+        var authState = await authenticationStateTask;
+        authName = authState.User.Identity?.Name ?? "";
         await ListComments();
     }
 
@@ -32,6 +34,15 @@ public partial class Discussion
         await commentService.CreateCommentAsync(Id, authName, Comment);
         await ListComments();
         Comment = "";
+    }
+
+    public async Task DeleteComment(string username, CommentViewModel commentView)
+    {
+        var authState = await authenticationStateTask;
+        authName = authState.User.Identity?.Name ?? "";
+
+        await commentService.DeleteCommentAsync(username, authName, commentView.RowId);
+        await ListComments();
     }
 
     public async Task ListComments()

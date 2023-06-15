@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
+
 using MudBlazor;
+
 using TaskManager.Srv.Model.ViewModel;
-using TaskManager.Srv.Services.MilestoneServices;
-using TaskManager.Srv.Services.TaskServices;
 
 namespace TaskManager.Srv.Components.Dialogs;
 
@@ -27,7 +27,7 @@ public partial class CreateMilestoneDialog
         base.OnParametersSet();
     }
 
-    private async Task CreateMilestone()
+    private void CreateMilestone()
     {
         Dialog.Close(DialogResult.Ok(milestoneViewModel));
     }

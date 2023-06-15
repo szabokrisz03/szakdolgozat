@@ -13,6 +13,10 @@
                     </MudPaper>
                     <MudField class="comment" Variant="Variant.Outlined">
                         <span class="username">@item.UserName.Split('\\').Last() on @item.CreationDate</span>
+                        @if(item.UserName == authName)
+                        {
+                            <span class="delete-btn"><MudIconButton class="delete-btn" Icon="@Icons.Material.Filled.Delete" OnClick="(() => DeleteComment(item.UserName, item))"></MudIconButton></span>
+                        }
                         <div class="comment-text">@item.Comment</div>
                     </MudField>
                 </div>

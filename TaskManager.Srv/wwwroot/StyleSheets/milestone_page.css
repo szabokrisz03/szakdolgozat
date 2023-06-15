@@ -1,64 +1,68 @@
 ﻿.milestone-text {
-	float: left;
-	font-weight: bold;
+    float: left;
+    font-weight: bold;
 }
 
 .milestone {
-	max-height: 16em;
-	overflow: auto;
-	animation: table_animation 300ms ease-in-out forwards;
-	transform-origin: top center;
-	margin-top: 0px;
+    max-height: 15em;
+    overflow: auto;
+    animation: table_animation 300ms ease-in-out forwards;
+    transform-origin: top center;
+    margin-top: 0px;
 }
 
 .milestone-div {
-	width: 49%;
-	float: left;
-	display: grid;
-	margin-left: 2%;
+    width: 49%;
+    float: left;
+    display: grid;
+    margin-left: 2%;
 }
 
 .mud-list-item {
-	border: 1px solid rgb(255, 255, 255, .1);
-	height: 4em;
+    border: 1px solid rgb(255, 255, 255, .1);
+    height: 4em;
 }
 
 .name-date-text {
-	float: left;
-	display: inline-flex;
-	position: absolute;
-	top: 30%;
-	width: 85%
+    float: left;
+    display: inline-flex;
+    position: absolute;
+    top: 30%;
+    width: 85%
 }
 
 .add-btn {
-	float: right;
-	width: fit-content;
-	margin: 0 0 0 14%;
-	padding: 0;
+    float: right;
+    width: fit-content;
+    margin: 0 0 0 14%;
+    padding: 0;
 }
 
 .add-delete-done-button {
-	float: right;
+    float: right;
 }
 
 .milestone-form-1 {
-	width: 70%;
+    width: 70%;
 }
 
 .milestone-form-1 {
-	display: flex;
+    display: flex;
 }
 
 .milestone-text:hover {
-	background-color: rgba(52,52,60,255);
-	cursor: pointer;
+    background-color: rgba(52,52,60,255);
+    cursor: pointer;
 }
 
 .milestone-th{
-	width: 15%;
+    width: 17%;
 }
 
 .milestone-delete-done {
-	width: 13%;
+    width: 13%;
+}
+
+.th {
+    overflow: hidden;
 }

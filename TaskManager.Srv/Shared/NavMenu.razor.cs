@@ -9,9 +9,8 @@ namespace TaskManager.Srv.Shared;
 
 public partial class NavMenu: IDisposable
 {
-    private string _user;
 
-    [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; }
+	[CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; }
 
     [Inject] private NavigationManager NavigationManager { get; set; }
     [Inject] private IProjectDisplayService ProjectDisplayService { get; set; }
@@ -24,7 +23,7 @@ public partial class NavMenu: IDisposable
         if (authenticationStateTask != null)
         {
             var authstate = await authenticationStateTask;
-            _user = authstate.User.Identity?.Name ?? "";
+            var _user = authstate.User.Identity?.Name ?? "";
         }
 
         await LocationChangedAsync();
