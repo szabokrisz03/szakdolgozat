@@ -33,7 +33,11 @@ public partial class ProjectList
         await RefreshProjects();
     }
 
-    public async Task RefreshProjects(bool progress = false)
+	/// <summary>
+	/// Projektek frissítése.
+	/// </summary>
+	/// <param name="progress">progress</param>
+	public async Task RefreshProjects(bool progress = false)
     {
         int skip = 0;
         if (progress)

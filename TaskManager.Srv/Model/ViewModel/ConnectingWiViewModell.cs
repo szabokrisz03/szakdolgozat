@@ -1,5 +1,8 @@
 ﻿namespace TaskManager.Srv.Model.ViewModel;
 
+/// <summary>
+/// ConnectingWi-t ábrázoló modell.
+/// </summary>
 public class ConnectingWiViewModell
 {
     public long WiId { get; set; }

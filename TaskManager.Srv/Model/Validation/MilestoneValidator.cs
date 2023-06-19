@@ -7,6 +7,9 @@ using TaskManager.Srv.Services.TaskServices;
 
 namespace TaskManager.Srv.Model.Validation;
 
+/// <summary>
+/// Határidők validálása.
+/// </summary>
 public class MilestoneValidator : AbstractValidator<MilestoneViewModel>
 {
     public MilestoneValidator(

@@ -1,5 +1,8 @@
 ﻿namespace TaskManager.Srv.Model.ViewModel;
 
+/// <summary>
+/// Határidőt ábrázoló modell
+/// </summary>
 public class MilestoneViewModel
 {
     public string Table { get; set; } = "main";

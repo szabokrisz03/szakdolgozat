@@ -5,6 +5,9 @@ using TaskManager.Srv.Services.ProjectServices;
 
 namespace TaskManager.Srv.Model.Validation;
 
+/// <summary>
+/// Projekt validálása.
+/// </summary>
 public class ProjectValidator: AbstractValidator<ProjectViewModel>
 {
     public ProjectValidator(

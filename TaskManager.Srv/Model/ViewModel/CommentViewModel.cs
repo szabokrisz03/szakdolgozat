@@ -1,5 +1,8 @@
 ﻿namespace TaskManager.Srv.Model.ViewModel;
 
+/// <summary>
+/// Kommentet ábrázoló modell.
+/// </summary>
 public class CommentViewModel
 {
     public long TaskId { get; set; }

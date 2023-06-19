@@ -2,6 +2,9 @@
 
 namespace TaskManager.Srv.Model.ViewModel;
 
+/// <summary>
+/// Feladatot ábrázoló modell
+/// </summary>
 public class TaskViewModel
 {
     public long ProjectId { get; set; }
