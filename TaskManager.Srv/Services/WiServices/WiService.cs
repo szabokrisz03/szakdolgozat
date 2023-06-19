@@ -10,17 +10,14 @@ public class WiService : IWiService
 {
 
     private readonly IDbContextFactory<ManagerContext> dbContextFactory;
-    private readonly IMapper mapper;
 
-    public WiService(
-        IDbContextFactory<ManagerContext> dbContextFactory,
-        IMapper mapper)
+    public WiService(IDbContextFactory<ManagerContext> dbContextFactory)
     {
         this.dbContextFactory = dbContextFactory;
-        this.mapper = mapper;
     }
 
-    public async Task CreateWiAsync(int wiId, long taskId)
+	/// <inheritdoc cref="IWiService.CreateWiAsync(int, long)"/>
+	public async Task CreateWiAsync(int wiId, long taskId)
     {
         ConnectingWiDb wi = new()
         {
@@ -36,7 +33,8 @@ public class WiService : IWiService
         }
     }
 
-    public async Task<int[]> ListWorkItem(long taskId)
+	/// <inheritdoc cref="IWiService.ListWorkItem(long)"/>
+	public async Task<int[]> ListWorkItem(long taskId)
     {
         using (var dbcx = await dbContextFactory.CreateDbContextAsync())
         {

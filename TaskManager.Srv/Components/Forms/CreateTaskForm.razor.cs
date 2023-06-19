@@ -20,7 +20,10 @@ public partial class CreateTaskForm
 
     [Inject] public TaskValidator Validator { get; private set; } = null!;
 
-    public Func<object, string, Task<IEnumerable<string>>> FieldValidator => async (model, field) =>
+	/// <summary>
+	/// Validálás.
+	/// </summary>
+	public Func<object, string, Task<IEnumerable<string>>> FieldValidator => async (model, field) =>
     {
         var result = await Validator.ValidateAsync(ValidationContext<TaskViewModel>.CreateWithOptions((TaskViewModel)model, x => x.IncludeProperties(field).IncludeProperties(nameof(TaskViewModel.ProjectId))));
         IsValid = result.IsValid;

@@ -9,16 +9,15 @@ namespace TaskManager.Srv.Services.MilestoneServices;
 
 public class MilestoneDisplayService : IMilestoneDisplayService
 {
-    private readonly IMapper mapper;
     private readonly IDbContextFactory<ManagerContext> dbContextFactory;
 
-    public MilestoneDisplayService(IMapper mapper, IDbContextFactory<ManagerContext> dbContextFactory)
+    public MilestoneDisplayService(IDbContextFactory<ManagerContext> dbContextFactory)
     {
-        this.mapper = mapper;
         this.dbContextFactory = dbContextFactory;
     }
 
-    public async Task<bool> MilestoneNameExistsAsync(long taskId, string name)
+	/// <inheritdoc cref="IMilestoneDisplayService.MilestoneNameExistsAsync(long, string)"/>
+	public async Task<bool> MilestoneNameExistsAsync(long taskId, string name)
     {
         using (var dbcx = dbContextFactory.CreateDbContext())
         {

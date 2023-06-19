@@ -5,6 +5,9 @@ using TaskManager.Srv.Services.TaskServices;
 
 namespace TaskManager.Srv.Model.Validation;
 
+/// <summary>
+/// Feladat validálása
+/// </summary>
 public class TaskValidator : AbstractValidator<TaskViewModel>
 {
     public TaskValidator(ITaskDisplayService taskDisplayService)

@@ -8,6 +8,9 @@ using TaskManager.Srv.Services.TaskServices.DiscussionServices;
 
 namespace TaskManager.Srv.Components.TaskDetails;
 
+/// <summary>
+/// Kommentek megjelenítése.
+/// </summary>
 public partial class Discussion
 {
     [CascadingParameter (Name = "TaskId")] long Id { get; set; }
@@ -26,7 +29,10 @@ public partial class Discussion
         await ListComments();
     }
 
-    public async Task AddComments()
+	/// <summary>
+	/// Komment hozzáadása.
+	/// </summary>
+	public async Task AddComments()
     {
         var authState = await authenticationStateTask;
         authName = authState.User.Identity?.Name ?? "";
@@ -36,7 +42,13 @@ public partial class Discussion
         Comment = "";
     }
 
-    public async Task DeleteComment(string username, CommentViewModel commentView)
+	/// <summary>
+	/// Komment törlése.
+	/// - Minden felhasználó csak a saját kommentjét tudja törölni.
+	/// </summary>
+	/// <param name="username">Felhasználónév</param>
+	/// <param name="commentView">A törlendő komment</param>
+	public async Task DeleteComment(string username, CommentViewModel commentView)
     {
         var authState = await authenticationStateTask;
         authName = authState.User.Identity?.Name ?? "";
@@ -45,7 +57,10 @@ public partial class Discussion
         await ListComments();
     }
 
-    public async Task ListComments()
+	/// <summary>
+	/// Kommentek listázása.
+	/// </summary>
+	public async Task ListComments()
     {
         commentViewModels = await commentService.ListComments(Id);
     }

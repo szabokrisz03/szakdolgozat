@@ -9,6 +9,9 @@ using WhExportShared.Exceptions;
 
 namespace TaskManager.Srv.Components.TaskDetails;
 
+/// <summary>
+/// Workitemek megjelenítése.
+/// </summary>
 public partial class ConnectingWi
 {
 
@@ -22,13 +25,18 @@ public partial class ConnectingWi
     private List<WorkItem>? workItemChildrens;
     private Dictionary<int, List<WorkItem>>? wiDetails;
     private MudNumericField<int?>? _numField;
+	private Snackbar? _snackbar;
 
-    protected override async Task OnInitializedAsync()
+	protected override async Task OnInitializedAsync()
     {
         await ListWis();
     }
 
-    public async Task ListWis()
+	/// <summary>
+	/// Workitemek listázása.
+	/// </summary>
+	/// <returns></returns>
+	public async Task ListWis()
     {
         wiIdArray = await WiService!.ListWorkItem(Id);
         wiDetails = WiStateService!.queryMaker(wiIdArray);
@@ -47,11 +55,20 @@ public partial class ConnectingWi
             {
                 var pointerWi = GetChildrenWi(childrens);
                 WiStateNameChanger(pointerWi, item);
-            }
+            } 
+			else
+			{
+				item.ClearState = "Ütemezésre vár";
+			}
         }
     }
 
-    public List<WorkItem> GetWorkItemChildrens(int wiId)
+	/// <summary>
+	/// linkelt workitemek listázása.
+	/// </summary>
+	/// <param name="wiId">Workitem egyedi azonosítója</param>
+	/// <returns>linkelt workitemeket tartalmazó lista</returns>
+	public List<WorkItem> GetWorkItemChildrens(int wiId)
     {
         workItemChildrens = new List<WorkItem>();
 
@@ -71,7 +88,16 @@ public partial class ConnectingWi
         return workItemChildrens;
     }
 
-    public WorkItem GetChildrenWi(List<WorkItem> sortedWis)
+	/// <summary>
+	/// Sorbarendezett workitemek közül adja vissza a státusz szerint a legkedvezőbbet az alábbi szerint:
+	/// - Sorrendben a legkésőbbi "InProgress"
+	/// - Ha nincs, akkor a legutolsó "Done" utáni első "ToDo"
+	/// - Ha nincs, a legutolsó "Done"
+	/// </summary>
+	/// <param name="sortedWis">Sorbarendezett workitemeket tartalmazó lista</param>
+	/// <returns>A megtalált workitem</returns>
+	/// <exception cref="NonFatalException"></exception>
+	public WorkItem GetChildrenWi(List<WorkItem> sortedWis)
     {
         var wi = sortedWis.Where(x => x.State == "In Progress").LastOrDefault();
 
@@ -89,7 +115,12 @@ public partial class ConnectingWi
         return wi is null ? throw new NonFatalException("Nem lett lekezelve az összes státusz!") : wi;
     }
 
-    public void WiStateNameChanger(WorkItem wi, WorkItem item)
+	/// <summary>
+	/// Típus és státusz szerint nevezi át a workitemek státuszát.
+	/// </summary>
+	/// <param name="wi">A linkelt workitem</param>
+	/// <param name="item">A változtatandó workitem</param>
+	public void WiStateNameChanger(WorkItem wi, WorkItem item)
     {
         if (wi.Type == "Rendszerszervezési feladat")
         {
@@ -159,7 +190,10 @@ public partial class ConnectingWi
         }
     }
 
-    public async Task AddWi()
+	/// <summary>
+	/// Workitem hozzáadása.
+	/// </summary>
+	public async Task AddWi()
     {
         if (WiNumber != null)
         {
@@ -167,7 +201,14 @@ public partial class ConnectingWi
             {
                 if (WiNumber == id)
                 {
-                    _numField!.Reset();
+					_snackbar = Snackbar.Add("A megadott workitem már hozzá van adva a feladathoz!", Severity.Warning, configure =>
+					{
+						configure.VisibleStateDuration = 3000;
+						configure.HideTransitionDuration = 200;
+						configure.ShowTransitionDuration = 200;
+						configure.ShowCloseIcon = true;
+					});
+					_numField!.Reset();
                     return;
                 }
             }
@@ -181,13 +222,34 @@ public partial class ConnectingWi
             }
 
             WiService?.CreateWiAsync(WiNumber.Value, Id);
-            await ListWis();
+			_snackbar = Snackbar.Add("Sikeres hozzáadás!", Severity.Success, configure =>
+			{
+				configure.VisibleStateDuration = 3000;
+				configure.HideTransitionDuration = 200;
+				configure.ShowTransitionDuration = 200;
+				configure.ShowCloseIcon = true;
+			});
+			await ListWis();
         }
+		else
+		{
+			_snackbar = Snackbar.Add("Nem adtál meg workitem ID-t!", Severity.Warning, configure =>
+			{
+				configure.VisibleStateDuration = 3000;
+				configure.HideTransitionDuration = 200;
+				configure.ShowTransitionDuration = 200;
+				configure.ShowCloseIcon = true;
+			});
+		}
 
         _numField!.Reset();
     }
 
-    public void ShowConnectingWi(int id)
+	/// <summary>
+	/// Lenyíló menüért felelős.
+	/// </summary>
+	/// <param name="id">A lenyitandó workitem</param>
+	public void ShowConnectingWi(int id)
     {
         if (workItemChildrens != null)
         {

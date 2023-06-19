@@ -8,6 +8,9 @@ using TaskManager.Srv.Services.WiLinkService;
 
 namespace TaskManager.Srv.Pages.Projects;
 
+/// <summary>
+/// "WiTemplate" megjelenítése.
+/// </summary>
 public partial class ProjectWiTemplates
 {
     [Parameter] public string TechnicalName { get; set; } = "";
@@ -26,7 +29,12 @@ public partial class ProjectWiTemplates
         }
     }
 
-    private async Task<TableData<WiLinkTemplateViewModel>> LoadData(TableState state)
+	/// <summary>
+	/// Táblázat feltöltése.
+	/// </summary>
+	/// <param name="state">State</param>
+	/// <returns>TableData<WiLinkTemplateViewModel></returns>
+	private async Task<TableData<WiLinkTemplateViewModel>> LoadData(TableState state)
     {
         int skip = state.PageSize * state.Page;
         int take = state.PageSize;
@@ -41,7 +49,10 @@ public partial class ProjectWiTemplates
         };
     }
 
-    private async Task CreateTemplate()
+	/// <summary>
+	/// "WiTemplate" létrehozása.
+	/// </summary>
+	private async Task CreateTemplate()
     {
         await TemplateViewService.CreateTemplateDialog();
     }

@@ -49,13 +49,21 @@ public partial class ProjectTasks
         }
     }
 
-    private async Task CreateTask()
+	/// <summary>
+	/// Feladat létrehozása
+	/// </summary>
+	private async Task CreateTask()
     {
         await TaskViewService.CreateTaskDialog(TechnicalName);
         await _table.ReloadServerData();
     }
 
-    private async Task<TableData<TaskViewModel>> LoadData(TableState state)
+	/// <summary>
+	/// Táblázat feltöltése
+	/// </summary>
+	/// <param name="state">TableState</param>
+	/// <returns>TableData<TaskViewModel></returns>
+	private async Task<TableData<TaskViewModel>> LoadData(TableState state)
     {
         int skip = state.PageSize * state.Page;
         int take = state.PageSize;
@@ -71,12 +79,19 @@ public partial class ProjectTasks
         };
     }
 
-    private async Task UpdateState(TaskViewModel model)
+	/// <summary>
+	/// Feladat státuszának frissítése.
+	/// </summary>
+	/// <param name="model">A frissítendő feladat</param>
+	private async Task UpdateState(TaskViewModel model)
     {
         await TaskService.UpdateStatus(model);
     }
 
-    private void ListTaskState()
+	/// <summary>
+	/// Feladat státuszainak beállítása.
+	/// </summary>
+	private void ListTaskState()
     {
         var type = typeof(TaskState);
 
@@ -92,7 +107,11 @@ public partial class ProjectTasks
             }).ToList();
     }
 
-    private void ShowBtnPress(TaskViewModel taskView)
+	/// <summary>
+	/// Lenyíló menüt szabályozza.
+	/// </summary>
+	/// <param name="taskView">A lenyíló feladat</param>
+	private void ShowBtnPress(TaskViewModel taskView)
     {
         Id = taskView.RowId;
         ShownId = ShownId == taskView.RowId ? 0 : taskView.RowId;   

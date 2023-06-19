@@ -8,6 +8,9 @@ using TaskManager.Srv.Services.WiLinkService;
 
 namespace TaskManager.Srv.Components.Dialogs;
 
+/// <summary>
+/// "WiTemplate" dialógusa.
+/// </summary>
 public partial class WiLinkTemplateEditDialog
 {
     private bool _disableSubmit = false;
@@ -25,12 +28,18 @@ public partial class WiLinkTemplateEditDialog
         StateHasChanged();
     }
 
-    private void Cancel()
+	/// <summary>
+	/// Megszakítás.
+	/// </summary>
+	private void Cancel()
     {
         Dialog.Cancel();
     }
 
-    private async Task EditTemplate()
+	/// <summary>
+	/// "WiTemplate" szerkesztése.
+	/// </summary>
+	private async Task EditTemplate()
     {
         if (ViewModel.RowId== 0)
         {
@@ -42,12 +51,18 @@ public partial class WiLinkTemplateEditDialog
         }
     }
 
-    private async Task CreateTemplate()
+	/// <summary>
+	/// "WiTemplate" dialógus létrehozása.
+	/// </summary>
+	private async Task CreateTemplate()
     {
         await TemplateService.CreateTemplate(ViewModel);
     }
 
-    private async Task UpdateTemplate()
+	/// <summary>
+	/// "WiTemplate" frissítése.
+	/// </summary>
+	private async Task UpdateTemplate()
     {
         await TemplateService.UpdateTemplate(ViewModel);
     }

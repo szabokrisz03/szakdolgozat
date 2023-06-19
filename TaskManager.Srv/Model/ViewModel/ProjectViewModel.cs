@@ -2,6 +2,9 @@
 
 namespace TaskManager.Srv.Model.ViewModel;
 
+/// <summary>
+/// Projektet ábrázoló modell
+/// </summary>
 public class ProjectViewModel
 {
     public long RowId { get; set; }

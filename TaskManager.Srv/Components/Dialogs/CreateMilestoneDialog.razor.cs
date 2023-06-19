@@ -6,6 +6,9 @@ using TaskManager.Srv.Model.ViewModel;
 
 namespace TaskManager.Srv.Components.Dialogs;
 
+/// <summary>
+/// Határidő dialógusa.
+/// </summary>
 public partial class CreateMilestoneDialog
 {
     private MilestoneViewModel milestoneViewModel { get; set; } = new();
@@ -27,12 +30,18 @@ public partial class CreateMilestoneDialog
         base.OnParametersSet();
     }
 
-    private void CreateMilestone()
+	/// <summary>
+	/// Határidő dialógus létrehozása.
+	/// </summary>
+	private void CreateMilestone()
     {
         Dialog.Close(DialogResult.Ok(milestoneViewModel));
     }
 
-    public void Cancel()
+	/// <summary>
+	/// Megszakítás.
+	/// </summary>
+	public void Cancel()
     {
         Dialog.Cancel();
     }

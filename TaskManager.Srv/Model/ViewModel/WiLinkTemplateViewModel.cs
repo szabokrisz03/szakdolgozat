@@ -2,6 +2,9 @@
 
 namespace TaskManager.Srv.Model.ViewModel;
 
+/// <summary>
+/// WiLinkTemplate-t ábrázoló modell
+/// </summary>
 public class WiLinkTemplateViewModel
 {
     public long RowId { get; set; }

@@ -1,12 +1,38 @@
-﻿using TaskManager.Srv.Model.DataModel;
-using TaskManager.Srv.Model.ViewModel;
+﻿using TaskManager.Srv.Model.ViewModel;
 
 namespace TaskManager.Srv.Services.TaskServices;
 
+/// <summary>
+/// Projekt létrehozására.
+/// </summary>
 public interface ITaskService
 {
-    Task<TaskViewModel> CreateTask(TaskViewModel taskView);
-    Task<int> CountTasks(long projectId);
-    Task<List<TaskViewModel>> ListTasks(long projectId, int take = 10, int skip = 0);
-    Task UpdateStatus(TaskViewModel taskState);
+	/// <summary>
+	/// Feladat létrehozása és feltöltése adatbázisba.
+	/// </summary>
+	/// <param name="taskView">Létrehozandó feladat</param>
+	/// <returns>A létrehozott feladat</returns>
+	Task<TaskViewModel> CreateTask(TaskViewModel taskView);
+
+	/// <summary>
+	/// Megszámolja, hogy a megadott projektID-hez hány darab feladat tartozik. 
+	/// </summary>
+	/// <param name="projectId">Projekt egyedi azonosítója</param>
+	/// <returns>Darabszám</returns>
+	Task<int> CountTasks(long projectId);
+
+	/// <summary>
+	/// Kilistázza a megadott projektID-hez tartozó feladatokat.
+	/// </summary>
+	/// <param name="projectId">Projekt egyedi azonosítója</param>
+	/// <param name="take">Eltett</param>
+	/// <param name="skip">Kihagyott</param>
+	/// <returns>Feladatokat tartalmazó lista</returns>
+	Task<List<TaskViewModel>> ListTasks(long projectId, int take = 10, int skip = 0);
+
+	/// <summary>
+	/// Feladat státuszainak a frissítését végzi el.
+	/// </summary>
+	/// <param name="taskState">A frissítendő feladat</param>
+	Task UpdateStatus(TaskViewModel taskState);
 }

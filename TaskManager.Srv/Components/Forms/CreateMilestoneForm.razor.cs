@@ -17,7 +17,10 @@ public partial class CreateMilestoneForm
 
     [Inject] public MilestoneValidator Validator { get; private set; } = null!;
 
-    public Func<object, string, Task<IEnumerable<string>>> FieldValidator => async (model, field) =>
+	/// <summary>
+	/// Validálás.
+	/// </summary>
+	public Func<object, string, Task<IEnumerable<string>>> FieldValidator => async (model, field) =>
     {
         var result = await Validator.ValidateAsync(ValidationContext<MilestoneViewModel>.CreateWithOptions((MilestoneViewModel)model, x => x.IncludeProperties(field).IncludeProperties(nameof(MilestoneViewModel.TaskId))));
         IsValid = result.IsValid;

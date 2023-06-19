@@ -5,6 +5,9 @@ using TaskManager.Srv.Services.AzdoServices;
 
 namespace TaskManager.Srv.Model.Validation;
 
+/// <summary>
+/// "WiTemplate" validásása.
+/// </summary>
 public class WiLinkTemplateValidation: AbstractValidator<WiLinkTemplateViewModel>
 {
     private readonly IAzdoTeamProjectService teamsService;

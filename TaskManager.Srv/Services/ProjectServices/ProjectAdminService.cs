@@ -24,7 +24,8 @@ internal class ProjectAdminService : IProjectAdminService
         this.userService = userService;
     }
 
-    public async Task<bool> AssignProjectUserAsync(long projectid, string userName)
+	/// <inheritdoc cref="IProjectAdminService.AssignProjectUserAsync(long, string)"/>
+	public async Task<bool> AssignProjectUserAsync(long projectid, string userName)
     {
         var user = await userService.GetUser(userName);
         if (user is null)
@@ -55,7 +56,8 @@ internal class ProjectAdminService : IProjectAdminService
         }
     }
 
-    public async Task<ProjectViewModel> CreateProjectAsync(ProjectViewModel projectView)
+	/// <inheritdoc cref="IProjectAdminService.CreateProjectAsync(ProjectViewModel)"/>
+	public async Task<ProjectViewModel> CreateProjectAsync(ProjectViewModel projectView)
     {
         var project = mapper.Map<Project>(projectView);
         using (var dbcx = await dbContextFactory.CreateDbContextAsync())
@@ -68,7 +70,8 @@ internal class ProjectAdminService : IProjectAdminService
         return mapper.Map<ProjectViewModel>(project);
     }
 
-    public async Task<ProjectViewModel> CreateProjectAsync(ProjectViewModel projectView, string userName)
+	/// <inheritdoc cref="IProjectAdminService.CreateProjectAsync(ProjectViewModel, string)"/>
+	public async Task<ProjectViewModel> CreateProjectAsync(ProjectViewModel projectView, string userName)
     {
         var projectVm = await CreateProjectAsync(projectView);
         await AssignProjectUserAsync(projectVm.RowId, userName);
