@@ -5,5 +5,9 @@
 /// </summary>
 public interface IProjectViewService
 {
-    Task CreateProjectAsync(string userName = "");
+	/// <summary>
+	/// Dialógus elkészítése projekt létrehozásánál.
+	/// </summary>
+	/// <param name="userName">Felhasználónév</param>
+	Task CreateProjectAsync(string userName = "");
 }

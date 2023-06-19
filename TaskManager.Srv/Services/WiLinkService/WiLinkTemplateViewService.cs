@@ -15,13 +15,15 @@ public class WiLinkTemplateViewService : IWiLinkTemplateViewService
         this.dialogService = dialogService;
     }
 
-    public async Task CreateTemplateDialog()
+	/// <inheritdoc cref="IWiLinkTemplateViewService.CreateTemplateDialog"/>
+	public async Task CreateTemplateDialog()
     {
         var dialog = await dialogService.ShowAsync<WiLinkTemplateEditDialog>("Új Sablon");
         await dialog.Result;
     }
 
-    public async Task UpdateTemplateDialog(WiLinkTemplateViewModel viewModel)
+	/// <inheritdoc cref="IWiLinkTemplateViewService.UpdateTemplateDialog(WiLinkTemplateViewModel)"/>
+	public async Task UpdateTemplateDialog(WiLinkTemplateViewModel viewModel)
     {
         var parameters = new DialogParameters
         {

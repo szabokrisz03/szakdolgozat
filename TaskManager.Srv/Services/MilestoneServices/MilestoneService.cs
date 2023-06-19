@@ -24,7 +24,8 @@ public class MilestoneService : IMilestoneService
         this.dbContextFactory = dbContextFactory;
     }
 
-    public async Task CloseMilestone(long milestoneId){
+	/// <inheritdoc cref="IMilestoneService.CloseMilestone(long)"/>
+	public async Task CloseMilestone(long milestoneId){
         using (var dbcx = await dbContextFactory.CreateDbContextAsync())
         {
             var result = await dbcx.TaskMilestone
@@ -33,7 +34,8 @@ public class MilestoneService : IMilestoneService
         }
     }
 
-    public async Task DeleteMilestone(long milestoneId)
+	/// <inheritdoc cref="IMilestoneService.DeleteMilestone(long)"/>
+	public async Task DeleteMilestone(long milestoneId)
     {
         using (var dbcx = await dbContextFactory.CreateDbContextAsync())
         {
@@ -43,7 +45,8 @@ public class MilestoneService : IMilestoneService
         }
     }
 
-    public async Task<List<MilestoneViewModel>> ListMilestones(long TaskId)
+	/// <inheritdoc cref="IMilestoneService.ListMilestones(long)"/>
+	public async Task<List<MilestoneViewModel>> ListMilestones(long TaskId)
     {
         using (var dbcx = await dbContextFactory.CreateDbContextAsync())
         {
@@ -56,7 +59,8 @@ public class MilestoneService : IMilestoneService
         }
     }
 
-    public async Task<MilestoneViewModel> CreateMilestone(MilestoneViewModel milestoneView)
+	/// <inheritdoc cref="IMilestoneService.CreateMilestone(MilestoneViewModel)"/>
+	public async Task<MilestoneViewModel> CreateMilestone(MilestoneViewModel milestoneView)
     {
         var milestone = mapper.Map<TaskMilestone>(milestoneView);
         using (var dbcx = await dbContextFactory.CreateDbContextAsync())

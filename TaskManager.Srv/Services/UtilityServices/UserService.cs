@@ -21,7 +21,8 @@ public class UserService : IUserService
         this.dbContextFactory = dbContextFactory;
     }
 
-    public async Task CreateUser(UserViewModel userModel)
+	/// <inheritdoc cref="IUserService.CreateUser(UserViewModel)"/>
+	public async Task CreateUser(UserViewModel userModel)
     {
         if (await ExistsUser(userModel.UserName))
         {
@@ -37,7 +38,8 @@ public class UserService : IUserService
         }
     }
 
-    public async Task<UserViewModel?> GetUser(string userName)
+	/// <inheritdoc cref="IUserService.GetUser(string)"/>
+	public async Task<UserViewModel?> GetUser(string userName)
     {
         using (var dbcx = await dbContextFactory.CreateDbContextAsync())
         {
@@ -46,7 +48,8 @@ public class UserService : IUserService
         }
     }
 
-    public async Task<bool> ExistsUser(string userName)
+	/// <inheritdoc cref="IUserService.ExistsUser(string)"/>
+	public async Task<bool> ExistsUser(string userName)
     {
         using (var dbcx = await dbContextFactory.CreateDbContextAsync())
         {
@@ -54,7 +57,8 @@ public class UserService : IUserService
         }
     }
 
-    public async Task EnsureUserExists(string userName)
+	/// <inheritdoc cref="IUserService.EnsureUserExists(string)"/>
+	public async Task EnsureUserExists(string userName)
     {
         if (await ExistsUser(userName))
         {
