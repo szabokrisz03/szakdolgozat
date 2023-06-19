@@ -25,8 +25,9 @@ public partial class ConnectingWi
     private List<WorkItem>? workItemChildrens;
     private Dictionary<int, List<WorkItem>>? wiDetails;
     private MudNumericField<int?>? _numField;
+	private Snackbar? _snackbar;
 
-    protected override async Task OnInitializedAsync()
+	protected override async Task OnInitializedAsync()
     {
         await ListWis();
     }
@@ -54,7 +55,11 @@ public partial class ConnectingWi
             {
                 var pointerWi = GetChildrenWi(childrens);
                 WiStateNameChanger(pointerWi, item);
-            }
+            } 
+			else
+			{
+				item.ClearState = "Ütemezésre vár";
+			}
         }
     }
 
@@ -196,7 +201,14 @@ public partial class ConnectingWi
             {
                 if (WiNumber == id)
                 {
-                    _numField!.Reset();
+					_snackbar = Snackbar.Add("A megadott workitem már hozzá van adva a feladathoz!", Severity.Warning, configure =>
+					{
+						configure.VisibleStateDuration = 3000;
+						configure.HideTransitionDuration = 200;
+						configure.ShowTransitionDuration = 200;
+						configure.ShowCloseIcon = true;
+					});
+					_numField!.Reset();
                     return;
                 }
             }
@@ -210,8 +222,25 @@ public partial class ConnectingWi
             }
 
             WiService?.CreateWiAsync(WiNumber.Value, Id);
-            await ListWis();
+			_snackbar = Snackbar.Add("Sikeres hozzáadás!", Severity.Success, configure =>
+			{
+				configure.VisibleStateDuration = 3000;
+				configure.HideTransitionDuration = 200;
+				configure.ShowTransitionDuration = 200;
+				configure.ShowCloseIcon = true;
+			});
+			await ListWis();
         }
+		else
+		{
+			_snackbar = Snackbar.Add("Nem adtál meg workitem ID-t!", Severity.Warning, configure =>
+			{
+				configure.VisibleStateDuration = 3000;
+				configure.HideTransitionDuration = 200;
+				configure.ShowTransitionDuration = 200;
+				configure.ShowCloseIcon = true;
+			});
+		}
 
         _numField!.Reset();
     }
