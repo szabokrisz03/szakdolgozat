@@ -37,7 +37,8 @@ public class WiStateService : IWiStateService
         "System.Title", "System.AssignedTo", "System.Id", "System.State", "System.ChangedDate", "System.WorkItemType", "System.CreatedDate", "System.TeamProject"
     }.ToImmutableArray();
 
-    public List<WorkItem> ListConnectingWis(int wiId)
+	/// <inheritdoc cref="IWiStateService.ListConnectingWis(int)"/>
+	public List<WorkItem> ListConnectingWis(int wiId)
     {
         HttpClient httpClient;
         HttpRequestMessage httpRequestMessage;
@@ -93,7 +94,8 @@ public class WiStateService : IWiStateService
         }
     }
 
-    public Dictionary<int, List<WorkItem>> queryMaker(IEnumerable<int> source)
+	/// <inheritdoc cref="IWiStateService.queryMaker(IEnumerable{int})"/>
+	public Dictionary<int, List<WorkItem>> queryMaker(IEnumerable<int> source)
     {
 
         Dictionary<int, List<WorkItem>> parentChildrenPairs = new();
@@ -120,7 +122,8 @@ public class WiStateService : IWiStateService
         return parentChildrenPairs;
     }
 
-    public List<WorkItem> DetailWIs(IEnumerable<int> sources, int capacity = 0)
+	/// <inheritdoc cref="IWiStateService.DetailWIs(IEnumerable{int}, int)"/>
+	public List<WorkItem> DetailWIs(IEnumerable<int> sources, int capacity = 0)
     {
         List<WorkItem> wilist = capacity <= 0 ? new() : new(capacity);
         int start = 0;
@@ -135,7 +138,8 @@ public class WiStateService : IWiStateService
         return wilist;
     }
 
-    public void PropertyWis(IEnumerable<int> source, List<WorkItem> collector)
+	/// <inheritdoc cref="IWiStateService.PropertyWis(IEnumerable{int}, List{WorkItem})"/>
+	public void PropertyWis(IEnumerable<int> source, List<WorkItem> collector)
     {
         HttpClient httpClient;
         HttpRequestMessage httpRequestMessage;
