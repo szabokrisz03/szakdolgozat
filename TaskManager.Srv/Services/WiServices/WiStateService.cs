@@ -180,13 +180,6 @@ public class WiStateService : IWiStateService
                         throw new NonFatalException(errMsg);
                     }
 
-                    var value = responseDto.Value.First();
-
-                    if(value.Fields.Type != "Igény")
-                    {
-                        return;
-                    }
-
                     collector.AddRange(responseDto.Value.Select(v =>
                     {
                         var wi = v.Fields;
