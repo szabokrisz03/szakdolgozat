@@ -95,10 +95,10 @@ public class WiStateService : IWiStateService
     }
 
 	/// <inheritdoc cref="IWiStateService.queryMaker(IEnumerable{int})"/>
-	public Dictionary<int, List<WorkItem>> queryMaker(IEnumerable<int> source)
+	public Dictionary<WorkItem, List<WorkItem>> queryMaker(IEnumerable<int> source)
     {
 
-        Dictionary<int, List<WorkItem>> parentChildrenPairs = new();
+        Dictionary<WorkItem, List<WorkItem>> parentChildrenPairs = new();
 
         if (source == null)
         {
@@ -108,15 +108,14 @@ public class WiStateService : IWiStateService
         foreach(var id in source)
         {
             var wiList = ListConnectingWis(id);
-            
-            if(wiList.Count <= 1)
-            {
-                continue;
-            }
 
+			var parentWi = wiList.Where(x => x.Id == id).FirstOrDefault();
             wiList.RemoveAll(x => x.Id == id);
 
-            parentChildrenPairs.Add(id, wiList);
+			if(parentWi != null)
+			{
+				parentChildrenPairs.Add(parentWi, wiList);
+			}
         }
 
         return parentChildrenPairs;

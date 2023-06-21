@@ -33,6 +33,6 @@ public interface IWiStateService
 	/// Linkelt workitemek lekérdezése.
 	/// </summary>
 	/// <param name="source">Workitem id-ket tartalmazó tömb</param>
-	/// <returns>Kulcs-érték párokat tartalmazó dictionary, ahol a kulcs a workitem id-je, az érték a linkelt workitemeket tartalmazó lista</returns>
-	Dictionary<int, List<WorkItem>> queryMaker(IEnumerable<int> source);
+	/// <returns>Kulcs-érték párokat tartalmazó dictionary, ahol a kulcs a parent workitem, az érték a linkelt workitemeket tartalmazó lista</returns>
+	Dictionary<WorkItem, List<WorkItem>> queryMaker(IEnumerable<int> source);
 }
