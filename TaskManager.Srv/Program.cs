@@ -24,7 +24,11 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddMudServices();
 
+string baseHref = builder.Configuration.GetValue<string>("Base") ?? "";
+
 var app = builder.Build();
+
+app.UsePathBase($"/{baseHref}/");
 
 // Configure the HTTP baseUri pipeline.
 if (!app.Environment.IsDevelopment())

@@ -2,7 +2,7 @@
 <MudStack class="border" Style="gap: 0;">
     @foreach(var project in _projects)
     {
-        <a href="/projects/@project.TechnicalName/tasks">
+        <a href="projects/@project.TechnicalName/tasks">
             <MudCard class="card">
                 <MudPaper class="paper">
                     <MudText class="paper-text">@project.Name.Substring(0, 1).ToUpper()</MudText>
