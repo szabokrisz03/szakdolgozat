@@ -215,6 +215,21 @@ public partial class ConnectingWi
 
             workItemChildrens = WiStateService?.ListConnectingWis(WiNumber.Value);
 
+			var value = workItemChildrens?.FirstOrDefault();
+
+			if(value?.Type != "Igény")
+			{
+				_snackbar = Snackbar.Add("Csak igény típusú workitemet lehet felvenni!", Severity.Warning, configure =>
+				{
+					configure.VisibleStateDuration = 3000;
+					configure.HideTransitionDuration = 200;
+					configure.ShowTransitionDuration = 200;
+					configure.ShowCloseIcon = true;
+				});
+				_numField!.Reset();
+				return;
+			}
+
             if (workItemChildrens?.Count <= 0)
             {
                 _numField!.Reset();
