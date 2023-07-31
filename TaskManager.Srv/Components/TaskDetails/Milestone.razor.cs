@@ -25,6 +25,11 @@ public partial class Milestone
     [Inject] public IMilestoneViewService? MilestoneViewService { get; set; } = null;
     [Inject] private IDialogService DialogService { get; set; }
 
+	protected override async Task OnInitializedAsync()
+	{
+		milestoneList = await milestoneService!.ListMilestones(Id);
+	}
+
 	/// <summary>
 	/// Határidő létrehozása.
 	/// </summary>

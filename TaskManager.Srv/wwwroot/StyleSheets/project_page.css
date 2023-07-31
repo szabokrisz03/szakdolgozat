@@ -50,12 +50,13 @@
 }
 
 .wrapper {
-    width: 100%;
-    overflow: hidden;
-    max-height: 50em;
-    padding-bottom: 15px;
-    animation: table_animation 300ms ease-in-out forwards;
-    transform-origin: top center;
+	width: 100%;
+	overflow: hidden;
+	max-height: 50em;
+	border-radius: 0px 0px 10px 10px;
+	background-color: #53389F;
+	animation: table_animation 300ms ease-in-out forwards;
+	transform-origin: top center;
 }
 
 @keyframes table_animation {

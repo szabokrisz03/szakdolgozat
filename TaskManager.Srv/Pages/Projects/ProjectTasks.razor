@@ -10,7 +10,10 @@
             @ref="_table"
             ServerData="LoadData"
             Elevation="0"
-            @bind-RowsPerPage="@PageSize">
+            @bind-RowsPerPage="@PageSize"
+			Hover="true"
+			Virtualize="true"
+			RowStyleFunc="@((item, idx) => TableRowStyle(item, idx))">
 
     <ColGroup>
         <col style="width: 50em"/>
@@ -22,33 +25,34 @@
         <MudTh><b>Állapot</b></MudTh>
         <MudTh/>
     </HeaderContent>
+
     <RowTemplate>
-        <MudTd>@context.Name</MudTd>
-        <MudTd class="select-row">
-            <MudSelect T="TaskState" @bind-Value="context.State" SelectedValuesChanged="@(() => UpdateState(context))" AnchorOrigin="Origin.BottomCenter" DisableUnderLine="true" MultiSelection="false">
-                @foreach(var (value, name) in enumList)
-                {
-                    <MudSelectItem T="TaskState" Value="@value">@name</MudSelectItem>
-                }
-            </MudSelect>
-        </MudTd>
-        <MudTd class="cell">
-            <MudButton class="dropdown-button" id="btn" Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => ShowBtnPress(context))">
-             @((context.RowId == ShownId) ? "-" : "+")
-            </MudButton>
-        </MudTd>
+			<MudTd>@context.Name</MudTd>
+			<MudTd class="select-row">
+				<MudSelect T="TaskState" @bind-Value="context.State" SelectedValuesChanged="@(() => UpdateState(context))" AnchorOrigin="Origin.BottomCenter" DisableUnderLine="true" MultiSelection="false">
+					@foreach (var (value, name) in enumList)
+					{
+						<MudSelectItem T="TaskState" Value="@value">@name</MudSelectItem>
+					}
+				</MudSelect>
+			</MudTd>
+			<MudTd class="cell">
+				<MudButton class="dropdown-button" id="btn" Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => ShowBtnPress(context))">
+					@((context.RowId == ShownId) ? "Kevesebb" : "Több")
+				</MudButton>
+			</MudTd>
     </RowTemplate>
     <ChildRowContent>
         @if (context.RowId == ShownId)
         {
             <CascadingValue Value="@Id" Name="TaskId">
-            <Details></Details>
+				<Details></Details>
             </CascadingValue>
         }
     </ChildRowContent>
     <PagerContent>
         <div class="pager-content">
-            <MudTablePager class="pagination" DisableRowsPerPage="true" HorizontalAlignment="HorizontalAlignment.Center" InfoFormat="@infoFormat" />
+            <MudTablePager class="pagination" HideRowsPerPage="true" HorizontalAlignment="HorizontalAlignment.Center" InfoFormat="@infoFormat" />
         </div>
     </PagerContent>
 </MudTable>

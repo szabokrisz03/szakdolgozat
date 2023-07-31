@@ -4,11 +4,12 @@
 }
 
 .milestone {
-    max-height: 15em;
-    overflow: auto;
-    animation: table_animation 300ms ease-in-out forwards;
-    transform-origin: top center;
-    margin-top: 0px;
+	max-height: 15em;
+	overflow: auto;
+	animation: table_animation 300ms ease-in-out forwards;
+	transform-origin: top center;
+	margin-top: 0px;
+	background-color: #53389F;
 }
 
 .milestone-div {
@@ -51,7 +52,6 @@
 }
 
 .milestone-text:hover {
-    background-color: rgba(52,52,60,255);
     cursor: pointer;
 }
 

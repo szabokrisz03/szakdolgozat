@@ -25,6 +25,7 @@ public partial class ProjectTasks
     [Parameter] public string TechnicalName { get; set; } = "";
     [Parameter] public int PageSize { get; set; }
 
+
     [Inject] private ITaskViewService TaskViewService { get; set; } = null!;
     [Inject] private ITaskService TaskService { get; set; } = null!;
     [Inject] private IProjectDisplayService project { get; set; } = null!;
@@ -107,6 +108,11 @@ public partial class ProjectTasks
             }).ToList();
     }
 
+	private string TableRowStyle(TaskViewModel taskViewModel, int idx)
+	{
+		return ShownId == taskViewModel.RowId ? $"background: #6941C6" : "";
+	}
+
 	/// <summary>
 	/// Lenyíló menüt szabályozza.
 	/// </summary>
@@ -114,6 +120,6 @@ public partial class ProjectTasks
 	private void ShowBtnPress(TaskViewModel taskView)
     {
         Id = taskView.RowId;
-        ShownId = ShownId == taskView.RowId ? 0 : taskView.RowId;   
-    }
+        ShownId = ShownId == taskView.RowId ? 0 : taskView.RowId;
+	}
 }

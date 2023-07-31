@@ -2,7 +2,7 @@
 
 <div class="milestone-div">
     <div>
-        <MudText class="milestone-text" onclick="@(() => ToggleDrawer())"><b>Határidők</b></MudText>
+        <MudText class="milestone-text" onclick="@(() => ToggleDrawer())"><b>Határidők (@milestoneList.Count darab)</b></MudText>
         <MudIconButton class="add-btn" Icon="@Icons.Material.Filled.Add" OnClick="CreateMilestone"></MudIconButton>
     </div>
 
