@@ -28,7 +28,9 @@ public interface ITaskService
 	/// <param name="take">Eltett</param>
 	/// <param name="skip">Kihagyott</param>
 	/// <returns>Feladatokat tartalmazó lista</returns>
-	Task<List<TaskViewModel>> ListTasks(long projectId, int take = 10, int skip = 0);
+	Task<List<TaskViewModel>> ListTasks(long projectId, int take, int skip = 0);
+
+	Task UpdateTaskDb(TaskViewModel modell);
 
 	/// <summary>
 	/// Feladat státuszainak a frissítését végzi el.

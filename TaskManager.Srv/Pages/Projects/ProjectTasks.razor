@@ -10,38 +10,71 @@
             @ref="_table"
             ServerData="LoadData"
             Elevation="0"
-            @bind-RowsPerPage="@PageSize"
 			Hover="true"
 			Virtualize="true"
-			RowStyleFunc="@((item, idx) => TableRowStyle(item, idx))">
+			Dense="true"
+			RowStyleFunc="@((item, idx) => TableRowStyle(item, idx))"
+			CanCancelEdit="true"
+			CommitEditTooltip="Mentés"
+			RowEditPreview="BackUpItem"
+			RowEditCancel="ResetTaskToOriginal"
+			ApplyButtonPosition="TableApplyButtonPosition.End"
+			EditButtonPosition="TableEditButtonPosition.End"
+			EditTrigger="TableEditTrigger.EditButton">
 
-    <ColGroup>
-        <col style="width: 50em"/>
-        <col />
-        <col />
-    </ColGroup>
+	<ColGroup>
+		<col/>
+		<col/>
+		<col/>
+		<col/>
+		<col/>
+	</ColGroup>
     <HeaderContent>
         <MudTh><b>Név</b></MudTh>
         <MudTh><b>Állapot</b></MudTh>
-        <MudTh/>
+		<MudTh><b>Prioritás</b></MudTh>
+		<MudTh />
     </HeaderContent>
-
     <RowTemplate>
-			<MudTd>@context.Name</MudTd>
+			<MudTd class="name-row">@context.Name</MudTd>
 			<MudTd class="select-row">
-				<MudSelect T="TaskState" @bind-Value="context.State" SelectedValuesChanged="@(() => UpdateState(context))" AnchorOrigin="Origin.BottomCenter" DisableUnderLine="true" MultiSelection="false">
+				<MudSelect T="TaskState" @bind-Value="context.State" SelectedValuesChanged="@(() => UpdateState(context))" AnchorOrigin="Origin.BottomCenter" DisableUnderLine="true" Dense="true" 
+				 AdornmentColor="Color.Primary" MultiSelection="false">
 					@foreach (var (value, name) in enumList)
 					{
 						<MudSelectItem T="TaskState" Value="@value">@name</MudSelectItem>
 					}
 				</MudSelect>
 			</MudTd>
+			<MudTd class="priority-row">@context.Priority</MudTd>
 			<MudTd class="cell">
-				<MudButton class="dropdown-button" id="btn" Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => ShowBtnPress(context))">
-					@((context.RowId == ShownId) ? "Kevesebb" : "Több")
-				</MudButton>
+				<MudIconButton class="dropdown-button" id="btn" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small" OnClick="@(() => ShowBtnPress(context))"
+						   Icon="@((context.RowId == ShownId) ? Icons.Material.Filled.ExpandLess : Icons.Material.Filled.ExpandMore)">
+				</MudIconButton>
 			</MudTd>
     </RowTemplate>
+	<RowEditingTemplate>
+		<MudTd DataLabel="Name">
+			<MudTextField @bind-Value="@context.Name" Required></MudTextField>
+			</MudTd>
+		<MudTd class="select-row">
+			<MudSelect T="TaskState" @bind-Value="context.State" SelectedValuesChanged="@(() => UpdateState(context))" AnchorOrigin="Origin.BottomCenter" DisableUnderLine="true" Dense="true"
+					   AdornmentColor="Color.Primary" MultiSelection="false">
+				@foreach (var (value, name) in enumList)
+				{
+					<MudSelectItem T="TaskState" Value="@value">@name</MudSelectItem>
+				}
+			</MudSelect>
+		</MudTd>
+		<MudTd DataLabel="Priority">
+			<MudTextField @bind-Value="@context.Priority" Required></MudTextField>
+		</MudTd>
+		<MudTd class="cell">
+			<MudIconButton class="dropdown-button" id="btn" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small" OnClick="@(() => ShowBtnPress(context))"
+						   Icon="@((context.RowId == ShownId) ? Icons.Material.Filled.ExpandLess : Icons.Material.Filled.ExpandMore)">
+			</MudIconButton>
+		</MudTd>
+	</RowEditingTemplate>
     <ChildRowContent>
         @if (context.RowId == ShownId)
         {
@@ -50,10 +83,8 @@
             </CascadingValue>
         }
     </ChildRowContent>
-    <PagerContent>
-        <div class="pager-content">
-            <MudTablePager class="pagination" HideRowsPerPage="true" HorizontalAlignment="HorizontalAlignment.Center" InfoFormat="@infoFormat" />
-        </div>
-    </PagerContent>
+	<EditButtonContent Context="button">
+		<MudIconButton Size="@Size.Medium" Edge="Edge.Start" Icon="@Icons.Material.Outlined.Edit" Class="pa-0" OnClick="@button.ButtonAction" Disabled="@button.ButtonDisabled" />
+	</EditButtonContent>
 </MudTable>
 
