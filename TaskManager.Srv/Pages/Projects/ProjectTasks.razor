@@ -18,12 +18,14 @@
 			CommitEditTooltip="Mentés"
 			RowEditPreview="BackUpItem"
 			RowEditCancel="ResetTaskToOriginal"
-			ApplyButtonPosition="TableApplyButtonPosition.End"
-			EditButtonPosition="TableEditButtonPosition.End"
-			EditTrigger="TableEditTrigger.EditButton">
+			RowEditCommit="UpdateTask"
+			ApplyButtonPosition="TableApplyButtonPosition.Start"
+			EditButtonPosition="TableEditButtonPosition.Start"
+			EditTrigger="TableEditTrigger.EditButton"
+			IsEditRowSwitchingBlocked="true">
 
 	<ColGroup>
-		<col/>
+		<col style="width:50px;" />
 		<col/>
 		<col/>
 		<col/>
@@ -67,7 +69,7 @@
 			</MudSelect>
 		</MudTd>
 		<MudTd DataLabel="Priority">
-			<MudTextField @bind-Value="@context.Priority" Required></MudTextField>
+			<MudNumericField @bind-Value="@context.Priority" Max="5" Min="1" Required></MudNumericField>
 		</MudTd>
 		<MudTd class="cell">
 			<MudIconButton class="dropdown-button" id="btn" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small" OnClick="@(() => ShowBtnPress(context))"
@@ -75,6 +77,9 @@
 			</MudIconButton>
 		</MudTd>
 	</RowEditingTemplate>
+	<EditButtonContent Context="button">
+		<MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" Color="Color.Primary" OnClick="@button.ButtonAction" Disabled="@button.ButtonDisabled" />
+	</EditButtonContent>
     <ChildRowContent>
         @if (context.RowId == ShownId)
         {
@@ -83,8 +88,5 @@
             </CascadingValue>
         }
     </ChildRowContent>
-	<EditButtonContent Context="button">
-		<MudIconButton Size="@Size.Medium" Edge="Edge.Start" Icon="@Icons.Material.Outlined.Edit" Class="pa-0" OnClick="@button.ButtonAction" Disabled="@button.ButtonDisabled" />
-	</EditButtonContent>
 </MudTable>
 

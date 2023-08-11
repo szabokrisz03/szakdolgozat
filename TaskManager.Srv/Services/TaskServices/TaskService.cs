@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.TeamFoundation.Pipelines.WebApi;
+
+using System.Threading.Tasks;
 
 using TaskManager.Srv.Model.DataContext;
 using TaskManager.Srv.Model.DataModel;
@@ -54,12 +57,18 @@ public class TaskService : ITaskService
 			return;
 		}
 
-		var ent = mapper.Map<ProjectTask>(modell);
-
 		using (var dbcx = await dbContextFactory.CreateDbContextAsync())
 		{
+			var res = dbcx.ProjectTask.SingleOrDefault(x => x.RowId == modell.RowId);
+			if(res == null)
+			{
+				return;
+			}
+
+			var ent = mapper.Map<TaskViewModel, ProjectTask>(modell, res);
 			dbcx.ProjectTask.Update(ent);
 			await dbcx.SaveChangesAsync();
+			dbcx.Entry(ent).State = EntityState.Detached;
 		}
 	}
 

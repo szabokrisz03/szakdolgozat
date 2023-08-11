@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 using MudBlazor;
 
@@ -32,7 +33,6 @@ public partial class ProjectTasks
 	private TaskViewModel taskBeforeEdit;
 	private TaskViewModel taskViewModel1;
 
-
 	protected override void OnInitialized()
     {
         ListTaskState();
@@ -65,9 +65,10 @@ public partial class ProjectTasks
 		((TaskViewModel)modell).Priority = taskBeforeEdit.Priority;
 	}
 
-	private void UpdateTask(TaskViewModel taskViewModel)
+	private void UpdateTask(object modell)
 	{
-
+		TaskService.UpdateTaskDb((TaskViewModel)modell);
+		_table.ReloadServerData();
 	}
 
 	/// <summary>
@@ -94,7 +95,7 @@ public partial class ProjectTasks
 
 		return new TableData<TaskViewModel>
 		{
-			Items = tasks.OrderByDescending(x => x.Priority),
+			Items = tasks.OrderBy(x => x.Priority),
             TotalItems = size
         };
     }
