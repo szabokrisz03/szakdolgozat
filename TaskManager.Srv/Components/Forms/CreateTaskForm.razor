@@ -1,3 +1,11 @@
 ﻿<MudForm @ref="MudForm" Model="@taskViewModel" Validation="@FieldValidator" @bind-IsValid="@IsValid" @bind-Errors="Errors">
-    <MudTextField Label="Név" For="(() => taskViewModel.Name)" @bind-Value="taskViewModel.Name" OnlyValidateIfDirty="true" Immediate="true" />
+    <MudTextField class="new-task-text" Label="Név" For="(() => taskViewModel.Name)" @bind-Value="taskViewModel.Name" OnlyValidateIfDirty="true" Immediate="true" />
+	<MudChipSet Filter="true" Mandatory="true" @bind-SelectedChip="selectedChip">
+		<MudText>Prioritás</MudText>
+		<MudChip Text="1" SelectedColor="Color.Success" Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => checkedIcon())"></MudChip>
+		<MudChip Text="2" SelectedColor="Color.Success" Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => checkedIcon())"></MudChip>
+		<MudChip Text="3" SelectedColor="Color.Success" Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => checkedIcon())"></MudChip>
+		<MudChip Text="4" SelectedColor="Color.Success" Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => checkedIcon())"></MudChip>
+		<MudChip Default="true" Text="5" SelectedColor="Color.Success" Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => checkedIcon())"></MudChip>
+	</MudChipSet>
 </MudForm>

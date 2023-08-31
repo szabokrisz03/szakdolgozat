@@ -2,13 +2,13 @@
 
 <div class="milestone-div">
     <div>
-        <MudText class="milestone-text" onclick="@(() => ToggleDrawer())"><b>Határidők</b></MudText>
-        <MudIconButton class="add-btn" Icon="@Icons.Material.Filled.Add" OnClick="CreateMilestone"></MudIconButton>
+        <MudText class="milestone-text" onclick="@(() => ToggleDrawer())"><b>Határidők (@milestoneList.Count darab)</b></MudText>
+        <MudIconButton class="add-btn"  Icon="@Icons.Material.Filled.Add" OnClick="CreateMilestone"></MudIconButton>
     </div>
 
     @if (IsOpen)
     {
-        <MudTable class="milestone" @ref="milestoneTable" Items="milestoneList" Dense="true" Hover="true" SortLabel="Sort By">
+        <MudTable class="milestone" @ref="milestoneTable" Items="milestoneList" Bordered="true" Dense="true" Hover="true" Elevation="0" SortLabel="Sort By">
             <ColGroup>
                 <col />
                 <col class="milestone-th" />
@@ -26,8 +26,8 @@
                 <MudTd DataLabel="Tervezett határidő">@Convert.ToDateTime(@context.Planned).ToString("yyyy/MM/dd")</MudTd>
                 <MudTd DataLabel="Teljesítés dátuma">@if (context.Actual != null) { @Convert.ToDateTime(@context.Actual).ToString("yyyy/MM/dd") }</MudTd>
                 <MudTd>
-                <MudIconButton class="add-btn" Icon="@Icons.Material.Filled.Done" OnClick="(() => PopUpButton(context))"></MudIconButton>
-                <MudIconButton class="add-btn" Icon="@Icons.Material.Filled.Delete" OnClick="(() => DeletePopUpButton(context))"></MudIconButton>
+                <MudIconButton class="sub-btn" Icon="@Icons.Material.Filled.Done" OnClick="(() => PopUpButton(context))"></MudIconButton>
+                <MudIconButton class="sub-btn" Icon="@Icons.Material.Filled.Delete" OnClick="(() => DeletePopUpButton(context))"></MudIconButton>
                 </MudTd>
             </RowTemplate>
         </MudTable>

@@ -11,5 +11,6 @@ public class TaskViewModel
     public long RowId { get; set; }
     public string Name { get; set; } = "";
     public string Description { get; set; } = "";
-    public TaskState State { get; set; }
+	public int Priority { get; set; }
+	public TaskState State { get; set; }
 }

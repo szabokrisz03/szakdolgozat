@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.TeamFoundation.Pipelines.WebApi;
+
+using System.Threading.Tasks;
 
 using TaskManager.Srv.Model.DataContext;
 using TaskManager.Srv.Model.DataModel;
@@ -32,7 +35,7 @@ public class TaskService : ITaskService
 	}
 
 	/// <inheritdoc cref="ITaskService.ListTasks(long, int, int)"/>
-	public async Task<List<TaskViewModel>> ListTasks(long projectId, int take = 10, int skip = 0)
+	public async Task<List<TaskViewModel>> ListTasks(long projectId, int take, int skip = 0)
 	{
 		using (var dbcx = await dbContextFactory.CreateDbContextAsync())
 		{
@@ -44,6 +47,28 @@ public class TaskService : ITaskService
 				.ToListAsync();
 
 			return lst.Select(mapper.Map<TaskViewModel>).ToList();
+		}
+	}
+
+	public async Task UpdateTaskDb(TaskViewModel modell)
+	{
+		if(modell.RowId == 0)
+		{
+			return;
+		}
+
+		using (var dbcx = await dbContextFactory.CreateDbContextAsync())
+		{
+			var res = dbcx.ProjectTask.SingleOrDefault(x => x.RowId == modell.RowId);
+			if(res == null)
+			{
+				return;
+			}
+
+			var ent = mapper.Map<TaskViewModel, ProjectTask>(modell, res);
+			dbcx.ProjectTask.Update(ent);
+			await dbcx.SaveChangesAsync();
+			dbcx.Entry(ent).State = EntityState.Detached;
 		}
 	}
 

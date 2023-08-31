@@ -6,12 +6,12 @@
 }
 
 .card {
-    height: 70px;
-    border-radius: inherit;
-    border-bottom: 1px solid rgb(255, 255, 255, .1);
-    display: flex;
-    align-items: center;
-    padding-left: 20px;
+	height: 70px;
+	border-radius: inherit;
+	border-bottom: 1px solid rgb(255, 255, 255, .1);
+	display: flex;
+	align-items: center;
+	padding-left: 20px;
 }
 
 .paper {
@@ -35,9 +35,9 @@
 }
 
 .element {
-    margin-top: 0.1%;
-    display: flex;
-    height: 3em;
+	margin-top: 0.1%;
+	display: flex;
+	height: 3em;
 }
 
 .search {
@@ -50,16 +50,21 @@
 }
 
 .wrapper {
-    width: 100%;
-    overflow: hidden;
-    max-height: 50em;
-    padding-bottom: 15px;
-    animation: table_animation 300ms ease-in-out forwards;
-    transform-origin: top center;
+	width: 100%;
+	overflow: hidden;
+	max-height: 50em;
+	border-radius: 0px 0px 10px 10px;
+	background-color: #53389F;
+	animation: table_animation 300ms ease-in-out forwards;
+	transform-origin: top center;
+}
+
+.mud-table-container {
+	overflow: hidden;
 }
 
 @keyframes table_animation {
-    0% {
+	0% {
         transform: rotateX(-90deg)
     }
 
@@ -67,3 +72,4 @@
         transform: rotateX(0deg)
     }
 }
+

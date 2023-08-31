@@ -1,14 +1,17 @@
 ﻿.milestone-text {
     float: left;
     font-weight: bold;
+	padding-bottom: 7px;
 }
 
 .milestone {
-    max-height: 15em;
-    overflow: auto;
-    animation: table_animation 300ms ease-in-out forwards;
-    transform-origin: top center;
-    margin-top: 0px;
+	max-height: 15em;
+	overflow: auto;
+	animation: table_animation 300ms ease-in-out forwards;
+	transform-origin: top center;
+	margin-top: 0px;
+	background-color: #53389F;
+	border: 1px solid rgb(255, 255, 255, .1);
 }
 
 .milestone-div {
@@ -33,9 +36,15 @@
 
 .add-btn {
     float: right;
-    width: fit-content;
+    width: 3%;
     margin: 0 0 0 14%;
     padding: 0;
+}
+
+.sub-btn {
+	width: 100%;
+	float: right;
+	padding: 0;
 }
 
 .add-delete-done-button {
@@ -51,7 +60,6 @@
 }
 
 .milestone-text:hover {
-    background-color: rgba(52,52,60,255);
     cursor: pointer;
 }
 

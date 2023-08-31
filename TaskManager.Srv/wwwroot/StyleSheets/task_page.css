@@ -1,5 +1,5 @@
 ﻿* {
-    animation: table_animation 2s linear 0s steps(1, start) normal forwards;
+	animation: table_animation 2s linear 0s steps(1, start) normal forwards;
 }
 
 .new-task-button {
@@ -11,17 +11,23 @@
 }
 
 .table {
-    display: block;
-    background-color: transparent;
+	display: block;
+	background-color: transparent;
 }
 
 .select-row {
-    width: 15%;
+    width: 52%;
     padding: 0;
 }
 
+.mud-select {
+	height: 2.4vw;
+	position: relative;
+	bottom: 0.4vw;
+}
+
 .cell {
-    width: 40%;
+	width: 1%;
 }
 
 .dropdown-button {
@@ -31,11 +37,26 @@
 }
 
 .pager-content {
-    background-color: transparent;
-    width: 100%;
+	background-color: transparent;
+	width: 100%;
 }
 
 .pagination {
-    border-top: 1px solid #4a4b54;
     padding: 4%;
+}
+
+.tr {
+	width: 100%;
+}
+
+.new-task-text {
+	padding-bottom: 10px;
+}
+
+.priority-row {
+	width: 10%;
+}
+
+.name-row {
+	width: 30%;
 }

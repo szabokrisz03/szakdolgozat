@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 using MudBlazor;
 
@@ -15,15 +16,12 @@ namespace TaskManager.Srv.Pages.Projects;
 
 public partial class ProjectTasks
 {
-
-    private string infoFormat = "{first_item}-{last_item}";
     private long ShownId = 0;
     private MudTable<TaskViewModel> _table;
 
     [CascadingParameter] long Id { get; set; }
 
     [Parameter] public string TechnicalName { get; set; } = "";
-    [Parameter] public int PageSize { get; set; }
 
     [Inject] private ITaskViewService TaskViewService { get; set; } = null!;
     [Inject] private ITaskService TaskService { get; set; } = null!;
@@ -32,10 +30,11 @@ public partial class ProjectTasks
     private List<(TaskState value, string name)> enumList = new();
     private Guid _lastTechnicalName;
     private long _projectId = 0;
+	private TaskViewModel taskBeforeEdit;
+	private TaskViewModel taskViewModel1;
 
-    protected override void OnInitialized()
+	protected override void OnInitialized()
     {
-        PageSize = 10;
         ListTaskState();
     }
 
@@ -48,6 +47,29 @@ public partial class ProjectTasks
             _projectId = await project.GetProjectIdAsync(technicalName);
         }
     }
+
+	private void BackUpItem(object modell)
+	{
+		taskBeforeEdit = new()
+		{
+			Name = ((TaskViewModel)modell).Name,
+			Priority = ((TaskViewModel)modell).Priority,
+			RowId = ((TaskViewModel)modell).RowId,
+			ProjectId = ((TaskViewModel)modell).ProjectId,
+		};
+	}
+
+	private void ResetTaskToOriginal(object modell)
+	{
+		((TaskViewModel)modell).Name = taskBeforeEdit.Name;
+		((TaskViewModel)modell).Priority = taskBeforeEdit.Priority;
+	}
+
+	private void UpdateTask(object modell)
+	{
+		TaskService.UpdateTaskDb((TaskViewModel)modell);
+		_table.ReloadServerData();
+	}
 
 	/// <summary>
 	/// Feladat létrehozása
@@ -66,15 +88,14 @@ public partial class ProjectTasks
 	private async Task<TableData<TaskViewModel>> LoadData(TableState state)
     {
         int skip = state.PageSize * state.Page;
-        int take = state.PageSize;
 
         int size = await TaskService.CountTasks(_projectId);
-        var tasks = await TaskService.ListTasks(_projectId, take, skip);
+		var tasks = await TaskService.ListTasks(_projectId, size, skip);
         ShownId = 0;
 
-        return new TableData<TaskViewModel>
-        {
-            Items = tasks,
+		return new TableData<TaskViewModel>
+		{
+			Items = tasks.OrderBy(x => x.Priority),
             TotalItems = size
         };
     }
@@ -107,6 +128,11 @@ public partial class ProjectTasks
             }).ToList();
     }
 
+	private string TableRowStyle(TaskViewModel taskViewModel, int idx)
+	{
+		return ShownId == taskViewModel.RowId ? $"background: #6941C6" : "";
+	}
+
 	/// <summary>
 	/// Lenyíló menüt szabályozza.
 	/// </summary>
@@ -114,6 +140,6 @@ public partial class ProjectTasks
 	private void ShowBtnPress(TaskViewModel taskView)
     {
         Id = taskView.RowId;
-        ShownId = ShownId == taskView.RowId ? 0 : taskView.RowId;   
-    }
+        ShownId = ShownId == taskView.RowId ? 0 : taskView.RowId;
+	}
 }
