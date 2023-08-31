@@ -16,8 +16,8 @@ public class MilestoneDisplayService : IMilestoneDisplayService
         this.dbContextFactory = dbContextFactory;
     }
 
-	/// <inheritdoc cref="IMilestoneDisplayService.MilestoneNameExistsAsync(long, string)"/>
-	public async Task<bool> MilestoneNameExistsAsync(long taskId, string name)
+    /// <inheritdoc cref="IMilestoneDisplayService.MilestoneNameExistsAsync(long, string)"/>
+    public async Task<bool> MilestoneNameExistsAsync(long taskId, string name)
     {
         using (var dbcx = dbContextFactory.CreateDbContext())
         {

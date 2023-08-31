@@ -30,18 +30,18 @@ public partial class CreateMilestoneDialog
         base.OnParametersSet();
     }
 
-	/// <summary>
-	/// Határidő dialógus létrehozása.
-	/// </summary>
-	private void CreateMilestone()
+    /// <summary>
+    /// Határidő dialógus létrehozása.
+    /// </summary>
+    private void CreateMilestone()
     {
         Dialog.Close(DialogResult.Ok(milestoneViewModel));
     }
 
-	/// <summary>
-	/// Megszakítás.
-	/// </summary>
-	public void Cancel()
+    /// <summary>
+    /// Megszakítás.
+    /// </summary>
+    public void Cancel()
     {
         Dialog.Cancel();
     }

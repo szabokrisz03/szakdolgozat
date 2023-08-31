@@ -11,45 +11,45 @@
             </span>
         </div>
     <MudCard class="wi" Elevation="0">
-		@if (wiDetails != null)
-		{
-			@foreach (var item in wiDetails)
-			{
-				<MudField class="field" Variant="Variant.Text">
-					<div class="wi-div">
-						<div class="wi-first-div">
-							<MudIcon Icon="@Icons.Material.Filled.Task" Size="Size.Small"></MudIcon>
-							<MudLink Href="@item.Key.AzdoLink" Target="_blank" Color="Color.Tertiary">#@item.Key.Id- </MudLink>
-							<span>@item.Key.Title</span>
-						</div>
-						<div class="wi-first-div">
-							<span>@((item.Key.AssignedTo?.DisplayName == null) ? "-" : item.Key.AssignedTo?.DisplayName)</span>
-							<span><b>Állapot: </b>@((item.Key.ClearState == "") ? "-" : item.Key.ClearState)</span>
-							<span><b>Módosítva: </b>@item.Key.ChangedDate.ToString("yyyy.MM.dd")</span>
-						</div>
-							<MudIconButton class="expand-button" Icon="@Icons.Material.Filled.ExpandMore" OnClick="@(() => ShowConnectingWi(item.Key.Id))"></MudIconButton>
-					</div>
-				</MudField>
+        @if (wiDetails != null)
+        {
+            @foreach (var item in wiDetails)
+            {
+                <MudField class="field" Variant="Variant.Text">
+                    <div class="wi-div">
+                        <div class="wi-first-div">
+                            <MudIcon Icon="@Icons.Material.Filled.Task" Size="Size.Small"></MudIcon>
+                            <MudLink Href="@item.Key.AzdoLink" Target="_blank" Color="Color.Tertiary">#@item.Key.Id- </MudLink>
+                            <span>@item.Key.Title</span>
+                        </div>
+                        <div class="wi-first-div">
+                            <span>@((item.Key.AssignedTo?.DisplayName == null) ? "-" : item.Key.AssignedTo?.DisplayName)</span>
+                            <span><b>Állapot: </b>@((item.Key.ClearState == "") ? "-" : item.Key.ClearState)</span>
+                            <span><b>Módosítva: </b>@item.Key.ChangedDate.ToString("yyyy.MM.dd")</span>
+                        </div>
+                            <MudIconButton class="expand-button" Icon="@Icons.Material.Filled.ExpandMore" OnClick="@(() => ShowConnectingWi(item.Key.Id))"></MudIconButton>
+                    </div>
+                </MudField>
 
-				@if (item.Key.IsOpen)
-				{
-					@foreach (var wi in wiDetails[item.Key])
-					{
-						<div class="conn-wi-div">
-							<div>
-								<MudLink Href="@wi.AzdoLink" Target="_blank" Color="Color.Info">#@wi.Id </MudLink>
-								<span>@wi.Title</span>
-							</div>
-							<div class="wi-first-div">
-								<span>@wi.AssignedTo?.DisplayName</span>
-								<span>@wi.State</span>
-								<span><b>Módosítva: </b>@wi.ChangedDate.ToString("yyyy.MM.dd")</span>
-								<span><b>Típus: </b>@wi.Type</span>
-							</div>
-						</div>
-					}
-				}
-			}
+                @if (item.Key.IsOpen)
+                {
+                    @foreach (var wi in wiDetails[item.Key])
+                    {
+                        <div class="conn-wi-div">
+                            <div>
+                                <MudLink Href="@wi.AzdoLink" Target="_blank" Color="Color.Info">#@wi.Id </MudLink>
+                                <span>@wi.Title</span>
+                            </div>
+                            <div class="wi-first-div">
+                                <span>@wi.AssignedTo?.DisplayName</span>
+                                <span>@wi.State</span>
+                                <span><b>Módosítva: </b>@wi.ChangedDate.ToString("yyyy.MM.dd")</span>
+                                <span><b>Típus: </b>@wi.Type</span>
+                            </div>
+                        </div>
+                    }
+                }
+            }
         }
         else
         {

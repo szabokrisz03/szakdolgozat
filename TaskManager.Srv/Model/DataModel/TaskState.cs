@@ -29,9 +29,9 @@ public enum TaskState
     [Display(Name = "Verziózva")]
     Verziozva,
 
-	[Display(Name = "Ajánlatadás")]
-	Ajanlatadas,
+    [Display(Name = "Ajánlatadás")]
+    Ajanlatadas,
 
-	[Display(Name = "Meghiúsult")]
-	Meghiusult,
+    [Display(Name = "Meghiúsult")]
+    Meghiusult,
 }

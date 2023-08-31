@@ -25,15 +25,15 @@ public partial class Milestone
     [Inject] public IMilestoneViewService? MilestoneViewService { get; set; } = null;
     [Inject] private IDialogService DialogService { get; set; }
 
-	protected override async Task OnInitializedAsync()
-	{
-		milestoneList = await milestoneService!.ListMilestones(Id);
-	}
+    protected override async Task OnInitializedAsync()
+    {
+        milestoneList = await milestoneService!.ListMilestones(Id);
+    }
 
-	/// <summary>
-	/// Határidő létrehozása.
-	/// </summary>
-	private async Task CreateMilestone()
+    /// <summary>
+    /// Határidő létrehozása.
+    /// </summary>
+    private async Task CreateMilestone()
     {
         await MilestoneViewService!.CreateMilestoneDialog(Id);
         await ListMilestones();
@@ -49,19 +49,19 @@ public partial class Milestone
 
     }
 
-	/// <summary>
-	/// Határidők listázása.
-	/// </summary>
-	private async Task ListMilestones()
+    /// <summary>
+    /// Határidők listázása.
+    /// </summary>
+    private async Task ListMilestones()
     {
         milestoneList = await milestoneService!.ListMilestones(Id);
     }
 
-	/// <summary>
-	/// Határidő lezárásához felugró ablak.
-	/// </summary>
-	/// <param name="milestoneView">Határidő</param>
-	private async Task PopUpButton(MilestoneViewModel milestoneView) {
+    /// <summary>
+    /// Határidő lezárásához felugró ablak.
+    /// </summary>
+    /// <param name="milestoneView">Határidő</param>
+    private async Task PopUpButton(MilestoneViewModel milestoneView) {
         if(milestoneView.Actual == null)
         {
             bool? result = await DialogService.ShowMessageBox(
@@ -80,11 +80,11 @@ public partial class Milestone
         }
     }
 
-	/// <summary>
-	/// Határidő törléséhez felugró ablak.
-	/// </summary>
-	/// <param name="milestone">Határidő</param>
-	private async Task DeletePopUpButton(MilestoneViewModel milestone)
+    /// <summary>
+    /// Határidő törléséhez felugró ablak.
+    /// </summary>
+    /// <param name="milestone">Határidő</param>
+    private async Task DeletePopUpButton(MilestoneViewModel milestone)
     {
         bool? result = await DialogService.ShowMessageBox(
         "Határidő törlése", (MarkupString)$"Biztos törlöd a határidőt? <br /> A határidő törlése nem vonható vissza!",
@@ -101,28 +101,28 @@ public partial class Milestone
         StateHasChanged();
     }
 
-	/// <summary>
-	/// Határidő törlése.
-	/// </summary>
-	/// <param name="milestoneId">Törlendő határidő egyedi azonosítója</param>
-	/// <returns></returns>
-	private async Task Delete(long milestoneId)
+    /// <summary>
+    /// Határidő törlése.
+    /// </summary>
+    /// <param name="milestoneId">Törlendő határidő egyedi azonosítója</param>
+    /// <returns></returns>
+    private async Task Delete(long milestoneId)
     {
         await milestoneService!.DeleteMilestone(milestoneId);
     }
 
-	/// <summary>
-	/// Határidő lezárása (ha elkészült).
-	/// </summary>
-	/// <param name="milestoneId">Lezárandó határidő egyedi azonosítója</param>
-	private async Task CloseMilestone(long milestoneId) {
+    /// <summary>
+    /// Határidő lezárása (ha elkészült).
+    /// </summary>
+    /// <param name="milestoneId">Lezárandó határidő egyedi azonosítója</param>
+    private async Task CloseMilestone(long milestoneId) {
         await milestoneService!.CloseMilestone(milestoneId);
     }
 
-	/// <summary>
-	/// Lenyíló menüt kezeli.
-	/// </summary>
-	private async Task ToggleDrawer()
+    /// <summary>
+    /// Lenyíló menüt kezeli.
+    /// </summary>
+    private async Task ToggleDrawer()
     {
         await ListMilestones();
         IsOpen = !IsOpen;
