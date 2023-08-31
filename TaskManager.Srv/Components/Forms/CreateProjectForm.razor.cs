@@ -21,10 +21,10 @@ public partial class CreateProjectForm
 
     [Inject] public ProjectValidator Validator { get; private set; } = null!;
 
-	/// <summary>
-	/// Validálás.
-	/// </summary>
-	public Func<object, string, Task<IEnumerable<string>>> FieldValidator => async (model, field) =>
+    /// <summary>
+    /// Validálás.
+    /// </summary>
+    public Func<object, string, Task<IEnumerable<string>>> FieldValidator => async (model, field) =>
     {
         var result = await Validator.ValidateAsync(ValidationContext<ProjectViewModel>.CreateWithOptions((ProjectViewModel)model, x => x.IncludeProperties(field)));
         IsValid = result.IsValid;

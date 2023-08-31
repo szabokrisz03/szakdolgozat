@@ -23,8 +23,8 @@ public class TaskViewService : ITaskViewService
         this.projectDisplayService = projectDisplayService;
     }
 
-	/// <inheritdoc cref="ITaskViewService.CreateTaskDialog(string)"/>
-	public async Task CreateTaskDialog(string technicalName)
+    /// <inheritdoc cref="ITaskViewService.CreateTaskDialog(string)"/>
+    public async Task CreateTaskDialog(string technicalName)
     {
         Guid.TryParse(technicalName, out Guid TechnicalName);
         long projectId = await projectDisplayService.GetProjectIdAsync(TechnicalName);

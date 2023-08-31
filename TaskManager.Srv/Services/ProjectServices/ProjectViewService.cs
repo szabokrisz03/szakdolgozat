@@ -14,8 +14,8 @@ public class ProjectViewService : IProjectViewService
         this.dialogService = dialogService;
     }
 
-	/// <inheritdoc cref="IProjectViewService.CreateProjectAsync(string)"/>
-	public async Task CreateProjectAsync(string userName = "")
+    /// <inheritdoc cref="IProjectViewService.CreateProjectAsync(string)"/>
+    public async Task CreateProjectAsync(string userName = "")
     {
         var parameters = new DialogParameters
         {

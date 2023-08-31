@@ -12,47 +12,47 @@ namespace TaskManager.Srv.Components.Dialogs;
 /// </summary>
 public partial class CreateProjectDialog
 {
-	private ProjectViewModel Project { get; set; } = new();
-	private bool DisableSubmit = true;
+    private ProjectViewModel Project { get; set; } = new();
+    private bool DisableSubmit = true;
 
-	[Parameter] public string UserName { get; set; } = "";
+    [Parameter] public string UserName { get; set; } = "";
 
-	[Inject] private IProjectAdminService ProjectAdminService { get; set; } = null!;
-	[Inject] private ISnackbar Snackbar { get; set; } = null!;
+    [Inject] private IProjectAdminService ProjectAdminService { get; set; } = null!;
+    [Inject] private ISnackbar Snackbar { get; set; } = null!;
 
-	[CascadingParameter] private MudDialogInstance Dialog { get; set; } = null!;
+    [CascadingParameter] private MudDialogInstance Dialog { get; set; } = null!;
 
-	private void OnValidate(bool isValid)
-	{
-		DisableSubmit = !isValid;
-		StateHasChanged();
-	}
+    private void OnValidate(bool isValid)
+    {
+        DisableSubmit = !isValid;
+        StateHasChanged();
+    }
 
-	/// <summary>
-	/// Projekt dialógus létrehozása.
-	/// </summary>
-	private async Task CreateProject()
-	{
-		try
-		{
-			Project = await ProjectAdminService.CreateProjectAsync(Project, UserName);
-		}
-		catch (Exception ex)
-		{
-			Snackbar.Add(ex.Message, Severity.Error);
-		}
+    /// <summary>
+    /// Projekt dialógus létrehozása.
+    /// </summary>
+    private async Task CreateProject()
+    {
+        try
+        {
+            Project = await ProjectAdminService.CreateProjectAsync(Project, UserName);
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+        }
 
-		if (Project.RowId != 0)
-		{
-			Dialog.Close(DialogResult.Ok(true));
-		}
-	}
+        if (Project.RowId != 0)
+        {
+            Dialog.Close(DialogResult.Ok(true));
+        }
+    }
 
-	/// <summary>
-	/// Megszakítás.
-	/// </summary>
-	public void Cancel()
-	{
-		Dialog.Cancel();
-	}
+    /// <summary>
+    /// Megszakítás.
+    /// </summary>
+    public void Cancel()
+    {
+        Dialog.Cancel();
+    }
 }

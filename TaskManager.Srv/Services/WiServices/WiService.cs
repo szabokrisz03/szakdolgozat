@@ -16,8 +16,8 @@ public class WiService : IWiService
         this.dbContextFactory = dbContextFactory;
     }
 
-	/// <inheritdoc cref="IWiService.CreateWiAsync(int, long)"/>
-	public async Task CreateWiAsync(int wiId, long taskId)
+    /// <inheritdoc cref="IWiService.CreateWiAsync(int, long)"/>
+    public async Task CreateWiAsync(int wiId, long taskId)
     {
         ConnectingWiDb wi = new()
         {
@@ -33,8 +33,8 @@ public class WiService : IWiService
         }
     }
 
-	/// <inheritdoc cref="IWiService.ListWorkItem(long)"/>
-	public async Task<int[]> ListWorkItem(long taskId)
+    /// <inheritdoc cref="IWiService.ListWorkItem(long)"/>
+    public async Task<int[]> ListWorkItem(long taskId)
     {
         using (var dbcx = await dbContextFactory.CreateDbContextAsync())
         {

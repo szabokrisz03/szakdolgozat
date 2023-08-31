@@ -28,18 +28,18 @@ public partial class WiLinkTemplateEditDialog
         StateHasChanged();
     }
 
-	/// <summary>
-	/// Megszakítás.
-	/// </summary>
-	private void Cancel()
+    /// <summary>
+    /// Megszakítás.
+    /// </summary>
+    private void Cancel()
     {
         Dialog.Cancel();
     }
 
-	/// <summary>
-	/// "WiTemplate" szerkesztése.
-	/// </summary>
-	private async Task EditTemplate()
+    /// <summary>
+    /// "WiTemplate" szerkesztése.
+    /// </summary>
+    private async Task EditTemplate()
     {
         if (ViewModel.RowId== 0)
         {
@@ -51,18 +51,18 @@ public partial class WiLinkTemplateEditDialog
         }
     }
 
-	/// <summary>
-	/// "WiTemplate" dialógus létrehozása.
-	/// </summary>
-	private async Task CreateTemplate()
+    /// <summary>
+    /// "WiTemplate" dialógus létrehozása.
+    /// </summary>
+    private async Task CreateTemplate()
     {
         await TemplateService.CreateTemplate(ViewModel);
     }
 
-	/// <summary>
-	/// "WiTemplate" frissítése.
-	/// </summary>
-	private async Task UpdateTemplate()
+    /// <summary>
+    /// "WiTemplate" frissítése.
+    /// </summary>
+    private async Task UpdateTemplate()
     {
         await TemplateService.UpdateTemplate(ViewModel);
     }

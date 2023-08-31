@@ -7,34 +7,34 @@ namespace TaskManager.Srv.Services.TaskServices;
 /// </summary>
 public interface ITaskService
 {
-	/// <summary>
-	/// Feladat létrehozása és feltöltése adatbázisba.
-	/// </summary>
-	/// <param name="taskView">Létrehozandó feladat</param>
-	/// <returns>A létrehozott feladat</returns>
-	Task<TaskViewModel> CreateTask(TaskViewModel taskView);
+    /// <summary>
+    /// Feladat létrehozása és feltöltése adatbázisba.
+    /// </summary>
+    /// <param name="taskView">Létrehozandó feladat</param>
+    /// <returns>A létrehozott feladat</returns>
+    Task<TaskViewModel> CreateTask(TaskViewModel taskView);
 
-	/// <summary>
-	/// Megszámolja, hogy a megadott projektID-hez hány darab feladat tartozik. 
-	/// </summary>
-	/// <param name="projectId">Projekt egyedi azonosítója</param>
-	/// <returns>Darabszám</returns>
-	Task<int> CountTasks(long projectId);
+    /// <summary>
+    /// Megszámolja, hogy a megadott projektID-hez hány darab feladat tartozik. 
+    /// </summary>
+    /// <param name="projectId">Projekt egyedi azonosítója</param>
+    /// <returns>Darabszám</returns>
+    Task<int> CountTasks(long projectId);
 
-	/// <summary>
-	/// Kilistázza a megadott projektID-hez tartozó feladatokat.
-	/// </summary>
-	/// <param name="projectId">Projekt egyedi azonosítója</param>
-	/// <param name="take">Eltett</param>
-	/// <param name="skip">Kihagyott</param>
-	/// <returns>Feladatokat tartalmazó lista</returns>
-	Task<List<TaskViewModel>> ListTasks(long projectId, int take, int skip = 0);
+    /// <summary>
+    /// Kilistázza a megadott projektID-hez tartozó feladatokat.
+    /// </summary>
+    /// <param name="projectId">Projekt egyedi azonosítója</param>
+    /// <param name="take">Eltett</param>
+    /// <param name="skip">Kihagyott</param>
+    /// <returns>Feladatokat tartalmazó lista</returns>
+    Task<List<TaskViewModel>> ListTasks(long projectId, int take, int skip = 0);
 
-	Task UpdateTaskDb(TaskViewModel modell);
+    Task UpdateTaskDb(TaskViewModel modell);
 
-	/// <summary>
-	/// Feladat státuszainak a frissítését végzi el.
-	/// </summary>
-	/// <param name="taskState">A frissítendő feladat</param>
-	Task UpdateStatus(TaskViewModel taskState);
+    /// <summary>
+    /// Feladat státuszainak a frissítését végzi el.
+    /// </summary>
+    /// <param name="taskState">A frissítendő feladat</param>
+    Task UpdateStatus(TaskViewModel taskState);
 }

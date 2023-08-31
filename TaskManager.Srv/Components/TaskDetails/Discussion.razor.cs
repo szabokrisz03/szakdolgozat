@@ -29,10 +29,10 @@ public partial class Discussion
         await ListComments();
     }
 
-	/// <summary>
-	/// Komment hozzáadása.
-	/// </summary>
-	public async Task AddComments()
+    /// <summary>
+    /// Komment hozzáadása.
+    /// </summary>
+    public async Task AddComments()
     {
         var authState = await authenticationStateTask;
         authName = authState.User.Identity?.Name ?? "";
@@ -42,13 +42,13 @@ public partial class Discussion
         Comment = "";
     }
 
-	/// <summary>
-	/// Komment törlése.
-	/// - Minden felhasználó csak a saját kommentjét tudja törölni.
-	/// </summary>
-	/// <param name="username">Felhasználónév</param>
-	/// <param name="commentView">A törlendő komment</param>
-	public async Task DeleteComment(string username, CommentViewModel commentView)
+    /// <summary>
+    /// Komment törlése.
+    /// - Minden felhasználó csak a saját kommentjét tudja törölni.
+    /// </summary>
+    /// <param name="username">Felhasználónév</param>
+    /// <param name="commentView">A törlendő komment</param>
+    public async Task DeleteComment(string username, CommentViewModel commentView)
     {
         var authState = await authenticationStateTask;
         authName = authState.User.Identity?.Name ?? "";
@@ -57,10 +57,10 @@ public partial class Discussion
         await ListComments();
     }
 
-	/// <summary>
-	/// Kommentek listázása.
-	/// </summary>
-	public async Task ListComments()
+    /// <summary>
+    /// Kommentek listázása.
+    /// </summary>
+    public async Task ListComments()
     {
         commentViewModels = await commentService.ListComments(Id);
     }

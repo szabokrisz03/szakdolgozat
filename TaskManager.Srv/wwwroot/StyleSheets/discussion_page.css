@@ -1,31 +1,31 @@
 ﻿.discussion-div {
-	width: 49%;
-	float: left;
-	display: grid;
-	transition: max-height 1s;
+    width: 49%;
+    float: left;
+    display: grid;
+    transition: max-height 1s;
 }
 
 .discussion-text {
-	padding: 0 0 1% 0;
-	font-weight: bold;
+    padding: 0 0 1% 0;
+    font-weight: bold;
 }
 
 .discussion-input {
-	float: left;
-	width: 20%;
-	border: 1px solid rgb(255, 255, 255, .1);
-	border-radius: 5px 5px 0px 0px;
-	padding: 0 5px 0 5px;
-	margin: 0;
-	max-height: 100px;
+    float: left;
+    width: 20%;
+    border: 1px solid rgb(255, 255, 255, .1);
+    border-radius: 5px 5px 0px 0px;
+    padding: 0 5px 0 5px;
+    margin: 0;
+    max-height: 100px;
 }
 
 .discussion {
-	max-height: 40em;
-	overflow: auto;
-	margin: 0%;
-	float: left;
-	background-color: #53389F;
+    max-height: 40em;
+    overflow: auto;
+    margin: 0%;
+    float: left;
+    background-color: #53389F;
 }
 
 .comment-paper {
