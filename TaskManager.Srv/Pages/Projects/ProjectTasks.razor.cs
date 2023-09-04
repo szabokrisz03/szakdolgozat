@@ -30,10 +30,10 @@ public partial class ProjectTasks
     private List<(TaskState value, string name)> enumList = new();
     private Guid _lastTechnicalName;
     private long _projectId = 0;
-	private TaskViewModel taskBeforeEdit;
-	private TaskViewModel taskViewModel1;
+    private TaskViewModel taskBeforeEdit;
+    private TaskViewModel taskViewModel1;
 
-	protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
         ListTaskState();
     }
@@ -48,71 +48,71 @@ public partial class ProjectTasks
         }
     }
 
-	private void BackUpItem(object modell)
-	{
-		taskBeforeEdit = new()
-		{
-			Name = ((TaskViewModel)modell).Name,
-			Priority = ((TaskViewModel)modell).Priority,
-			RowId = ((TaskViewModel)modell).RowId,
-			ProjectId = ((TaskViewModel)modell).ProjectId,
-		};
-	}
+    private void BackUpItem(object modell)
+    {
+        taskBeforeEdit = new()
+        {
+        Name = ((TaskViewModel)modell).Name,
+        Priority = ((TaskViewModel)modell).Priority,
+        RowId = ((TaskViewModel)modell).RowId,
+        ProjectId = ((TaskViewModel)modell).ProjectId,
+        };
+    }
+    
+    private void ResetTaskToOriginal(object modell)
+    {
+        ((TaskViewModel)modell).Name = taskBeforeEdit.Name;
+        ((TaskViewModel)modell).Priority = taskBeforeEdit.Priority;
+    }
 
-	private void ResetTaskToOriginal(object modell)
-	{
-		((TaskViewModel)modell).Name = taskBeforeEdit.Name;
-		((TaskViewModel)modell).Priority = taskBeforeEdit.Priority;
-	}
+    private void UpdateTask(object modell)
+    {
+        TaskService.UpdateTaskDb((TaskViewModel)modell);
+        _table.ReloadServerData();
+    }
 
-	private void UpdateTask(object modell)
-	{
-		TaskService.UpdateTaskDb((TaskViewModel)modell);
-		_table.ReloadServerData();
-	}
-
-	/// <summary>
-	/// Feladat létrehozása
-	/// </summary>
-	private async Task CreateTask()
+    /// <summary>
+    /// Feladat létrehozása
+    /// </summary>
+    private async Task CreateTask()
     {
         await TaskViewService.CreateTaskDialog(TechnicalName);
         await _table.ReloadServerData();
     }
 
-	/// <summary>
-	/// Táblázat feltöltése
-	/// </summary>
-	/// <param name="state">TableState</param>
-	/// <returns>TableData<TaskViewModel></returns>
-	private async Task<TableData<TaskViewModel>> LoadData(TableState state)
+    /// <summary>
+    /// Táblázat feltöltése
+    /// </summary>
+    /// <param name="state">TableState</param>
+    /// <returns>TableData<TaskViewModel></returns>
+    private async Task<TableData<TaskViewModel>> LoadData(TableState state)
     {
         int skip = state.PageSize * state.Page;
 
         int size = await TaskService.CountTasks(_projectId);
-		var tasks = await TaskService.ListTasks(_projectId, size, skip);
+        var tasks = await TaskService.ListTasks(_projectId, size, skip);
         ShownId = 0;
 
-		return new TableData<TaskViewModel>
-		{
-			Items = tasks.OrderBy(x => x.Priority),
+        return new TableData<TaskViewModel>
+        {
+            Items = tasks.OrderBy(x => x.Priority),
             TotalItems = size
         };
     }
 
-	/// <summary>
-	/// Feladat státuszának frissítése.
-	/// </summary>
-	/// <param name="model">A frissítendő feladat</param>
-	private async Task UpdateState(TaskViewModel model)
+    /// <summary>
+    /// Feladat státuszának frissítése.
+    /// </summary>
+    /// <param name="model">A frissítendő feladat</param>
+    private async Task UpdateState(TaskViewModel model)
     {
         await TaskService.UpdateStatus(model);
     }
 
-	/// <summary>
-	/// Feladat státuszainak beállítása.
-	/// </summary>
-	private void ListTaskState()
+    /// <summary>
+    /// Feladat státuszainak beállítása.
+    /// </summary>
+    private void ListTaskState()
     {
         var type = typeof(TaskState);
 
@@ -128,18 +128,18 @@ public partial class ProjectTasks
             }).ToList();
     }
 
-	private string TableRowStyle(TaskViewModel taskViewModel, int idx)
-	{
-		return ShownId == taskViewModel.RowId ? $"background: #6941C6" : "";
-	}
+    private string TableRowStyle(TaskViewModel taskViewModel, int idx)
+    {
+        return ShownId == taskViewModel.RowId ? $"background: #6941C6" : "";
+    }
 
-	/// <summary>
-	/// Lenyíló menüt szabályozza.
-	/// </summary>
-	/// <param name="taskView">A lenyíló feladat</param>
-	private void ShowBtnPress(TaskViewModel taskView)
+    /// <summary>
+    /// Lenyíló menüt szabályozza.
+    /// </summary>
+    /// <param name="taskView">A lenyíló feladat</param>
+    private void ShowBtnPress(TaskViewModel taskView)
     {
         Id = taskView.RowId;
         ShownId = ShownId == taskView.RowId ? 0 : taskView.RowId;
-	}
+    }
 }

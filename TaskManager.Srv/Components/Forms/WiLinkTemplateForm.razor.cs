@@ -26,10 +26,10 @@ public partial class WiLinkTemplateForm
     [Inject] private WiLinkTemplateValidation Validator { get; set; } = null!;
     [Inject] private IAzdoTeamProjectService TeamProjectService { get; set; } = null!;
 
-	/// <summary>
-	/// Validálás.
-	/// </summary>
-	public Func<object, string, Task<IEnumerable<string>>> FieldValidator => async (model, field) =>
+    /// <summary>
+    /// Validálás.
+    /// </summary>
+    public Func<object, string, Task<IEnumerable<string>>> FieldValidator => async (model, field) =>
     {
         var result = await Validator.ValidateAsync(ValidationContext<WiLinkTemplateViewModel>.CreateWithOptions((WiLinkTemplateViewModel)model, x => x.IncludeProperties(field)));
         _errors = result.Errors.Select(e => e.ErrorMessage).ToArray();
@@ -37,12 +37,12 @@ public partial class WiLinkTemplateForm
         return result.IsValid ? Array.Empty<string>() : _errors;
     };
 
-	/// <summary>
-	/// Teamprojekt keresése.
-	/// </summary>
-	/// <param name="query">Lekérdezés</param>
-	/// <returns>Stringeket tartalmazó tömb</returns>
-	private async Task<IEnumerable<string>> SearchTeamProject(string? query)
+    /// <summary>
+    /// Teamprojekt keresése.
+    /// </summary>
+    /// <param name="query">Lekérdezés</param>
+    /// <returns>Stringeket tartalmazó tömb</returns>
+    private async Task<IEnumerable<string>> SearchTeamProject(string? query)
     {
         var all = await TeamProjectService.GetTeamProjects();
         query ??= "";

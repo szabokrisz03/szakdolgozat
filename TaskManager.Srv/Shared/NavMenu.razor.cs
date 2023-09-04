@@ -10,7 +10,7 @@ namespace TaskManager.Srv.Shared;
 public partial class NavMenu: IDisposable
 {
 
-	[CascadingParameter] private Task<AuthenticationState>? authenticationStateTask { get; set; }
+    [CascadingParameter] private Task<AuthenticationState>? authenticationStateTask { get; set; }
 
     [Inject] private NavigationManager NavigationManager { get; set; }
     [Inject] private IProjectDisplayService ProjectDisplayService { get; set; }

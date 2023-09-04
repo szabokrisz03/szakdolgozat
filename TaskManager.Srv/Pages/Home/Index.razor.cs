@@ -24,10 +24,10 @@ public partial class Index
         }
     }
 
-	/// <summary>
+    /// <summary>
 	/// Új projekt hozzáadása.
 	/// </summary>
-	private async Task AddNewProject()
+    private async Task AddNewProject()
     {
         await projectViewService.CreateProjectAsync(_userName);
         

@@ -24,21 +24,21 @@ public partial class ConnectingWi
     [Inject] public IWiStateService? WiStateService { get; set; }
 
     private int[]? wiIdArray;
-	private List<WorkItem>? workItems;
+    private List<WorkItem>? workItems;
     private Dictionary<WorkItem, List<WorkItem>>? wiDetails;
     private MudNumericField<int?>? _numField;
-	private Snackbar? _snackbar;
+    private Snackbar? _snackbar;
 
-	protected override async Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
         await ListWis();
     }
 
-	/// <summary>
-	/// Workitemek listázása.
-	/// </summary>
-	/// <returns></returns>
-	public async Task ListWis()
+    /// <summary>
+    /// Workitemek listázása.
+    /// </summary>
+    /// <returns></returns>
+    public async Task ListWis()
     {
         wiIdArray = await WiService!.ListWorkItem(Id);
         wiDetails = WiStateService!.queryMaker(wiIdArray);
@@ -59,24 +59,24 @@ public partial class ConnectingWi
             }
         }
 
-		foreach(var key in wiDetails.Keys)
-		{
-			workItems ??= new();
+        foreach(var key in wiDetails.Keys)
+        {
+            workItems ??= new();
 
-			workItems.Add(key);
-		}
+            workItems.Add(key);
+        }
     }
 
-	/// <summary>
-	/// Sorbarendezett workitemek közül adja vissza a státusz szerint a legkedvezőbbet az alábbi szerint:
-	/// - Sorrendben a legkésőbbi "InProgress"
-	/// - Ha nincs, akkor a legutolsó "Done" utáni első "ToDo"
-	/// - Ha nincs, a legutolsó "Done"
-	/// </summary>
-	/// <param name="sortedWis">Sorbarendezett workitemeket tartalmazó lista</param>
-	/// <returns>A megtalált workitem</returns>
-	/// <exception cref="NonFatalException"></exception>
-	public WorkItem? GetChildrenWi(List<WorkItem> sortedWis)
+    /// <summary>
+    /// Sorbarendezett workitemek közül adja vissza a státusz szerint a legkedvezőbbet az alábbi szerint:
+    /// - Sorrendben a legkésőbbi "InProgress"
+    /// - Ha nincs, akkor a legutolsó "Done" utáni első "ToDo"
+    /// - Ha nincs, a legutolsó "Done"
+    /// </summary>
+    /// <param name="sortedWis">Sorbarendezett workitemeket tartalmazó lista</param>
+    /// <returns>A megtalált workitem</returns>
+    /// <exception cref="NonFatalException"></exception>
+    public WorkItem? GetChildrenWi(List<WorkItem> sortedWis)
     {
         if(sortedWis.Count <= 0)
         {
@@ -99,12 +99,12 @@ public partial class ConnectingWi
         return wi is null ? throw new NonFatalException("Nem lett lekezelve az összes státusz!") : wi;
     }
 
-	/// <summary>
-	/// Típus és státusz szerint nevezi át a workitemek státuszát.
-	/// </summary>
-	/// <param name="wi">A linkelt workitem</param>
-	/// <param name="item">A változtatandó workitem</param>
-	public void WiStateNameChanger(WorkItem wi, WorkItem item)
+    /// <summary>
+    /// Típus és státusz szerint nevezi át a workitemek státuszát.
+    /// </summary>
+    /// <param name="wi">A linkelt workitem</param>
+    /// <param name="item">A változtatandó workitem</param>
+    public void WiStateNameChanger(WorkItem wi, WorkItem item)
     {
         if (wi.Type == "Rendszerszervezési feladat")
         {
@@ -174,10 +174,10 @@ public partial class ConnectingWi
         }
     }
 
-	/// <summary>
-	/// Létrehozza a különböző snackbar-okat.
-	/// </summary>
-	/// <param name="snackBarId">SnackBarConstból érkező érték</param>
+    /// <summary>
+    /// Létrehozza a különböző snackbar-okat.
+    /// </summary>
+    /// <param name="snackBarId">SnackBarConstból érkező érték</param>
     public void addSnackBar(int snackBarId)
     {
         switch(snackBarId)
@@ -232,10 +232,10 @@ public partial class ConnectingWi
         _numField!.Reset();
     }
 
-	/// <summary>
-	/// Workitem hozzáadása.
-	/// </summary>
-	public async Task AddWi()
+    /// <summary>
+    /// Workitem hozzáadása.
+    /// </summary>
+    public async Task AddWi()
     {
         if (WiNumber == null)
         {
@@ -270,14 +270,14 @@ public partial class ConnectingWi
 
         WiService?.CreateWiAsync(WiNumber.Value, Id);
         addSnackBar(SnackBarConst.WI_NUMBER_SUCCESS);
-		await ListWis();
+        await ListWis();
     }
 
-	/// <summary>
-	/// Lenyíló menüért felelős.
-	/// </summary>
-	/// <param name="id">A lenyitandó workitem</param>
-	public void ShowConnectingWi(int id)
+    /// <summary>
+    /// Lenyíló menüért felelős.
+    /// </summary>
+    /// <param name="id">A lenyitandó workitem</param>
+    public void ShowConnectingWi(int id)
     {
         foreach (var item in workItems)
         {

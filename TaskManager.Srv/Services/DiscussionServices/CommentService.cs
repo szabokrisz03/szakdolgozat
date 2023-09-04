@@ -25,8 +25,8 @@ public class CommentService : ICommentService
         this.userService = userService;
     }
 
-	/// <inheritdoc cref="ICommentService.CreateCommentAsync(long, string, string)"/>
-	public async Task CreateCommentAsync(long taskId, string userName, string content)
+    /// <inheritdoc cref="ICommentService.CreateCommentAsync(long, string, string)"/>
+    public async Task CreateCommentAsync(long taskId, string userName, string content)
     {
         var user = await userService.GetUser(userName);
         long userId = user!.RowId;
@@ -46,8 +46,8 @@ public class CommentService : ICommentService
         }
     }
 
-	/// <inheritdoc cref="ICommentService.DeleteCommentAsync(string, string, long)"/>
-	public async Task DeleteCommentAsync(string userName, string loggedUser, long commentId)
+    /// <inheritdoc cref="ICommentService.DeleteCommentAsync(string, string, long)"/>
+    public async Task DeleteCommentAsync(string userName, string loggedUser, long commentId)
     {
         var createdUser = await userService.GetUser(userName);
         long createdUserId = createdUser!.RowId;
@@ -65,8 +65,8 @@ public class CommentService : ICommentService
         }
     }
 
-	/// <inheritdoc cref="ICommentService.ListComments(long)"/>
-	public async Task<List<CommentViewModel>> ListComments(long taskId)
+    /// <inheritdoc cref="ICommentService.ListComments(long)"/>
+    public async Task<List<CommentViewModel>> ListComments(long taskId)
     {
         using (var dbcx = await dbContextFactory.CreateDbContextAsync())
         {
