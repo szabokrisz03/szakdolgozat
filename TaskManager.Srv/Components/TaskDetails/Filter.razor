@@ -1,0 +1,16 @@
+﻿@using TaskManager.Srv.Model.ViewModel;
+
+<MudIconButton Icon="@Icons.Material.Filled.ExpandMore" Size="Size.Small" OnClick="@FilterOpenChanged"></MudIconButton>
+<MudPopover Open="isOpen" AnchorOrigin="Origin.BottomLeft" TransformOrigin="Origin.TopLeft">
+    <MudPaper MinWidth=" 200px" >
+        <MudCheckBox T="bool" @bind-Checked="StateFilterViewModell.Igenyfelmeres">Igényfelmérés</MudCheckBox>
+        <MudCheckBox T="bool" @bind-Checked="StateFilterViewModell.SpecifikacioAlatt">Specifikáció alatt</MudCheckBox>
+        <MudCheckBox T="bool" @bind-Checked="StateFilterViewModell.FejlsztesreVar">Fejlesztésre vár</MudCheckBox>
+        <MudCheckBox T="bool" @bind-Checked="StateFilterViewModell.FejlesztesAlatt">Fejlesztés alatt</MudCheckBox>
+        <MudCheckBox T="bool" @bind-Checked="StateFilterViewModell.TesztelesAlatt">Tesztelés alatt</MudCheckBox>
+        <MudCheckBox T="bool" @bind-Checked="StateFilterViewModell.KiadasraVar">Kiadásra vár</MudCheckBox>
+        <MudCheckBox T="bool" @bind-Checked="StateFilterViewModell.Verziozva">Verziózva</MudCheckBox>
+        <MudCheckBox T="bool" @bind-Checked="StateFilterViewModell.Ajanlatadas">Ajánlatadás</MudCheckBox>
+        <MudCheckBox T="bool" @bind-Checked="StateFilterViewModell.Meghiusult">Meghiúsult</MudCheckBox>
+    </MudPaper>
+</MudPopover>
