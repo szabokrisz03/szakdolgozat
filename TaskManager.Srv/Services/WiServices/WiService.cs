@@ -16,6 +16,16 @@ public class WiService : IWiService
         this.dbContextFactory = dbContextFactory;
     }
 
+    public async Task DeleteWi(int id)
+    {
+        using (var dbcx = await dbContextFactory.CreateDbContextAsync())
+        {
+            await dbcx.ConnectingWiDb
+                .Where(p => p.WiId == id)
+                .ExecuteDeleteAsync();
+        }
+    }
+
     /// <inheritdoc cref="IWiService.CreateWiAsync(int, long)"/>
     public async Task CreateWiAsync(int wiId, long taskId)
     {

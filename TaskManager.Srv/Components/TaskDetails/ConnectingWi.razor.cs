@@ -273,6 +273,12 @@ public partial class ConnectingWi
         await ListWis();
     }
 
+    public async Task deleteConnectingWi(int id)
+    {
+        await WiService!.DeleteWi(id);
+        await ListWis();
+    }
+
     /// <summary>
     /// Lenyíló menüért felelős.
     /// </summary>

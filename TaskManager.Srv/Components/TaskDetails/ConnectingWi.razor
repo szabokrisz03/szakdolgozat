@@ -4,7 +4,7 @@
     <MudText class="wi-text">Kapcsolódó WI-k</MudText>
     
         <div class="wi-new">
-            <MudNumericField class="wi-number" @ref="_numField" @bind-Value="WiNumber" Label="Wi szám" Variant="Variant.Outlined" Immediate="true" Clearable="true" DisableUnderLine="true" HideSpinButtons="true"></MudNumericField>
+            <MudNumericField class="wi-number" @ref="_numField" @bind-Value="WiNumber" HelperText="Wi szám" Variant="Variant.Outlined" Immediate="true" Clearable="true" DisableUnderLine="true" HideSpinButtons="true"></MudNumericField>
             <span class="wi-button-span">
                 <MudButton class="wi-button" OnClick="@(() => AddWi())">+</MudButton>
                 <MudButton class="wi-button" Disabled="true">New</MudButton>
@@ -15,21 +15,20 @@
         {
             @foreach (var item in wiDetails)
             {
-                <MudField class="field" Variant="Variant.Text">
-                    <div class="wi-div">
-                        <div class="wi-first-div">
-                            <MudIcon Icon="@Icons.Material.Filled.Task" Size="Size.Small"></MudIcon>
-                            <MudLink Href="@item.Key.AzdoLink" Target="_blank" Color="Color.Tertiary">#@item.Key.Id- </MudLink>
-                            <span>@item.Key.Title</span>
-                        </div>
-                        <div class="wi-first-div">
-                            <span>@((item.Key.AssignedTo?.DisplayName == null) ? "-" : item.Key.AssignedTo?.DisplayName)</span>
-                            <span><b>Állapot: </b>@((item.Key.ClearState == "") ? "-" : item.Key.ClearState)</span>
-                            <span><b>Módosítva: </b>@item.Key.ChangedDate.ToString("yyyy.MM.dd")</span>
-                        </div>
-                            <MudIconButton class="expand-button" Icon="@Icons.Material.Filled.ExpandMore" OnClick="@(() => ShowConnectingWi(item.Key.Id))"></MudIconButton>
-                    </div>
-                </MudField>
+                <MudCard class="field" Variant="Variant.Text" Elevation="0" Square="true">
+                    <MudIcon Icon="@Icons.Material.Filled.Task" Size="Size.Small"></MudIcon>
+                    <MudLink Typo="Typo.body2" Href="@item.Key.AzdoLink" Target="_blank" Color="Color.Tertiary">#@item.Key.Id- </MudLink>
+                    <MudText Inline="true" Typo="Typo.body2">@item.Key.Title</MudText>
+                    <span class="buttons">
+                        <MudIconButton Size="Size.Medium" class="delete-button" OnClick="@(() => deleteConnectingWi(item.Key.Id))" Icon="@Icons.Material.Filled.Delete"></MudIconButton>
+                        <MudIconButton Size="Size.Medium" Icon="@Icons.Material.Filled.ExpandMore" OnClick="@(() => ShowConnectingWi(item.Key.Id))"></MudIconButton>
+                    </span>
+                    <MudText Inline="false" Typo="Typo.body2">
+                        <b>Felelős: </b>@((item.Key.AssignedTo?.DisplayName == null) ? "-" : item.Key.AssignedTo?.DisplayName)
+                        <b>Állapot: </b>@((item.Key.ClearState == "") ? "-" : item.Key.ClearState)
+                        <b>Módosítva: </b>@item.Key.ChangedDate.ToString("yyyy.MM.dd")
+                    </MudText>
+                </MudCard>
 
                 @if (item.Key.IsOpen)
                 {
