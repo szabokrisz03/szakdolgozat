@@ -1,5 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
 
+using MudBlazor;
+
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
+
+using TaskManager.Srv.Migrations;
 using TaskManager.Srv.Model.ViewModel;
 
 namespace TaskManager.Srv.Components.TaskDetails;
@@ -8,15 +15,19 @@ public partial class Filter
 {
 
     private bool isOpen = false;
-    [Parameter] public StateFilterViewModell? StateFilterViewModell { get; set; }
+    private MudTable<TaskViewModel> _table;
+    private List<(PropertyInfo, string)> filterList = new();
+    [CascadingParameter (Name = "FilterView")] StateFilterViewModell? StateFilterViewModell { get; set; }
+    [Parameter] public EventCallback<StateFilterViewModell> OnClick { get; set; }
 
-    protected override void OnInitialized()
-    {
-        StateFilterViewModell = new StateFilterViewModell();
-    }
-
-    private void FilterOpenChanged()
+    private async Task CheckedFilterChanged()
     {
         isOpen = !isOpen;
+        await OnClick.InvokeAsync(StateFilterViewModell);
+    }
+
+    private async Task OpenFilter()
+    {
+       isOpen = !isOpen;
     }
 }

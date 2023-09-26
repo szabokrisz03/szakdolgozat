@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 using MudBlazor;
 
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
@@ -20,14 +21,17 @@ public partial class ProjectTasks
     private MudTable<TaskViewModel> _table;
 
     [CascadingParameter] long Id { get; set; }
+    [CascadingParameter (Name = "stateFilterProps")] StateFilterViewModell? stateFilter { get; set; }
 
     [Parameter] public string TechnicalName { get; set; } = "";
+    [Parameter] public StateFilterViewModell? stateFilterView { get; set; }
 
     [Inject] private ITaskViewService TaskViewService { get; set; } = null!;
     [Inject] private ITaskService TaskService { get; set; } = null!;
     [Inject] private IProjectDisplayService project { get; set; } = null!;
 
     private List<(TaskState value, string name)> enumList = new();
+    private List<string> filterNames;
     private Guid _lastTechnicalName;
     private long _projectId = 0;
     private TaskViewModel taskBeforeEdit;
@@ -36,6 +40,7 @@ public partial class ProjectTasks
     protected override void OnParametersSet()
     {
         ListTaskState();
+        stateFilterView = new();
     }
 
     protected override async Task OnParametersSetAsync()
@@ -46,6 +51,8 @@ public partial class ProjectTasks
             _lastTechnicalName = technicalName;
             _projectId = await project.GetProjectIdAsync(technicalName);
         }
+
+
     }
 
     private void BackUpItem(object modell)
@@ -87,10 +94,15 @@ public partial class ProjectTasks
     /// <returns>TableData<TaskViewModel></returns>
     private async Task<TableData<TaskViewModel>> LoadData(TableState state)
     {
-        int skip = state.PageSize * state.Page;
+        if(filterNames == null)
+        {
+            GetFilterData(stateFilterView!);
+        }
 
+        int skip = state.PageSize * state.Page;
         int size = await TaskService.CountTasks(_projectId);
-        var tasks = await TaskService.ListTasks(_projectId, size, skip);
+        var tasks = await TaskService.ListTasksByFilterAndId(filterNames!, _projectId, size, skip);
+
         ShownId = 0;
 
         return new TableData<TaskViewModel>
@@ -100,6 +112,21 @@ public partial class ProjectTasks
         };
     }
 
+    private void GetFilterData(StateFilterViewModell state)
+    {
+        filterNames = new();
+
+        foreach (var prop in stateFilterView!.GetType().GetProperties())
+        {
+            if((bool)prop.GetValue(stateFilterView, null)!)
+            {
+                filterNames.Add(prop.Name);
+            }
+        }
+
+        _table.ReloadServerData();
+    }
+
     /// <summary>
     /// Feladat státuszának frissítése.
     /// </summary>
@@ -107,6 +134,7 @@ public partial class ProjectTasks
     private async Task UpdateState(TaskViewModel model)
     {
         await TaskService.UpdateStatus(model);
+        await _table.ReloadServerData();
     }
 
     /// <summary>
@@ -128,6 +156,12 @@ public partial class ProjectTasks
             }).ToList();
     }
 
+    /// <summary>
+    /// A kiválasztott task háttérszínét változtatja meg.
+    /// </summary>
+    /// <param name="taskViewModel">A task viewmodellje</param>
+    /// <param name="idx"></param>
+    /// <returns></returns>
     private string TableRowStyle(TaskViewModel taskViewModel, int idx)
     {
         return ShownId == taskViewModel.RowId ? $"background: #6941C6" : "";

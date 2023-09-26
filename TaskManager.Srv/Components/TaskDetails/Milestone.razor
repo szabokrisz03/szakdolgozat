@@ -25,9 +25,13 @@
                 <MudTd DataLabel="Név">@context.Name</MudTd>    
                 <MudTd DataLabel="Tervezett határidő">@Convert.ToDateTime(@context.Planned).ToString("yyyy/MM/dd")</MudTd>
                 <MudTd DataLabel="Teljesítés dátuma">@if (context.Actual != null) { @Convert.ToDateTime(@context.Actual).ToString("yyyy/MM/dd") }</MudTd>
-                <MudTd>
-                <MudIconButton class="sub-btn" Icon="@Icons.Material.Filled.Done" OnClick="(() => PopUpButton(context))"></MudIconButton>
-                <MudIconButton class="sub-btn" Icon="@Icons.Material.Filled.Delete" OnClick="(() => DeletePopUpButton(context))"></MudIconButton>
+                <MudTd class="delete-done-button">
+                    <MudTooltip Duration="500" Text="lezárás">
+                            <MudIconButton class="sub-btn" Icon="@Icons.Material.Filled.Done" Size="Size.Small" OnClick="(() => PopUpButton(context))"></MudIconButton>
+                    </MudTooltip>
+                    <MudTooltip Duration="500" Text="törlés">
+                        <MudIconButton class="sub-btn" Icon="@Icons.Material.Filled.Delete" Size="Size.Small" OnClick="(() => DeletePopUpButton(context))"></MudIconButton>
+                    </MudTooltip>
                 </MudTd>
             </RowTemplate>
         </MudTable>

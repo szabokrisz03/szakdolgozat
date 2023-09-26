@@ -51,6 +51,11 @@
     float: right;
 }
 
+.delete-done-button {
+    display: inline-flex;
+    gap: 50%;
+}
+
 .milestone-form-1 {
     width: 70%;
 }

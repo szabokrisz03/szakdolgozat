@@ -4,8 +4,8 @@
     <MudText class="wi-text">Kapcsolódó WI-k</MudText>
     
         <div class="wi-new">
-            <MudNumericField class="wi-number" @ref="_numField" @bind-Value="WiNumber" HelperText="Wi szám" Variant="Variant.Outlined" Immediate="true" Clearable="true" DisableUnderLine="true" HideSpinButtons="true"></MudNumericField>
-            <span class="wi-button-span">
+            <MudNumericField class="wi-number" @ref="_numField" @bind-Value="WiNumber" Margin="Margin.Dense" HelperText="Wi szám" Variant="Variant.Outlined" Immediate="true" Clearable="true" DisableUnderLine="true" HideSpinButtons="true"></MudNumericField>
+            <span>
                 <MudButton class="wi-button" OnClick="@(() => AddWi())">+</MudButton>
                 <MudButton class="wi-button" Disabled="true">New</MudButton>
             </span>

@@ -34,9 +34,12 @@ public class TaskService : ITaskService
         }
     }
 
-    /// <inheritdoc cref="ITaskService.ListTasks(long, int, int)"/>
-    public async Task<List<TaskViewModel>> ListTasks(long projectId, int take, int skip = 0)
+    /// <inheritdoc cref="ITaskService.ListTasksById(long, int, int)"/>
+    public async Task<List<TaskViewModel>> ListTasksById(long projectId, int take, int skip = 0)
     {
+        List<string> asd = new();
+        asd.Add("Igeny_felmeres");
+
         using (var dbcx = await dbContextFactory.CreateDbContextAsync())
         {
             var lst = await dbcx.ProjectTask
@@ -46,7 +49,23 @@ public class TaskService : ITaskService
                 .Take(take)
                 .ToListAsync();
 
-            return lst.Select(mapper.Map<TaskViewModel>).ToList();
+            return lst.Select(mapper.Map<TaskViewModel>).Where(t => (asd.Contains(t.State.ToString()))).ToList();
+        }
+    }
+
+    public async Task<List<TaskViewModel>> ListTasksByFilterAndId(List<string> filterName, long projectId, int take, int skip = 0)
+    {
+
+        using (var dbcx = await dbContextFactory.CreateDbContextAsync())
+        {
+            var lst = await dbcx.ProjectTask
+                .AsNoTracking()
+                .Where(t => t.ProjectId == projectId)
+                .Skip(skip)
+                .Take(take)
+                .ToListAsync();
+
+            return lst.Select(mapper.Map<TaskViewModel>).Where(t => (filterName.Contains(t.State.ToString()))).ToList();
         }
     }
 

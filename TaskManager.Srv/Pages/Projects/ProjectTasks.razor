@@ -5,7 +5,7 @@
 
 <MudText class="task-title" Typo="Typo.h6">Feladatok</MudText>
 <MudButton class="new-task-button" Variant="Variant.Filled" Color="Color.Primary" OnClick="CreateTask">Új Feladat</MudButton>
-
+<CascadingValue Value="@stateFilterView" Name="FilterView">
 <MudTable class="table"
             @ref="_table"
             ServerData="LoadData"
@@ -16,16 +16,17 @@
             RowStyleFunc="@((item, idx) => TableRowStyle(item, idx))"
             CanCancelEdit="true"
             CommitEditTooltip="Mentés"
+            CancelEditTooltip="Mégse"
             RowEditPreview="BackUpItem"
             RowEditCancel="ResetTaskToOriginal"
             RowEditCommit="UpdateTask"
             ApplyButtonPosition="TableApplyButtonPosition.Start"
             EditButtonPosition="TableEditButtonPosition.Start"
             EditTrigger="TableEditTrigger.EditButton"
-            IsEditRowSwitchingBlocked="true">
+            IsEditRowSwitchingBlocked="false">
 
     <ColGroup>
-        <col style="width:50px;" />
+        <col style="width:50px;"/>
         <col/>
         <col/>
         <col/>
@@ -34,7 +35,7 @@
     <HeaderContent>
         <MudTh><b>Név</b></MudTh>
         <MudTh><b>Állapot</b>
-            <Filter></Filter>
+            <Filter OnClick="GetFilterData"></Filter>
         </MudTh>
         <MudTh><b>Prioritás</b></MudTh>
         <MudTh />
@@ -52,9 +53,11 @@
             </MudTd>
             <MudTd class="priority-row">@context.Priority</MudTd>
             <MudTd class="cell">
-                <MudIconButton class="dropdown-button" id="btn" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small" OnClick="@(() => ShowBtnPress(context))"
-                           Icon="@((context.RowId == ShownId) ? Icons.Material.Filled.ExpandLess : Icons.Material.Filled.ExpandMore)">
-                </MudIconButton>
+                <MudTooltip Text="@((context.RowId == ShownId) ? "bezárás" : "részletek")">
+                    <MudIconButton class="dropdown-button" id="btn" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small" OnClick="@(() => ShowBtnPress(context))"
+                                   Icon="@((context.RowId == ShownId) ? Icons.Material.Filled.ExpandLess : Icons.Material.Filled.ExpandMore)">
+                    </MudIconButton>
+                </MudTooltip>
             </MudTd>
     </RowTemplate>
     <RowEditingTemplate>
@@ -91,3 +94,4 @@
         }
     </ChildRowContent>
 </MudTable>
+</CascadingValue>
