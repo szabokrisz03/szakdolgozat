@@ -14,7 +14,7 @@ namespace TaskManager.Srv.Components.Dialogs;
 public partial class WiLinkTemplateEditDialog
 {
     private bool _disableSubmit = false;
-    private WiLinkTemplateForm? Form;
+    private readonly WiLinkTemplateForm? Form;
 
     [Parameter] public WiLinkTemplateViewModel ViewModel { get; set; } = new();
 
@@ -41,7 +41,7 @@ public partial class WiLinkTemplateEditDialog
     /// </summary>
     private async Task EditTemplate()
     {
-        if (ViewModel.RowId== 0)
+        if (ViewModel.RowId == 0)
         {
             await CreateTemplate();
         }

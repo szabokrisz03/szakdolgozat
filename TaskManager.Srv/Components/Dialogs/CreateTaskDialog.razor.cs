@@ -2,7 +2,6 @@
 
 using MudBlazor;
 
-using TaskManager.Srv.Components.Forms;
 using TaskManager.Srv.Model.ViewModel;
 using TaskManager.Srv.Services.TaskServices;
 
@@ -41,7 +40,7 @@ public partial class CreateTaskDialog
     /// </summary>
     private void CreateTask()
     {
-        if(taskViewModel.Priority == 0)
+        if (taskViewModel.Priority == 0)
         {
             taskViewModel.Priority = 5;
         }

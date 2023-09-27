@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.TeamFoundation.Pipelines.WebApi;
-
-using System.Threading.Tasks;
 
 using TaskManager.Srv.Model.DataContext;
 using TaskManager.Srv.Model.DataModel;
@@ -37,8 +34,10 @@ public class TaskService : ITaskService
     /// <inheritdoc cref="ITaskService.ListTasksById(long, int, int)"/>
     public async Task<List<TaskViewModel>> ListTasksById(long projectId, int take, int skip = 0)
     {
-        List<string> asd = new();
-        asd.Add("Igeny_felmeres");
+        List<string> asd = new()
+        {
+            "Igeny_felmeres"
+        };
 
         using (var dbcx = await dbContextFactory.CreateDbContextAsync())
         {
@@ -49,7 +48,7 @@ public class TaskService : ITaskService
                 .Take(take)
                 .ToListAsync();
 
-            return lst.Select(mapper.Map<TaskViewModel>).Where(t => (asd.Contains(t.State.ToString()))).ToList();
+            return lst.Select(mapper.Map<TaskViewModel>).Where(t => asd.Contains(t.State.ToString())).ToList();
         }
     }
 
@@ -65,13 +64,13 @@ public class TaskService : ITaskService
                 .Take(take)
                 .ToListAsync();
 
-            return lst.Select(mapper.Map<TaskViewModel>).Where(t => (filterName.Contains(t.State.ToString()))).ToList();
+            return lst.Select(mapper.Map<TaskViewModel>).Where(t => filterName.Contains(t.State.ToString())).ToList();
         }
     }
 
     public async Task UpdateTaskDb(TaskViewModel modell)
     {
-        if(modell.RowId == 0)
+        if (modell.RowId == 0)
         {
             return;
         }
@@ -79,7 +78,7 @@ public class TaskService : ITaskService
         using (var dbcx = await dbContextFactory.CreateDbContextAsync())
         {
             var res = dbcx.ProjectTask.SingleOrDefault(x => x.RowId == modell.RowId);
-            if(res == null)
+            if (res == null)
             {
                 return;
             }

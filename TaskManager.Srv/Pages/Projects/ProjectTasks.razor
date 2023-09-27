@@ -3,8 +3,7 @@
 @using TaskManager.Srv.Model.DataModel;
 @using TaskManager.Srv.Components.TaskDetails;
 
-<MudText class="task-title" Typo="Typo.h6">Feladatok</MudText>
-<MudButton class="new-task-button" Variant="Variant.Filled" Color="Color.Primary" OnClick="CreateTask">Új Feladat</MudButton>
+
 <CascadingValue Value="@stateFilterView" Name="FilterView">
 <MudTable class="table"
             @ref="_table"
@@ -24,7 +23,11 @@
             EditButtonPosition="TableEditButtonPosition.Start"
             EditTrigger="TableEditTrigger.EditButton"
             IsEditRowSwitchingBlocked="false">
-
+    <ToolBarContent>
+        <MudText class="task-title" Typo="Typo.h6">Feladatok</MudText>
+        <MudSpacer/>
+        <MudButton class="new-task-button" Variant="Variant.Filled" Color="Color.Primary" OnClick="CreateTask">Új Feladat</MudButton>
+    </ToolBarContent>
     <ColGroup>
         <col style="width:50px;"/>
         <col/>

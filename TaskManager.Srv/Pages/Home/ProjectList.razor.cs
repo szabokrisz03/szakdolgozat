@@ -45,14 +45,9 @@ public partial class ProjectList
             skip = _projects.Count;
         }
 
-        if (MineOnly)
-        {
-            _projects = await _projectDisplayService.ListUserProjectsAsync(_userName, SearchTerm, 100, skip);
-        }
-        else
-        {
-            _projects = await _projectDisplayService.ListProjectsAsync(SearchTerm, 100, skip);
-        }
+        _projects = MineOnly
+            ? await _projectDisplayService.ListUserProjectsAsync(_userName, SearchTerm, 100, skip)
+            : await _projectDisplayService.ListProjectsAsync(SearchTerm, 100, skip);
 
         StateHasChanged();
     }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 
 using Microsoft.EntityFrameworkCore;
+
 using TaskManager.Srv.Model.DataContext;
 using TaskManager.Srv.Model.DataModel;
 using TaskManager.Srv.Model.ViewModel;

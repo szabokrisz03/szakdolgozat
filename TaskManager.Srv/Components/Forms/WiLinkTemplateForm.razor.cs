@@ -16,7 +16,7 @@ public partial class WiLinkTemplateForm
 {
     private MudForm? Form;
     private string[] _errors = new string[0];
-    private bool _modelInitialized = false;
+    private readonly bool _modelInitialized = false;
 
     public ImmutableArray<string> Errors => _errors.ToImmutableArray();
 

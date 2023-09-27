@@ -30,7 +30,7 @@ public partial class Index
     private async Task AddNewProject()
     {
         await projectViewService.CreateProjectAsync(_userName);
-        
+
         if (projectList != null)
             await projectList.RefreshProjects();
     }

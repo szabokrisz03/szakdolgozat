@@ -1,6 +1,6 @@
 ﻿namespace TaskManager.Srv.Model.DataModel;
 
-public class ProjectTask: DbTable
+public class ProjectTask : DbTable
 {
     public long ProjectId { get; set; }
     public string Name { get; set; } = "";

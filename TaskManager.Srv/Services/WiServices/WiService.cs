@@ -1,8 +1,7 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+
 using TaskManager.Srv.Model.DataContext;
 using TaskManager.Srv.Model.DataModel;
-using TaskManager.Srv.Model.ViewModel;
 
 namespace TaskManager.Srv.Services.WiServices;
 
@@ -56,5 +55,4 @@ public class WiService : IWiService
             return lst.Select(p => p.WiId).ToArray();
         }
     }
-
 }

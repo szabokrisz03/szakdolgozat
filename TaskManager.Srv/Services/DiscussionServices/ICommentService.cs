@@ -1,6 +1,6 @@
 ﻿using TaskManager.Srv.Model.ViewModel;
 
-namespace TaskManager.Srv.Services.TaskServices.DiscussionServices;
+namespace TaskManager.Srv.Services.DiscussionServices;
 
 public interface ICommentService
 {

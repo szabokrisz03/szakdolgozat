@@ -1,4 +1,4 @@
-﻿namespace WhExportShared.Exceptions;
+﻿namespace TaskManager.Srv.Utilities.Exceptions;
 
 /// <summary>
 /// Saját kivételkezelő osztály

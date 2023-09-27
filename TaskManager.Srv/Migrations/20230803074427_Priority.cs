@@ -2,28 +2,27 @@
 
 #nullable disable
 
-namespace TaskManager.Srv.Migrations
+namespace TaskManager.Srv.Migrations;
+
+/// <inheritdoc />
+public partial class Priority : Migration
 {
     /// <inheritdoc />
-    public partial class Priority : Migration
+    protected override void Up(MigrationBuilder migrationBuilder)
     {
-        /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.AddColumn<int>(
-                name: "priority",
-                table: "project_task",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
-        }
+        migrationBuilder.AddColumn<int>(
+            name: "priority",
+            table: "project_task",
+            type: "int",
+            nullable: false,
+            defaultValue: 0);
+    }
 
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropColumn(
-                name: "priority",
-                table: "project_task");
-        }
+    /// <inheritdoc />
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+        migrationBuilder.DropColumn(
+            name: "priority",
+            table: "project_task");
     }
 }

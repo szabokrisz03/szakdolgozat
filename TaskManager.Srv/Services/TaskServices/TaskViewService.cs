@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 
 using MudBlazor;
+
 using TaskManager.Srv.Components.Dialogs;
-using TaskManager.Srv.Migrations;
 using TaskManager.Srv.Model.ViewModel;
 using TaskManager.Srv.Services.ProjectServices;
 
@@ -39,7 +39,7 @@ public class TaskViewService : ITaskViewService
         if (result.Data != null)
         {
             TaskViewModel taskViewModel = (TaskViewModel)result.Data;
-            
+
             await taskService.CreateTask(taskViewModel);
         }
     }

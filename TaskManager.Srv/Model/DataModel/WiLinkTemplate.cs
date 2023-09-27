@@ -1,7 +1,7 @@
 ﻿namespace TaskManager.Srv.Model.DataModel;
 
 [Serializable]
-public class WiLinkTemplate: DbTable
+public class WiLinkTemplate : DbTable
 {
     public long ProjectId { get; set; }
     public string Name { get; set; } = "";

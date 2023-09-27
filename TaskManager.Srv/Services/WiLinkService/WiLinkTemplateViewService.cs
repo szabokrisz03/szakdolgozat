@@ -29,7 +29,7 @@ public class WiLinkTemplateViewService : IWiLinkTemplateViewService
         {
             ["ViewModel"] = viewModel
         };
-        
+
         var dialog = await dialogService.ShowAsync<WiLinkTemplateEditDialog>("Sablon módosítása", parameters);
         await dialog.Result;
     }

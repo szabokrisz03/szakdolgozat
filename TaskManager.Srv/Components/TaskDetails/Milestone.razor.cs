@@ -1,13 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
 
 using MudBlazor;
-using MudBlazor.Utilities;
-
-using System.Diagnostics.Eventing.Reader;
 
 using TaskManager.Srv.Model.ViewModel;
 using TaskManager.Srv.Services.MilestoneServices;
-using TaskManager.Srv.Services.TaskServices;
 
 namespace TaskManager.Srv.Components.TaskDetails;
 
@@ -20,7 +16,7 @@ public partial class Milestone
     public bool IsOpen { get; set; }
     private MudTable<MilestoneViewModel> milestoneTable;
     public List<MilestoneViewModel> milestoneList = new();
-    [CascadingParameter(Name = "TaskId")] long Id { get; set; }
+    [CascadingParameter(Name = "TaskId")] private long Id { get; set; }
     [Inject] public IMilestoneService? milestoneService { get; set; } = null;
     [Inject] public IMilestoneViewService? MilestoneViewService { get; set; } = null;
     [Inject] private IDialogService DialogService { get; set; }
@@ -46,7 +42,6 @@ public partial class Milestone
         {
             await milestoneTable.ReloadServerData();
         }
-
     }
 
     /// <summary>
@@ -61,8 +56,9 @@ public partial class Milestone
     /// Határidő lezárásához felugró ablak.
     /// </summary>
     /// <param name="milestoneView">Határidő</param>
-    private async Task PopUpButton(MilestoneViewModel milestoneView) {
-        if(milestoneView.Actual == null)
+    private async Task PopUpButton(MilestoneViewModel milestoneView)
+    {
+        if (milestoneView.Actual == null)
         {
             bool? result = await DialogService.ShowMessageBox(
             "Határidő lezárása", (MarkupString)$"Biztos lezárod a határidőt? <br /> A határidő lezárása nem vonható vissza!",
@@ -115,7 +111,8 @@ public partial class Milestone
     /// Határidő lezárása (ha elkészült).
     /// </summary>
     /// <param name="milestoneId">Lezárandó határidő egyedi azonosítója</param>
-    private async Task CloseMilestone(long milestoneId) {
+    private async Task CloseMilestone(long milestoneId)
+    {
         await milestoneService!.CloseMilestone(milestoneId);
     }
 

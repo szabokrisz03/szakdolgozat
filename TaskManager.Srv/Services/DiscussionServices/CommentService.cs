@@ -1,16 +1,13 @@
 ﻿using AutoMapper;
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
-
-using System.Threading.Tasks;
 
 using TaskManager.Srv.Model.DataContext;
 using TaskManager.Srv.Model.DataModel;
 using TaskManager.Srv.Model.ViewModel;
 using TaskManager.Srv.Services.UtilityServices;
 
-namespace TaskManager.Srv.Services.TaskServices.DiscussionServices;
+namespace TaskManager.Srv.Services.DiscussionServices;
 
 public class CommentService : ICommentService
 {

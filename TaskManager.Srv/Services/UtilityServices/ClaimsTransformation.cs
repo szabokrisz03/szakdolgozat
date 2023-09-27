@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.EntityFrameworkCore;
 
 using System.Security.Claims;
-
-using TaskManager.Srv.Model.DataContext;
 
 namespace TaskManager.Srv.Services.UtilityServices;
 

@@ -1,14 +1,11 @@
-﻿
-using Azure.Core;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 using System.Collections.Immutable;
 using System.Text;
 
 using TaskManager.Srv.Model.DTO;
 using TaskManager.Srv.Utilities;
-using WhExportShared.Exceptions;
+using TaskManager.Srv.Utilities.Exceptions;
 
 namespace TaskManager.Srv.Services.WiServices;
 
@@ -105,14 +102,14 @@ public class WiStateService : IWiStateService
             return parentChildrenPairs;
         }
 
-        foreach(var id in source)
+        foreach (var id in source)
         {
             var wiList = ListConnectingWis(id);
 
             var parentWi = wiList.Where(x => x.Id == id).FirstOrDefault();
             wiList.RemoveAll(x => x.Id == id);
 
-            if(parentWi != null)
+            if (parentWi != null)
             {
                 parentChildrenPairs.Add(parentWi, wiList);
             }
