@@ -30,6 +30,28 @@ public class MilestoneService : IMilestoneService
         }
     }
 
+    public async Task UpdateMilestonekDb(MilestoneViewModel modell)
+    {
+        if (modell.RowId == 0)
+        {
+            return;
+        }
+
+        using (var dbcx = await dbContextFactory.CreateDbContextAsync())
+        {
+            var res = dbcx.TaskMilestone.SingleOrDefault(x => x.RowId == modell.RowId);
+            if (res == null)
+            {
+                return;
+            }
+
+            var ent = mapper.Map<MilestoneViewModel, TaskMilestone>(modell, res);
+            dbcx.TaskMilestone.Update(ent);
+            await dbcx.SaveChangesAsync();
+            dbcx.Entry(ent).State = EntityState.Detached;
+        }
+    }
+
     /// <inheritdoc cref="IMilestoneService.DeleteMilestone(long)"/>
     public async Task DeleteMilestone(long milestoneId)
     {

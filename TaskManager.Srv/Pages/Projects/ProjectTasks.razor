@@ -57,15 +57,15 @@
             <MudTd class="priority-row">@context.Priority</MudTd>
             <MudTd class="cell">
                 <MudTooltip Text="@((context.RowId == ShownId) ? "bezárás" : "részletek")">
-                    <MudIconButton class="dropdown-button" id="btn" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small" OnClick="@(() => ShowBtnPress(context))"
+                    <MudIconButton class="dropdown-button" id="btn" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Small" OnClick="@(() => ShowBtnPress(context))"
                                    Icon="@((context.RowId == ShownId) ? Icons.Material.Filled.ExpandLess : Icons.Material.Filled.ExpandMore)">
                     </MudIconButton>
                 </MudTooltip>
             </MudTd>
     </RowTemplate>
     <RowEditingTemplate>
-        <MudTd DataLabel="Name">
-            <MudTextField @bind-Value="@context.Name" Required></MudTextField>
+            <MudTd class="name-row" DataLabel="Name">
+                <MudTextField Style="font-size: 14px;" @bind-Value="@context.Name" Variant="Variant.Outlined" Margin="Margin.Dense" Required></MudTextField>
             </MudTd>
         <MudTd class="select-row">
             <MudSelect T="TaskState" @bind-Value="context.State" SelectedValuesChanged="@(() => UpdateState(context))" AnchorOrigin="Origin.BottomCenter" DisableUnderLine="true" Dense="true"
@@ -77,12 +77,9 @@
             </MudSelect>
         </MudTd>
         <MudTd DataLabel="Priority">
-            <MudNumericField @bind-Value="@context.Priority" Max="5" Min="1" Required></MudNumericField>
+                <MudNumericField Style="font-size: 14px;" @bind-Value="@context.Priority" Variant="Variant.Outlined" Margin="Margin.Dense" Max="5" Min="1" Required></MudNumericField>
         </MudTd>
         <MudTd class="cell">
-            <MudIconButton class="dropdown-button" id="btn" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small" OnClick="@(() => ShowBtnPress(context))"
-                           Icon="@((context.RowId == ShownId) ? Icons.Material.Filled.ExpandLess : Icons.Material.Filled.ExpandMore)">
-            </MudIconButton>
         </MudTd>
     </RowEditingTemplate>
     <EditButtonContent Context="button">

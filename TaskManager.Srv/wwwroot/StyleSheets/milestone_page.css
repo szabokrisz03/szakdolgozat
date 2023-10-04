@@ -47,10 +47,6 @@
     padding: 0;
 }
 
-.add-delete-done-button {
-    float: right;
-}
-
 .delete-done-button {
     display: inline-flex;
     gap: 50%;
@@ -58,9 +54,6 @@
 
 .milestone-form-1 {
     width: 70%;
-}
-
-.milestone-form-1 {
     display: flex;
 }
 
@@ -68,12 +61,21 @@
     cursor: pointer;
 }
 
-.milestone-th{
-    width: 17%;
+.milestone-name-th {
+    width: 50%;
+    display: table-cell;
+}
+
+.milestone-date-th {
+    width: 25%;
+    display: table-cell;
 }
 
 .milestone-delete-done {
-    width: 13%;
+    width: 5%;
+    margin: 0;
+    padding: 1% !important;
+    display: table-cell;
 }
 
 .th {

@@ -41,7 +41,7 @@ public class ManagerContext : DbContext
         projectTask.HasIndex(p => p.ProjectId);
         projectTask.HasIndex(p => p.Name);
         projectTask.HasIndex(p => p.TechnicalName).IsUnique(true);
-        projectTask.HasIndex(p => new { p.ProjectId, p.Name });
+        projectTask.HasIndex(p => new { p.ProjectId, p.Name }).IsUnique(true);
         projectTask.HasOne(p => p.Project).WithMany().HasForeignKey(p => p.ProjectId);
 
         var comment = modelBuilder.Entity<CommentLine>();
@@ -55,7 +55,7 @@ public class ManagerContext : DbContext
 
         var milestone = modelBuilder.Entity<TaskMilestone>();
         milestone.HasOne(p => p.Task).WithMany().HasForeignKey(p => p.TaskId);
-        milestone.HasIndex(p => p.Name);
+        milestone.HasIndex(p => new { p.TaskId, p.Name }).IsUnique(true);
 
         base.OnModelCreating(modelBuilder);
     }
