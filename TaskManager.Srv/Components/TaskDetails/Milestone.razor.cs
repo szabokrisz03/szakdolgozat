@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore;
 
 using MudBlazor;
 
@@ -16,6 +17,7 @@ public partial class Milestone
     public bool IsOpen { get; set; }
     private MudTable<MilestoneViewModel>? milestoneTable;
     private MilestoneViewModel? milestoneBeforeEdit;
+    private Snackbar? _snackbar;
     public List<MilestoneViewModel> milestoneList = new();
     [CascadingParameter(Name = "TaskId")] private long Id { get; set; }
     [Inject] public IMilestoneService? milestoneService { get; set; } = null;
@@ -59,8 +61,30 @@ public partial class Milestone
     /// <param name="modell">A szerkesztendő határidő viewmodelje</param>
     private void UpdateMilestone(object modell)
     {
-        milestoneService!.UpdateMilestonekDb((MilestoneViewModel)modell);
-        milestoneTable!.ReloadServerData();
+        try
+        {
+            milestoneService!.UpdateMilestonekDbSync((MilestoneViewModel)modell);
+            _snackbar = Snackbar.Add("Sikeres módosítás!", Severity.Success, configure =>
+            {
+                configure.VisibleStateDuration = 3000;
+                configure.HideTransitionDuration = 200;
+                configure.ShowTransitionDuration = 200;
+                configure.ShowCloseIcon = true;
+            });
+            milestoneTable!.ReloadServerData();
+        }
+        catch(DbUpdateException ex)
+        {
+            _snackbar = Snackbar.Add("A megadott névvel már van határidő megadva!", Severity.Warning, configure =>
+            {
+                configure.VisibleStateDuration = 3000;
+                configure.HideTransitionDuration = 200;
+                configure.ShowTransitionDuration = 200;
+                configure.ShowCloseIcon = true;
+            });
+
+            milestoneTable!.ReloadServerData();
+        }
     }
 
     /// <summary>
@@ -87,6 +111,19 @@ public partial class Milestone
     private async Task ListMilestones()
     {
         milestoneList = await milestoneService!.ListMilestones(Id);
+    }
+
+    private async Task<TableData<MilestoneViewModel>> LoadData(TableState state)
+    {
+        int size = await milestoneService!.CountTasks(Id);
+        var milestones = await milestoneService.ListMilestones(Id);
+
+        return new TableData<MilestoneViewModel>
+        {
+            Items = milestones,
+            TotalItems = size
+        };
+
     }
 
     /// <summary>

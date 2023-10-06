@@ -33,6 +33,7 @@ public interface ITaskService
     Task<List<TaskViewModel>> ListTasksByFilterAndId(List<string> filterName, long projectId, int take, int skip = 0);
 
     Task UpdateTaskDb(TaskViewModel modell);
+    void UpdateTaskDbSync(TaskViewModel modell);
 
     /// <summary>
     /// Feladat státuszainak a frissítését végzi el.

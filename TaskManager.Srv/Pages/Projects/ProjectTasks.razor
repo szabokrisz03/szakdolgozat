@@ -1,4 +1,6 @@
-﻿@page "/projects/{TechnicalName}/tasks"
+﻿@inject ISnackbar Snackbar
+
+@page "/projects/{TechnicalName}/tasks"
 @using TaskManager.Srv.Model.ViewModel;
 @using TaskManager.Srv.Model.DataModel;
 @using TaskManager.Srv.Components.TaskDetails;
@@ -65,7 +67,7 @@
     </RowTemplate>
     <RowEditingTemplate>
             <MudTd class="name-row" DataLabel="Name">
-                <MudTextField Style="font-size: 14px;" @bind-Value="@context.Name" Variant="Variant.Outlined" Margin="Margin.Dense" Required></MudTextField>
+                <MudTextField Style="font-size: 14px;" @bind-Value="@context.Name" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required></MudTextField>
             </MudTd>
         <MudTd class="select-row">
             <MudSelect T="TaskState" @bind-Value="context.State" SelectedValuesChanged="@(() => UpdateState(context))" AnchorOrigin="Origin.BottomCenter" DisableUnderLine="true" Dense="true"

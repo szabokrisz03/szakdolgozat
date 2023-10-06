@@ -16,7 +16,11 @@ public interface IMilestoneService
     /// <param name="milestoneId">Határidő egyedi azonosítója</param>
     Task<MilestoneViewModel> CreateMilestone(MilestoneViewModel milestoneView);
 
+    void UpdateMilestonekDbSync(MilestoneViewModel modell);
+
     Task UpdateMilestonekDb(MilestoneViewModel modell);
+
+    Task<int> CountTasks(long taskId);
 
     /// <summary>
     /// Egy feladathoz tartozó határidők kilistázása.

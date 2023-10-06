@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using FluentValidation;
+
+using Microsoft.AspNetCore.Components;
 
 using MudBlazor;
 
@@ -9,6 +11,7 @@ using TaskManager.Srv.Model.DataModel;
 using TaskManager.Srv.Model.ViewModel;
 using TaskManager.Srv.Services.ProjectServices;
 using TaskManager.Srv.Services.TaskServices;
+using Microsoft.EntityFrameworkCore;
 
 namespace TaskManager.Srv.Pages.Projects;
 
@@ -22,6 +25,7 @@ public partial class ProjectTasks
 
     [Parameter] public string TechnicalName { get; set; } = "";
     [Parameter] public StateFilterViewModell? stateFilterView { get; set; }
+    [Parameter] public TaskViewModel taskViewModel { get; set; } = new();
 
     [Inject] private ITaskViewService TaskViewService { get; set; } = null!;
     [Inject] private ITaskService TaskService { get; set; } = null!;
@@ -32,6 +36,7 @@ public partial class ProjectTasks
     private Guid _lastTechnicalName;
     private long _projectId = 0;
     private TaskViewModel? taskBeforeEdit;
+    private Snackbar? _snackbar;
 
     protected override void OnParametersSet()
     {
@@ -58,6 +63,7 @@ public partial class ProjectTasks
             RowId = ((TaskViewModel)modell).RowId,
             ProjectId = ((TaskViewModel)modell).ProjectId,
         };
+
     }
 
     private void ResetTaskToOriginal(object modell)
@@ -68,8 +74,29 @@ public partial class ProjectTasks
 
     private void UpdateTask(object modell)
     {
-        TaskService.UpdateTaskDb((TaskViewModel)modell);
-        _table.ReloadServerData();
+        try
+        {
+            TaskService.UpdateTaskDbSync((TaskViewModel)modell);
+            _snackbar = Snackbar.Add("Sikeres módosítás", MudBlazor.Severity.Success, configure =>
+            {
+                configure.VisibleStateDuration = 3000;
+                configure.HideTransitionDuration = 200;
+                configure.ShowTransitionDuration = 200;
+                configure.ShowCloseIcon = true;
+            });
+            _table.ReloadServerData();
+        }
+        catch(DbUpdateException ex)
+        {
+            _snackbar = Snackbar.Add("A megadott névvel már van létrehozva feladat!", MudBlazor.Severity.Warning, configure =>
+            {
+                configure.VisibleStateDuration = 3000;
+                configure.HideTransitionDuration = 200;
+                configure.ShowTransitionDuration = 200;
+                configure.ShowCloseIcon = true;
+            });
+            _table.ReloadServerData();
+        }
     }
 
     /// <summary>

@@ -30,26 +30,38 @@ public class MilestoneService : IMilestoneService
         }
     }
 
-    public async Task UpdateMilestonekDb(MilestoneViewModel modell)
+    public void UpdateMilestonekDbSync(MilestoneViewModel modell)
     {
-        if (modell.RowId == 0)
+        try
         {
-            return;
-        }
-
-        using (var dbcx = await dbContextFactory.CreateDbContextAsync())
-        {
-            var res = dbcx.TaskMilestone.SingleOrDefault(x => x.RowId == modell.RowId);
-            if (res == null)
+            if (modell.RowId == 0)
             {
                 return;
             }
 
-            var ent = mapper.Map<MilestoneViewModel, TaskMilestone>(modell, res);
-            dbcx.TaskMilestone.Update(ent);
-            await dbcx.SaveChangesAsync();
-            dbcx.Entry(ent).State = EntityState.Detached;
+            using (var dbcx = dbContextFactory.CreateDbContext())
+            {
+                var res = dbcx.TaskMilestone.SingleOrDefault(x => x.RowId == modell.RowId);
+                if (res == null)
+                {
+                    return;
+                }
+
+                var ent = mapper.Map<MilestoneViewModel, TaskMilestone>(modell, res);
+                dbcx.TaskMilestone.Update(ent);
+                dbcx.SaveChanges();
+                dbcx.Entry(ent).State = EntityState.Detached;
+            }
         }
+        catch(DbUpdateException ex)
+        {
+            throw;
+        }
+    }
+
+    public async Task UpdateMilestonekDb(MilestoneViewModel modell)
+    {
+       await Task.Run (() => UpdateMilestonekDbSync(modell));
     }
 
     /// <inheritdoc cref="IMilestoneService.DeleteMilestone(long)"/>
@@ -60,6 +72,17 @@ public class MilestoneService : IMilestoneService
             await dbcx.TaskMilestone
                 .Where(p => p.RowId == milestoneId)
                 .ExecuteDeleteAsync();
+        }
+    }
+
+    public async Task<int> CountTasks(long taskId)
+    {
+        using (var dbcx = await dbContextFactory.CreateDbContextAsync())
+        {
+            return await dbcx.TaskMilestone
+                .AsNoTracking()
+                .Where(t => t.TaskId == taskId)
+                .CountAsync();
         }
     }
 

@@ -1,4 +1,5 @@
-﻿@using TaskManager.Srv.Model.ViewModel;
+﻿@inject ISnackbar Snackbar;
+@using TaskManager.Srv.Model.ViewModel;
 
 <div class="milestone-div">
     <div>
@@ -8,7 +9,7 @@
 
     @if (IsOpen)
     {
-        <MudTable class="milestone" @ref="milestoneTable" Items="milestoneList" Bordered="true" Dense="true" Hover="true" Elevation="0" SortLabel="Sort By" CanCancelEdit="true" CommitEditTooltip="Mentés"
+        <MudTable class="milestone" @ref="milestoneTable" ServerData="LoadData" Virtualize="true" Bordered="true" Dense="true" Hover="true" Elevation="0" SortLabel="Sort By" CanCancelEdit="true" CommitEditTooltip="Mentés"
                   CancelEditTooltip="Mégse" ApplyButtonPosition="TableApplyButtonPosition.Start" EditButtonPosition="TableEditButtonPosition.Start" EditTrigger="TableEditTrigger.EditButton"
                   IsEditRowSwitchingBlocked="false" RowEditPreview="BackUpItem" RowEditCancel="ResetMilestoneToOriginal" RowEditCommit="UpdateMilestone">
             <HeaderContent>
