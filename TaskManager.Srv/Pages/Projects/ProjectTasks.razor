@@ -67,6 +67,7 @@
     </RowTemplate>
     <RowEditingTemplate>
             <MudTd class="name-row" DataLabel="Name">
+                <!-- Class not supported on edittemplate -->
                 <MudTextField Style="font-size: 14px;" @bind-Value="@context.Name" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required></MudTextField>
             </MudTd>
         <MudTd class="select-row">
@@ -79,6 +80,7 @@
             </MudSelect>
         </MudTd>
         <MudTd DataLabel="Priority">
+                <!-- Class not supported on edittemplate -->
                 <MudNumericField Style="font-size: 14px;" @bind-Value="@context.Priority" Variant="Variant.Outlined" Margin="Margin.Dense" Max="5" Min="1" Required></MudNumericField>
         </MudTd>
         <MudTd class="cell">
