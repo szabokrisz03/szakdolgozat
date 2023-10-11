@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.TeamFoundation.Pipelines.WebApi;
 
-using System.Threading.Tasks;
+using MudBlazor;
 
 using TaskManager.Srv.Model.DataContext;
 using TaskManager.Srv.Model.DataModel;
@@ -15,6 +14,7 @@ public class TaskService : ITaskService
 {
     private readonly IMapper mapper;
     private readonly IDbContextFactory<ManagerContext> dbContextFactory;
+    private readonly Snackbar? _snackbar;
 
     public TaskService(IMapper mapper, IDbContextFactory<ManagerContext> dbContextFactory)
     {
@@ -34,9 +34,14 @@ public class TaskService : ITaskService
         }
     }
 
-    /// <inheritdoc cref="ITaskService.ListTasks(long, int, int)"/>
-    public async Task<List<TaskViewModel>> ListTasks(long projectId, int take, int skip = 0)
+    /// <inheritdoc cref="ITaskService.ListTasksById(long, int, int)"/>
+    public async Task<List<TaskViewModel>> ListTasksById(long projectId, int take, int skip = 0)
     {
+        List<string> asd = new()
+        {
+            "Igeny_felmeres"
+        };
+
         using (var dbcx = await dbContextFactory.CreateDbContextAsync())
         {
             var lst = await dbcx.ProjectTask
@@ -46,29 +51,57 @@ public class TaskService : ITaskService
                 .Take(take)
                 .ToListAsync();
 
-            return lst.Select(mapper.Map<TaskViewModel>).ToList();
+            return lst.Select(mapper.Map<TaskViewModel>).Where(t => asd.Contains(t.State.ToString())).ToList();
+        }
+    }
+
+    public async Task<List<TaskViewModel>> ListTasksByFilterAndId(List<string> filterName, long projectId, int take, int skip = 0)
+    {
+
+        using (var dbcx = await dbContextFactory.CreateDbContextAsync())
+        {
+            var lst = await dbcx.ProjectTask
+                .AsNoTracking()
+                .Where(t => t.ProjectId == projectId)
+                .Skip(skip)
+                .Take(take)
+                .ToListAsync();
+
+            return lst.Select(mapper.Map<TaskViewModel>).Where(t => filterName.Contains(t.State.ToString())).ToList();
         }
     }
 
     public async Task UpdateTaskDb(TaskViewModel modell)
     {
-        if(modell.RowId == 0)
+        await Task.Run(() => UpdateTaskDbSync(modell));
+    }
+
+    public void UpdateTaskDbSync(TaskViewModel modell)
+    {
+        if (modell.RowId == 0)
         {
             return;
         }
 
-        using (var dbcx = await dbContextFactory.CreateDbContextAsync())
+        try
         {
-            var res = dbcx.ProjectTask.SingleOrDefault(x => x.RowId == modell.RowId);
-            if(res == null)
+            using (var dbcx = dbContextFactory.CreateDbContext())
             {
-                return;
-            }
+                var res = dbcx.ProjectTask.SingleOrDefault(x => x.RowId == modell.RowId);
+                if (res == null)
+                {
+                    return;
+                }
 
-            var ent = mapper.Map<TaskViewModel, ProjectTask>(modell, res);
-            dbcx.ProjectTask.Update(ent);
-            await dbcx.SaveChangesAsync();
-            dbcx.Entry(ent).State = EntityState.Detached;
+                var ent = mapper.Map<TaskViewModel, ProjectTask>(modell, res);
+                dbcx.ProjectTask.Update(ent);
+                dbcx.SaveChanges();
+                dbcx.Entry(ent).State = EntityState.Detached;
+            }
+        }
+        catch (DbUpdateException)
+        {
+            throw;
         }
     }
 

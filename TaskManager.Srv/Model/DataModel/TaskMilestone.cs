@@ -1,6 +1,6 @@
 ﻿namespace TaskManager.Srv.Model.DataModel;
 
-public class TaskMilestone: DbTable
+public class TaskMilestone : DbTable
 {
     public long TaskId { get; set; }
     public long MilestoneId { get; set; }

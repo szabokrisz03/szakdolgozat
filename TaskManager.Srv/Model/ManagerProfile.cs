@@ -5,7 +5,7 @@ using TaskManager.Srv.Model.ViewModel;
 
 namespace TaskManager.Srv.Model;
 
-public class ManagerProfile: Profile
+public class ManagerProfile : Profile
 {
     public ManagerProfile()
     {

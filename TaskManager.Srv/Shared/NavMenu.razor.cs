@@ -2,12 +2,11 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Routing;
 
-using TaskManager.Srv.Model.ViewModel;
 using TaskManager.Srv.Services.ProjectServices;
 
 namespace TaskManager.Srv.Shared;
 
-public partial class NavMenu: IDisposable
+public partial class NavMenu : IDisposable
 {
 
     [CascadingParameter] private Task<AuthenticationState>? authenticationStateTask { get; set; }
@@ -35,7 +34,7 @@ public partial class NavMenu: IDisposable
         await LocationChangedAsync();
     }
 
-    void LocationChanged(object sender, LocationChangedEventArgs e)
+    private void LocationChanged(object sender, LocationChangedEventArgs e)
     {
         base.InvokeAsync(LocationChangedAsync);
     }

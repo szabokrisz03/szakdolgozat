@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 using TaskManager.Srv.Model.DataContext;
 

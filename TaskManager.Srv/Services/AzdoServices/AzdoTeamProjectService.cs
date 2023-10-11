@@ -8,7 +8,7 @@ using TaskManager.Srv.Utilities;
 
 namespace TaskManager.Srv.Services.AzdoServices;
 
-public class AzdoTeamProjectService: IAzdoTeamProjectService
+public class AzdoTeamProjectService : IAzdoTeamProjectService
 {
     private readonly IMemoryCache memoryCache;
     private readonly IHttpClientFactory httpClientFactory;
@@ -33,7 +33,7 @@ public class AzdoTeamProjectService: IAzdoTeamProjectService
         return lst!;
     }
 
-    private HttpRequestData MakeGetTeamProjectsRequest() => 
+    private HttpRequestData MakeGetTeamProjectsRequest() =>
         new HttpRequestBuilder("projects")
         .SetQueryParam("stateFilter", "wellFormed")
         .SetQueryParam("api-version", "6.0")

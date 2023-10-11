@@ -5,10 +5,7 @@ using MudBlazor;
 using TaskManager.Srv.Model.DTO;
 using TaskManager.Srv.Services.WiServices;
 using TaskManager.Srv.Utilities;
-
-using WhExportShared.Exceptions;
-
-using static MudBlazor.CategoryTypes;
+using TaskManager.Srv.Utilities.Exceptions;
 
 namespace TaskManager.Srv.Components.TaskDetails;
 
@@ -49,7 +46,7 @@ public partial class ConnectingWi
 
             var pointerWi = GetChildrenWi(parentChildrenPairs.Value);
 
-            if(pointerWi != null)
+            if (pointerWi != null)
             {
                 WiStateNameChanger(pointerWi, parentChildrenPairs.Key);
             }
@@ -59,7 +56,7 @@ public partial class ConnectingWi
             }
         }
 
-        foreach(var key in wiDetails.Keys)
+        foreach (var key in wiDetails.Keys)
         {
             workItems ??= new();
 
@@ -78,7 +75,7 @@ public partial class ConnectingWi
     /// <exception cref="NonFatalException"></exception>
     public WorkItem? GetChildrenWi(List<WorkItem> sortedWis)
     {
-        if(sortedWis.Count <= 0)
+        if (sortedWis.Count <= 0)
         {
             return null;
         }
@@ -91,7 +88,7 @@ public partial class ConnectingWi
 
             wi = lastDone != null
                 ? sortedWis.Where(x => (x.State == "To Do" || x.State == "New") && (x.CompareTo(lastDone) > 0)).FirstOrDefault()
-                : sortedWis.Where(x => (x.State == "To Do" || x.State == "New")).FirstOrDefault();
+                : sortedWis.Where(x => x.State == "To Do" || x.State == "New").FirstOrDefault();
 
             wi ??= sortedWis.Where(x => x.State == "Done").LastOrDefault();
         }
@@ -180,7 +177,7 @@ public partial class ConnectingWi
     /// <param name="snackBarId">SnackBarConstból érkező érték</param>
     public void addSnackBar(int snackBarId)
     {
-        switch(snackBarId)
+        switch (snackBarId)
         {
             case 0:
                 _snackbar = Snackbar.Add("Nem adtál meg workitem ID-t!", Severity.Warning, configure =>
@@ -243,9 +240,9 @@ public partial class ConnectingWi
             return;
         }
 
-        foreach(var item in wiDetails!.Keys)
+        foreach (var item in wiDetails!.Keys)
         {
-            if(item.Id == WiNumber)
+            if (item.Id == WiNumber)
             {
                 addSnackBar(SnackBarConst.WI_NUMBER_EXIST);
                 return;
@@ -256,7 +253,7 @@ public partial class ConnectingWi
         List<WorkItem> parentWi = new();
         WiStateService.PropertyWis(wiId, parentWi);
 
-        if(parentWi.Count <= 0)
+        if (parentWi.Count <= 0)
         {
             addSnackBar(SnackBarConst.WI_NUMBER_NOT_EXIST);
             return;
@@ -270,6 +267,12 @@ public partial class ConnectingWi
 
         WiService?.CreateWiAsync(WiNumber.Value, Id);
         addSnackBar(SnackBarConst.WI_NUMBER_SUCCESS);
+        await ListWis();
+    }
+
+    public async Task deleteConnectingWi(int id)
+    {
+        await WiService!.DeleteWi(id);
         await ListWis();
     }
 

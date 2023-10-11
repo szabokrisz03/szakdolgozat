@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore;
 
 using MudBlazor;
-using MudBlazor.Utilities;
-
-using System.Diagnostics.Eventing.Reader;
 
 using TaskManager.Srv.Model.ViewModel;
 using TaskManager.Srv.Services.MilestoneServices;
-using TaskManager.Srv.Services.TaskServices;
 
 namespace TaskManager.Srv.Components.TaskDetails;
 
@@ -18,16 +15,76 @@ public partial class Milestone
 {
     [Parameter]
     public bool IsOpen { get; set; }
-    private MudTable<MilestoneViewModel> milestoneTable;
+    private MudTable<MilestoneViewModel>? milestoneTable;
+    private MilestoneViewModel? milestoneBeforeEdit;
+    private Snackbar? _snackbar;
     public List<MilestoneViewModel> milestoneList = new();
-    [CascadingParameter(Name = "TaskId")] long Id { get; set; }
+    [CascadingParameter(Name = "TaskId")] private long Id { get; set; }
     [Inject] public IMilestoneService? milestoneService { get; set; } = null;
     [Inject] public IMilestoneViewService? MilestoneViewService { get; set; } = null;
-    [Inject] private IDialogService DialogService { get; set; }
+    [Inject] private IDialogService? DialogService { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         milestoneList = await milestoneService!.ListMilestones(Id);
+    }
+
+    /// <summary>
+    /// Szerkesztés esetén egy "backup"-ot készít a határidőről
+    /// </summary>
+    /// <param name="modell">A szerkesztett határidő viewmodelje</param>
+    private void BackUpItem(object modell)
+    {
+        milestoneBeforeEdit = new()
+        {
+            Name = ((MilestoneViewModel)modell).Name,
+            Table = ((MilestoneViewModel)modell).Table,
+            RowId = ((MilestoneViewModel)modell).RowId,
+            TaskId = ((MilestoneViewModel)modell).TaskId,
+            Planned = ((MilestoneViewModel)modell).Planned,
+            Actual = ((MilestoneViewModel)modell).Actual,
+        };
+    }
+
+    /// <summary>
+    /// Szerkesztés visszavonása
+    /// </summary>
+    /// <param name="modell">A szerkesztett határidő viewmodelje</param>
+    private void ResetMilestoneToOriginal(object modell)
+    {
+        ((MilestoneViewModel)modell).Name = milestoneBeforeEdit!.Name;
+    }
+
+    /// <summary>
+    /// Határidő szerkesztése
+    /// </summary>
+    /// <param name="modell">A szerkesztendő határidő viewmodelje</param>
+    private void UpdateMilestone(object modell)
+    {
+        try
+        {
+            milestoneService!.UpdateMilestonekDbSync((MilestoneViewModel)modell);
+            _snackbar = Snackbar.Add("Sikeres módosítás!", Severity.Success, configure =>
+            {
+                configure.VisibleStateDuration = 3000;
+                configure.HideTransitionDuration = 200;
+                configure.ShowTransitionDuration = 200;
+                configure.ShowCloseIcon = true;
+            });
+            milestoneTable!.ReloadServerData();
+        }
+        catch(DbUpdateException ex)
+        {
+            _snackbar = Snackbar.Add("A megadott névvel már van határidő megadva!", Severity.Warning, configure =>
+            {
+                configure.VisibleStateDuration = 3000;
+                configure.HideTransitionDuration = 200;
+                configure.ShowTransitionDuration = 200;
+                configure.ShowCloseIcon = true;
+            });
+
+            milestoneTable!.ReloadServerData();
+        }
     }
 
     /// <summary>
@@ -46,7 +103,6 @@ public partial class Milestone
         {
             await milestoneTable.ReloadServerData();
         }
-
     }
 
     /// <summary>
@@ -57,14 +113,28 @@ public partial class Milestone
         milestoneList = await milestoneService!.ListMilestones(Id);
     }
 
+    private async Task<TableData<MilestoneViewModel>> LoadData(TableState state)
+    {
+        int size = await milestoneService!.CountTasks(Id);
+        var milestones = await milestoneService.ListMilestones(Id);
+
+        return new TableData<MilestoneViewModel>
+        {
+            Items = milestones,
+            TotalItems = size
+        };
+
+    }
+
     /// <summary>
     /// Határidő lezárásához felugró ablak.
     /// </summary>
     /// <param name="milestoneView">Határidő</param>
-    private async Task PopUpButton(MilestoneViewModel milestoneView) {
-        if(milestoneView.Actual == null)
+    private async Task PopUpButton(MilestoneViewModel milestoneView)
+    {
+        if (milestoneView.Actual == null)
         {
-            bool? result = await DialogService.ShowMessageBox(
+            bool? result = await DialogService!.ShowMessageBox(
             "Határidő lezárása", (MarkupString)$"Biztos lezárod a határidőt? <br /> A határidő lezárása nem vonható vissza!",
             yesText: "Lezárás", cancelText: "Mégse"
             );
@@ -73,7 +143,7 @@ public partial class Milestone
             {
                 await CloseMilestone(milestoneView.RowId);
                 await ListMilestones();
-                await milestoneTable.ReloadServerData();
+                await milestoneTable!.ReloadServerData();
             }
 
             StateHasChanged();
@@ -86,7 +156,7 @@ public partial class Milestone
     /// <param name="milestone">Határidő</param>
     private async Task DeletePopUpButton(MilestoneViewModel milestone)
     {
-        bool? result = await DialogService.ShowMessageBox(
+        bool? result = await DialogService!.ShowMessageBox(
         "Határidő törlése", (MarkupString)$"Biztos törlöd a határidőt? <br /> A határidő törlése nem vonható vissza!",
         yesText: "Törlés", cancelText: "Mégse"
         );
@@ -95,7 +165,7 @@ public partial class Milestone
         {
             await Delete(milestone.RowId);
             await ListMilestones();
-            await milestoneTable.ReloadServerData();
+            await milestoneTable!.ReloadServerData();
         }
 
         StateHasChanged();
@@ -115,7 +185,8 @@ public partial class Milestone
     /// Határidő lezárása (ha elkészült).
     /// </summary>
     /// <param name="milestoneId">Lezárandó határidő egyedi azonosítója</param>
-    private async Task CloseMilestone(long milestoneId) {
+    private async Task CloseMilestone(long milestoneId)
+    {
         await milestoneService!.CloseMilestone(milestoneId);
     }
 

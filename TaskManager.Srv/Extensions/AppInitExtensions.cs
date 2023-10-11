@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+
 using TaskManager.Srv.Model.DataContext;
 
 namespace TaskManager.Srv.Extensions;
@@ -14,10 +15,7 @@ public static class AppInitExtensions
         {
             var dbcx = await serviceScope!.ServiceProvider.GetService<IDbContextFactory<ManagerContext>>()!.CreateDbContextAsync();
 
-            if (dbcx != null)
-            {
-                dbcx.Database.Migrate();
-            }
+            dbcx?.Database.Migrate();
         }
     }
 }

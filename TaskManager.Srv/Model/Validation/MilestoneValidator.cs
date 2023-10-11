@@ -2,8 +2,6 @@
 
 using TaskManager.Srv.Model.ViewModel;
 using TaskManager.Srv.Services.MilestoneServices;
-using TaskManager.Srv.Services.ProjectServices;
-using TaskManager.Srv.Services.TaskServices;
 
 namespace TaskManager.Srv.Model.Validation;
 

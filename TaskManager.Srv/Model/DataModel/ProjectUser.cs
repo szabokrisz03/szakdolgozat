@@ -2,7 +2,7 @@
 
 namespace TaskManager.Srv.Model.DataModel;
 
-public class ProjectUser: IDbTable
+public class ProjectUser : IDbTable
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public long RowId { get; set; }

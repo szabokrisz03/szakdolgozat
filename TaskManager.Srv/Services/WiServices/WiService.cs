@@ -1,8 +1,7 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+
 using TaskManager.Srv.Model.DataContext;
 using TaskManager.Srv.Model.DataModel;
-using TaskManager.Srv.Model.ViewModel;
 
 namespace TaskManager.Srv.Services.WiServices;
 
@@ -14,6 +13,16 @@ public class WiService : IWiService
     public WiService(IDbContextFactory<ManagerContext> dbContextFactory)
     {
         this.dbContextFactory = dbContextFactory;
+    }
+
+    public async Task DeleteWi(int id)
+    {
+        using (var dbcx = await dbContextFactory.CreateDbContextAsync())
+        {
+            await dbcx.ConnectingWiDb
+                .Where(p => p.WiId == id)
+                .ExecuteDeleteAsync();
+        }
     }
 
     /// <inheritdoc cref="IWiService.CreateWiAsync(int, long)"/>
@@ -46,5 +55,4 @@ public class WiService : IWiService
             return lst.Select(p => p.WiId).ToArray();
         }
     }
-
 }

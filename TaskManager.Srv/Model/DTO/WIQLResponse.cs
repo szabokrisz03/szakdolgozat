@@ -1,10 +1,4 @@
-﻿using Microsoft.VisualStudio.Services.Licensing;
-
-using Newtonsoft.Json;
-
-using System.Diagnostics.CodeAnalysis;
-
-namespace TaskManager.Srv.Model.DTO;
+﻿namespace TaskManager.Srv.Model.DTO;
 
 [Serializable]
 public class WIQLResponse

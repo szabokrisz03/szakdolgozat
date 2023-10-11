@@ -18,4 +18,6 @@ public interface IWiService
     /// <param name="taskId">Feladat egyedi azonosítója</param>
     /// <returns>Workitem id-ket tartalmazó tömb</returns>
     Task<int[]> ListWorkItem(long taskId);
+
+    Task DeleteWi(int id);
 }
