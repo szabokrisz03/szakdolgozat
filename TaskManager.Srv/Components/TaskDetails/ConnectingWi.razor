@@ -25,7 +25,7 @@
                     </span>
                     <MudText Inline="false" Typo="Typo.body2">
                         <b>Felelős: </b>@((item.Key.AssignedTo?.DisplayName == null) ? "-" : item.Key.AssignedTo?.DisplayName)
-                        <b>Állapot: </b>@((item.Key.ClearState == "") ? "-" : item.Key.ClearState)
+                        <b>Állapot: </b> <span class="wi-state">@((item.Key.ClearState == "") ? "-" : item.Key.ClearState)</span>
                         <b>Módosítva: </b>@item.Key.ChangedDate.ToString("yyyy.MM.dd")
                     </MudText>
                 </MudCard>
@@ -36,13 +36,13 @@
                     {
                         <div class="conn-wi-div">
                             <div>
-                                <MudLink Href="@wi.AzdoLink" Target="_blank" Color="Color.Info">#@wi.Id </MudLink>
+                                <MudLink Href="@wi.AzdoLink" Typo="Typo.body2" Target="_blank" Color="Color.Info">#@wi.Id </MudLink>
                                 <span>@wi.Title</span>
                             </div>
                             <div class="wi-first-div">
-                                <span>@wi.AssignedTo?.DisplayName</span>
-                                <span>@wi.State</span>
-                                <span><b>Módosítva: </b>@wi.ChangedDate.ToString("yyyy.MM.dd")</span>
+                                <span>@wi.AssignedTo?.DisplayName | </span>
+                                <span class="wi-child-state">@wi.State</span>
+                                <span><b> | Módosítva: </b>@wi.ChangedDate.ToString("yyyy.MM.dd") | </span>
                                 <span><b>Típus: </b>@wi.Type</span>
                             </div>
                         </div>
