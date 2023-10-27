@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 
+using TaskManager.Srv.Model.DataModel;
 using TaskManager.Srv.Model.ViewModel;
 using TaskManager.Srv.Services.ProjectServices;
 
@@ -9,10 +10,12 @@ namespace TaskManager.Srv.Pages.Home;
 public partial class ProjectList
 {
     [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; } = null!;
+    [Parameter] public Task<long> _projectId { get; set; } = null!;
     [Parameter] public bool MineOnly { get; set; } = false;
     [Parameter] public string SearchTerm { get; set; } = "";
 
     [Inject] private IProjectDisplayService _projectDisplayService { get; set; } = null!;
+    [Inject] private IProjectAdminService _projectAdminService { get; set; } = null!;
 
     private string _userName = "";
     private List<ProjectViewModel> _projects = new();
@@ -20,12 +23,18 @@ public partial class ProjectList
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
+        var sdd = _projectId;
 
         if (authenticationStateTask != null)
         {
             var state = await authenticationStateTask;
             _userName = state?.User.Identity?.Name ?? "";
         }
+    }
+
+    public async Task AssignUserToProject(long projectId)
+    {
+        await _projectAdminService.AssignProjectUserAsync(projectId, _userName);
     }
 
     protected override async Task OnParametersSetAsync()

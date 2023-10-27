@@ -2,14 +2,24 @@
 <MudStack class="border" Style="gap: 0;">
     @foreach(var project in _projects)
     {
-        <a href="projects/@project.TechnicalName/tasks">
-            <MudCard class="card">
-                <MudPaper class="paper">
-                    <MudText class="paper-text">@project.Name.Substring(0, 1).ToUpper()</MudText>
-                </MudPaper>
-                <MudText Typo="Typo.body1" >@project.Name
-                </MudText>
-            </MudCard>
-        </a>
+        <MudCard class="card">
+        <a class="card" href="projects/@project.TechnicalName/tasks">
+            <MudPaper class="paper">
+                <MudText class="paper-text">@project.Name.Substring(0, 1).ToUpper()</MudText>
+            </MudPaper>
+            <MudText class="project-name-text" Typo="Typo.body1" >@project.Name</MudText>
+        
+            @if (!MineOnly)
+            {
+                <div >
+                    <MudTooltip Text="Belépés a projektbe">
+
+                            <MudIconButton class="more-button" OnClick="@(() => AssignUserToProject(project.RowId))" Icon="@Icons.Material.Filled.AddAlert"></MudIconButton>
+                        
+                    </MudTooltip>
+                </div>
+            }
+            </a>
+        </MudCard>
     }
 </MudStack>
