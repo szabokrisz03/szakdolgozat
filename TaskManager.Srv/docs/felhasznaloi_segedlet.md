@@ -5,10 +5,11 @@ verzió: 1.0
 A TaskManager egy feladatkezelő program, ami egyszerűbbé teszi az aktuális feladatok **átláthatóságát** és **dokumentálását**.
 
 ### Kezdőoldal
-![image](pics/mainpage.png)
+![image](pics/mainPage.png)
 
-- **Saját projectjeim:** itt azok a projectek találhatók meg, amik általunk lettek létrehozva.
+- **Saját projectjeim:** itt azok a projectek találhatók meg, amik általunk lettek létrehozva vagy felvettük őket sajátnak.
 - **Összes project:** itt az összes project megtalálható, ami létre lett hozva a TaskManagerben.
+- **Felvétel a saját projectekhez:** Az "összes project" menüponton a könyvjelző ikonra kattintva a projectet hozzá adhatjuk a saját projectek listához. Ilyenkor be kerül a saját projectek menüpontba a project.
 - **Új project:** projectet, a jobb felső sarokban lévő "Új project" gomb megnomásával lehet létrehozni. A felugró ablakban csak a project nevét kell megadni. (FONTOS: nem szerepelhet két ugyanolyan nevű project az alkalmazásban. Erre egy figyelmeztető üzenet is felhívja a figyelmed!).
 
 ### Projectoldal

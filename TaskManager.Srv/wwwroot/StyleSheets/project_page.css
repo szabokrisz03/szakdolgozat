@@ -5,6 +5,11 @@
     overflow: hidden;
 }
 
+.user-click {
+    position: relative;
+    z-index: 3
+}
+
 .card {
     height: 70px;
     border-radius: inherit;
@@ -13,7 +18,8 @@
     align-items: center;
     padding-left: 5px;
     width: 100%;
-    z-index: 5;
+    position: relative;
+    z-index: 2;
 }
 
 .paper {
@@ -78,10 +84,8 @@
 
 .project-name-text {
     width: 100%;
-    z-index: 1;
     border: none;
 }
 
 .more-button {
-    z-index: 6;
 }

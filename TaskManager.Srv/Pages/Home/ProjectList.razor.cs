@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Forms;
+
+using MudBlazor;
 
 using TaskManager.Srv.Model.DataModel;
 using TaskManager.Srv.Model.ViewModel;
@@ -14,11 +17,15 @@ public partial class ProjectList
     [Parameter] public bool MineOnly { get; set; } = false;
     [Parameter] public string SearchTerm { get; set; } = "";
 
+    [CascadingParameter(Name = "projId")] private long projectId { get; set; }
+
     [Inject] private IProjectDisplayService _projectDisplayService { get; set; } = null!;
     [Inject] private IProjectAdminService _projectAdminService { get; set; } = null!;
 
+    private MudIconButton? mudIconButton;
     private string _userName = "";
     private List<ProjectViewModel> _projects = new();
+    private EventCallback<EditContext> editContext = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -32,7 +39,7 @@ public partial class ProjectList
         }
     }
 
-    public async Task AssignUserToProject(long projectId)
+    public async Task AssignUserToProject()
     {
         await _projectAdminService.AssignProjectUserAsync(projectId, _userName);
     }
