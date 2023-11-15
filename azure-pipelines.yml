@@ -1,0 +1,70 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- stage
+
+pool:
+  name: SZBUILD
+
+variables:
+  buildConfiguration: 'Release'
+  projectPath: './TaskManager.Srv'
+  publishPath: './TaskManager.Srv/bin/Release/net7.0/publish'
+
+steps:
+- checkout: self
+  clean: true
+
+- task: NuGetCommand@2
+  displayName: Explicit Restore
+  inputs:
+    command: 'restore'
+    restoreSolution: '**/*.sln'
+    feedsToUse: 'select'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    arguments: '-c Release --self-contained false --no-restore'
+    zipAfterPublish: false
+    modifyOutputPath: false
+    workingDirectory: '$(projectPath)'
+
+- task: CopyFiles@2
+  displayName: Copy Files
+  inputs:
+    SourceFolder: '$(publishPath)'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/app-srv'
+    CleanTargetFolder: true
+    preserveTimestamp: true
+
+- task: PowerShell@2
+  displayName: Rename Configs to Template
+  inputs:
+    targetType: 'inline'
+    script: |
+      Move-Item -Path appsettings.json -Destination appsettings.json.template
+    failOnStderr: true
+    showWarnings: true
+    workingDirectory: '$(Build.ArtifactStagingDirectory)/app-srv'
+
+- task: ArchiveFiles@2
+  displayName: Archive Files
+  inputs:
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/app-srv'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/archives/app-srv-$(Build.BuildId).zip'
+    replaceExistingArchive: true
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish Artifacts
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/archives'
+    ArtifactName: 'Artifact'
+    publishLocation: 'Container'
