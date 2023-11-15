@@ -5,7 +5,7 @@ verzió: 1.0
 A TaskManager egy feladatkezelő program, ami egyszerűbbé teszi az aktuális feladatok **átláthatóságát** és **dokumentálását**.
 
 ### Kezdőoldal
-![image](pics/mainPage.png)
+![image](.attachments/mainPage.png)
 
 - **Saját projectjeim:** itt azok a projectek találhatók meg, amik általunk lettek létrehozva vagy felvettük őket sajátnak.
 - **Összes project:** itt az összes project megtalálható, ami létre lett hozva a TaskManagerben.
@@ -15,18 +15,18 @@ A TaskManager egy feladatkezelő program, ami egyszerűbbé teszi az aktuális f
 ### Projectoldal
 - Az új project létrehozása után, ha bele kattintunk a projectbe, egy teljesen üres táblázat fogad:
 
-![image](pics/projectpage.png)
+![image](.attachments/projectpage.png)
 
 - **Új feladat:** a projectet részfeladatokra tudjuk bontani az "Új feladat" gomb megnyomásával. A felugró ablakban be tudjuk állítani a feladat nevét (FONTOS: itt sem szerepelhet két ugyanolyan nevű feladat), illetve prioritását (1-5).
 
 ### Feladatnézet
 
-![image](pics/taskeditview.png)
+![image](.attachments/taskeditview.png)
 
 - A ceruza ikonra kattintva szerkeszthető a feladat neve, illetve a prioritása.
 - A feladat állapotára kattintva megjelenik egy lenyíló menü, ahol manuálisan állíthatjuk be, hogy milyen státuszban van jelenleg a feladat.
 
-![image](pics/filterview.png)
+![image](.attachments/filterview.png)
 
 - Az "állapot" mellett lévő lefele nyílra kattintva megjelenik egy filter. Itt szabadon válaszhatunk, hogy milyen státuszú feladatokat szeretnénk látni. Értelem szerűen, amelyik állapot ki van pipálva az megjelenik, a többi nem.
 - Ha kipipáltuk azokat az állapotokat, amiket látni szeretnénk, a zöld pipa ikonra kattintva elmenthetjük és automatikusan frissül a táblázat.
@@ -35,26 +35,26 @@ A TaskManager egy feladatkezelő program, ami egyszerűbbé teszi az aktuális f
 
 - A szükséges feladatok létrehozása után, a feladaton szereplő lefele nyíl segítségével megnyithatjuk a feladat részleteit.
 
-![image](pics/taskview.png)
+![image](.attachments/taskview.png)
 
 - Minden feladat három részre bontható:
 
 ### Történet
 
-![image](pics/historyview.png)
+![image](.attachments/historyview.png)
 
 - Ebben a részben a feladatokban történő változásokat tudjuk vezetni, így dátum szerint követhető, hogy mikor, milyen módosítások mentek végbe az adott feladaton.
 - Törölni csak a saját kommentünket lehet.
 
 ### Határidők
 
-![image](pics/deadline.png)
+![image](.attachments/deadline.png)
 
 - Ebben a részben a feladatokhoz határidőket lehet felvenni. Határidő hozzáadását a "+" gombbal tehetjük meg. Meg kell adni a nevét, illetve a dátumot.
 - Nem állíthatunk be múltbeli dátumot, erre a program is figyelmeztet.
 - Nem szerepelhet két ugyanolyan nevű határidő egy feladatban.
 
-![image](pics/deadlinedel.png)
+![image](.attachments/deadlinedel.png)
 
 Határidő szerkesztése:
 
@@ -70,13 +70,13 @@ Határidő törlése:
 
 ### Kapcsolódó workitemek
 
-![image](pics/workitemview.png)
+![image](.attachments/workitemview.png)
 
 - Minden feladathoz hozzá kapcsolhatunk Azure DevOpsban létrehozott igény típusú workitemeket. Ezt úgy tehetjük meg, hogy a szövegdobozba beírjuk a workitem számát, majd rákattintunk a "+" gombra.
 - A hozzáadott workitem számára kattintva új lapon megnyílik maga a workitem.
 - A workitem státuszát a child workitemek határozzák meg, amiket a lefele nyílra kattintva érhetünk el.
 
-![image](pics/workitemchildview.png)
+![image](.attachments/workitemchildview.png)
 
 - A képen látszik, hogy a "Leírás teszt" éppen "In progress" státuszban van (Ez az Azure DevOps státusza) és a többi workitem "To Do", ezért az igény státusza "Tesztelés alatt".
 - Lehetséges workitem státuszok:
