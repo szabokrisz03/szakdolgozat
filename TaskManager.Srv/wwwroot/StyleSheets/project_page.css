@@ -5,13 +5,21 @@
     overflow: hidden;
 }
 
+.user-click {
+    position: relative;
+    z-index: 3
+}
+
 .card {
     height: 70px;
     border-radius: inherit;
     border-bottom: 1px solid rgb(255, 255, 255, .1);
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    padding-left: 20px;
+    padding-left: 5px;
+    width: 100%;
+    position: relative;
+    z-index: 2;
 }
 
 .paper {
@@ -20,6 +28,7 @@
     height: 50px;
     border-radius: 5px;
     margin-right: 20px;
+    margin-left: 0px;
 }
 
 .paper-text {
@@ -73,3 +82,10 @@
     }
 }
 
+.project-name-text {
+    width: 100%;
+    border: none;
+}
+
+.more-button {
+}

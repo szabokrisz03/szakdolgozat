@@ -23,6 +23,7 @@ public class TaskViewModel : IComparable<TaskViewModel>
 
         var sortByState = new Dictionary<TaskState, int>()
         {
+            {TaskState.Ajanlatadas, 0},
             {TaskState.Igeny_felmeres, 0},
             {TaskState.Specifikacio_alatt, 0},
             {TaskState.Fejlesztesre_var, 0},
@@ -30,7 +31,6 @@ public class TaskViewModel : IComparable<TaskViewModel>
             {TaskState.Teszteles_alatt, 0},
             {TaskState.Kiadasra_var, 0},
             {TaskState.Verziozva, 1},
-            {TaskState.Ajanlatadas, 0},
             {TaskState.Meghiusult, 2},
         };
 

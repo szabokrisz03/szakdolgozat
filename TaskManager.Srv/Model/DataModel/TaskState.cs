@@ -2,11 +2,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TaskManager.Srv.Model.DataModel;
 
+/// <summary>
+/// Logikát építünk a sorrendre!
+/// </summary>
 [Serializable]
 public enum TaskState
 {
+    [Display(Name = "Ajánlatadás")]
+    Ajanlatadas = 0,
+
     [Display(Name = "Igényfelmérés")]
-    Igeny_felmeres = 0,
+    Igeny_felmeres,
 
     [Display(Name = "Specifikáció alatt")]
     Specifikacio_alatt,
@@ -25,9 +31,6 @@ public enum TaskState
 
     [Display(Name = "Verziózva")]
     Verziozva,
-
-    [Display(Name = "Ajánlatadás")]
-    Ajanlatadas,
 
     [Display(Name = "Meghiúsult")]
     Meghiusult,
