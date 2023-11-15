@@ -30,7 +30,6 @@ public partial class ProjectList
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        var sdd = _projectId;
 
         if (authenticationStateTask != null)
         {

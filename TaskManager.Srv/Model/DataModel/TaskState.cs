@@ -2,6 +2,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TaskManager.Srv.Model.DataModel;
 
+/// <summary>
+/// Logikát építünk a sorrendre!
+/// </summary>
 [Serializable]
 public enum TaskState
 {
