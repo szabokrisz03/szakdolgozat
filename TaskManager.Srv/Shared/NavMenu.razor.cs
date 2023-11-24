@@ -10,9 +10,8 @@ public partial class NavMenu : IDisposable
 {
 
     [CascadingParameter] private Task<AuthenticationState>? authenticationStateTask { get; set; }
-
-    [Inject] private NavigationManager NavigationManager { get; set; }
-    [Inject] private IProjectDisplayService ProjectDisplayService { get; set; }
+    [Inject] private NavigationManager? NavigationManager { get; set; }
+    [Inject] private IProjectDisplayService? ProjectDisplayService { get; set; }
 
     private Guid? projectTechnicalName;
     private string projectName = "Projekt";
@@ -26,7 +25,10 @@ public partial class NavMenu : IDisposable
         }
 
         await LocationChangedAsync();
-        NavigationManager.LocationChanged += LocationChanged!;
+        if(NavigationManager != null)
+        {
+            NavigationManager.LocationChanged += LocationChanged!;
+        }
     }
 
     protected override async Task OnParametersSetAsync()
@@ -41,19 +43,28 @@ public partial class NavMenu : IDisposable
 
     private async Task LocationChangedAsync()
     {
-        var uriComps = NavigationManager.ToBaseRelativePath(NavigationManager.Uri).Split('/');
-
-        if (uriComps.Length == 3 && uriComps[0] == "projects")
+        if (NavigationManager != null)
         {
-            projectTechnicalName = Guid.TryParse(uriComps[1], out Guid technicalName) ? technicalName : null;
-            projectName = await ProjectDisplayService.GetProjectNameAsync(projectTechnicalName.GetValueOrDefault()) ?? "Projekt";
-        }
+            var uriComps = NavigationManager.ToBaseRelativePath(NavigationManager.Uri).Split('/');
 
-        StateHasChanged();
+            if (uriComps.Length == 3 && uriComps[0] == "projects")
+            {
+                projectTechnicalName = Guid.TryParse(uriComps[1], out Guid technicalName) ? technicalName : null;
+                if(ProjectDisplayService != null)
+                {
+                    projectName = await ProjectDisplayService.GetProjectNameAsync(projectTechnicalName.GetValueOrDefault()) ?? "Projekt";
+                }
+            }
+
+            StateHasChanged();
+        }
     }
 
     public void Dispose()
     {
-        NavigationManager.LocationChanged -= LocationChanged!;
+        if (NavigationManager != null)
+        {
+            NavigationManager.LocationChanged -= LocationChanged!;
+        }
     }
 }

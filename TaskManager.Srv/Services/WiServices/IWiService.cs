@@ -19,5 +19,10 @@ public interface IWiService
     /// <returns>Workitem id-ket tartalmazó tömb</returns>
     Task<int[]> ListWorkItem(long taskId);
 
+    /// <summary>
+    /// Workitem törlését végzi el adatbázisban
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     Task DeleteWi(int id);
 }

@@ -13,9 +13,7 @@ public partial class CreateMilestoneDialog
 {
     private MilestoneViewModel milestoneViewModel { get; set; } = new();
     private bool DisableSubmit = true;
-
     [Parameter] public long TaskId { get; set; }
-
     [CascadingParameter] private MudDialogInstance Dialog { get; set; } = null!;
 
     private void OnValidate(bool isValid)

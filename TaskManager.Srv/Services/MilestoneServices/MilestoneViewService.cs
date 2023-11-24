@@ -12,7 +12,6 @@ public class MilestoneViewService : IMilestoneViewService
 {
     private readonly IDialogService dialogService;
     private readonly IMilestoneService milestoneService;
-
     [CascadingParameter] private MudDialogInstance Dialog { get; set; } = null!;
 
     public MilestoneViewService(IDialogService dialogService, IMilestoneService milestoneService)

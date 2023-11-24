@@ -9,6 +9,5 @@ public class WiLinkTemplate : DbTable
     public string TeamProject { get; set; } = "";
     public TargetIterationType Iteration { get; set; }
     public string? AssignedTo { get; set; }
-
-    public Project Project { get; set; }
+    public Project? Project { get; set; }
 }

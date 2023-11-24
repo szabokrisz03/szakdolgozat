@@ -14,12 +14,8 @@ namespace TaskManager.Srv.Components.Dialogs;
 public partial class WiLinkTemplateEditDialog
 {
     private bool _disableSubmit = false;
-    private readonly WiLinkTemplateForm? Form;
-
     [Parameter] public WiLinkTemplateViewModel ViewModel { get; set; } = new();
-
     [CascadingParameter] private MudDialogInstance Dialog { get; set; } = null!;
-
     [Inject] public IWiLinkTemplateService TemplateService { get; set; } = null!;
 
     private void OnValidate(bool isValid)

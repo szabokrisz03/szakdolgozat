@@ -6,6 +6,5 @@ public class CommentLine : DbTable
     public string Comment { get; set; } = "";
     public long UserId { get; set; }
     public DateTime CreationDate { get; set; }
-
-    public ProjectTask ProjectTask { get; set; }
+    public ProjectTask? ProjectTask { get; set; }
 }

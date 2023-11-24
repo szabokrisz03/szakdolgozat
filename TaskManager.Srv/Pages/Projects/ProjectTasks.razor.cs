@@ -18,25 +18,21 @@ namespace TaskManager.Srv.Pages.Projects;
 public partial class ProjectTasks
 {
     private long ShownId = 0;
-    private MudTable<TaskViewModel> _table;
-
-    [CascadingParameter] private long Id { get; set; }
-    [CascadingParameter(Name = "stateFilterProps")] private StateFilterViewModell? stateFilter { get; set; }
-
-    [Parameter] public string TechnicalName { get; set; } = "";
-    [Parameter] public StateFilterViewModell? stateFilterView { get; set; }
-    [Parameter] public TaskViewModel taskViewModel { get; set; } = new();
-
-    [Inject] private ITaskViewService TaskViewService { get; set; } = null!;
-    [Inject] private ITaskService TaskService { get; set; } = null!;
-    [Inject] private IProjectDisplayService project { get; set; } = null!;
-
+    private MudTable<TaskViewModel>? _table;
     private List<(TaskState value, string name)> enumList = new();
     private List<string>? filterNames;
     private Guid _lastTechnicalName;
     private long _projectId = 0;
     private TaskViewModel? taskBeforeEdit;
     private Snackbar? _snackbar;
+    [Parameter] public string TechnicalName { get; set; } = "";
+    [Parameter] public StateFilterViewModell? stateFilterView { get; set; }
+    [Parameter] public TaskViewModel taskViewModel { get; set; } = new();
+    [CascadingParameter] private long Id { get; set; }
+    [CascadingParameter(Name = "stateFilterProps")] private StateFilterViewModell? stateFilter { get; set; }
+    [Inject] private ITaskViewService TaskViewService { get; set; } = null!;
+    [Inject] private ITaskService TaskService { get; set; } = null!;
+    [Inject] private IProjectDisplayService project { get; set; } = null!;
 
     protected override void OnParametersSet()
     {
@@ -54,29 +50,41 @@ public partial class ProjectTasks
         }
     }
 
-    private void BackUpItem(object modell)
+    /// <summary>
+    /// Módosítás visszavonásánál eltárolja a módosítatlan értékeket.
+    /// </summary>
+    /// <param name="model">A módosítandó feladat</param>
+    private void BackUpItem(object model)
     {
         taskBeforeEdit = new()
         {
-            Name = ((TaskViewModel)modell).Name,
-            Priority = ((TaskViewModel)modell).Priority,
-            RowId = ((TaskViewModel)modell).RowId,
-            ProjectId = ((TaskViewModel)modell).ProjectId,
+            Name = ((TaskViewModel)model).Name,
+            Priority = ((TaskViewModel)model).Priority,
+            RowId = ((TaskViewModel)model).RowId,
+            ProjectId = ((TaskViewModel)model).ProjectId,
         };
 
     }
 
+    /// <summary>
+    /// Visszaállítja a BackUpItem által beállított értékeket
+    /// </summary>
+    /// <param name="modell">A módosítandó feladat</param>
     private void ResetTaskToOriginal(object modell)
     {
         ((TaskViewModel)modell).Name = taskBeforeEdit!.Name;
         ((TaskViewModel)modell).Priority = taskBeforeEdit.Priority;
     }
 
-    private void UpdateTask(object modell)
+    /// <summary>
+    /// Feladatok módosítását végzi el
+    /// </summary>
+    /// <param name="model">A módosítandó feladat</param>
+    private void UpdateTask(object model)
     {
         try
         {
-            TaskService.UpdateTaskDbSync((TaskViewModel)modell);
+            TaskService.UpdateTaskDbSync((TaskViewModel)model);
             _snackbar = Snackbar.Add("Sikeres módosítás", MudBlazor.Severity.Success, configure =>
             {
                 configure.VisibleStateDuration = 3000;
@@ -84,9 +92,13 @@ public partial class ProjectTasks
                 configure.ShowTransitionDuration = 200;
                 configure.ShowCloseIcon = true;
             });
-            _table.ReloadServerData();
+
+            if (_table != null)
+            {
+                _table.ReloadServerData();
+            }
         }
-        catch(DbUpdateException ex)
+        catch(DbUpdateException)
         {
             _snackbar = Snackbar.Add("A megadott névvel már van létrehozva feladat!", MudBlazor.Severity.Warning, configure =>
             {
@@ -95,7 +107,11 @@ public partial class ProjectTasks
                 configure.ShowTransitionDuration = 200;
                 configure.ShowCloseIcon = true;
             });
-            _table.ReloadServerData();
+
+            if (_table != null)
+            {
+                _table.ReloadServerData();
+            }
         }
     }
 
@@ -105,7 +121,11 @@ public partial class ProjectTasks
     private async Task CreateTask()
     {
         await TaskViewService.CreateTaskDialog(TechnicalName);
-        await _table.ReloadServerData();
+
+        if (_table != null)
+        {
+           await _table.ReloadServerData();
+        }
     }
 
     /// <summary>
@@ -134,6 +154,10 @@ public partial class ProjectTasks
         };
     }
 
+    /// <summary>
+    /// Lekéri a filterek neveit a viewModelből.
+    /// </summary>
+    /// <param name="state">A filter viewModellje</param>
     private void GetFilterData(StateFilterViewModell state)
     {
         filterNames = new();
@@ -146,7 +170,10 @@ public partial class ProjectTasks
             }
         }
 
-        _table.ReloadServerData();
+        if (_table != null)
+        {
+            _table.ReloadServerData();
+        }
     }
 
     /// <summary>
@@ -156,7 +183,11 @@ public partial class ProjectTasks
     private async Task UpdateState(TaskViewModel model)
     {
         await TaskService.UpdateStatus(model);
-        await _table.ReloadServerData();
+
+        if (_table != null)
+        {
+            await _table.ReloadServerData();
+        }
     }
 
     /// <summary>
@@ -182,7 +213,7 @@ public partial class ProjectTasks
     /// A kiválasztott task háttérszínét változtatja meg.
     /// </summary>
     /// <param name="taskViewModel">A task viewmodellje</param>
-    /// <param name="idx"></param>
+    /// <param name="idx">Nem használjuk, a mudblazor keretrendszer kéri paraméterként</param>
     /// <returns></returns>
     private string TableRowStyle(TaskViewModel taskViewModel, int idx)
     {

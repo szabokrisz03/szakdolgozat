@@ -4,6 +4,7 @@ using MudBlazor;
 
 using TaskManager.Srv.Model.ViewModel;
 using TaskManager.Srv.Services.ProjectServices;
+using TaskManager.Srv.Utilities.Exceptions;
 
 namespace TaskManager.Srv.Components.Dialogs;
 
@@ -14,13 +15,10 @@ public partial class CreateProjectDialog
 {
     private ProjectViewModel Project { get; set; } = new();
     private bool DisableSubmit = true;
-
     [Parameter] public string UserName { get; set; } = "";
-
+    [CascadingParameter] private MudDialogInstance Dialog { get; set; } = null!;
     [Inject] private IProjectAdminService ProjectAdminService { get; set; } = null!;
     [Inject] private ISnackbar Snackbar { get; set; } = null!;
-
-    [CascadingParameter] private MudDialogInstance Dialog { get; set; } = null!;
 
     private void OnValidate(bool isValid)
     {

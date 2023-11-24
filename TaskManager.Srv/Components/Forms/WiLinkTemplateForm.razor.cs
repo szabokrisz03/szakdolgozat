@@ -14,15 +14,10 @@ namespace TaskManager.Srv.Components.Forms;
 
 public partial class WiLinkTemplateForm
 {
-    private MudForm? Form;
     private string[] _errors = new string[0];
-    private readonly bool _modelInitialized = false;
-
-    public ImmutableArray<string> Errors => _errors.ToImmutableArray();
-
+    private ImmutableArray<string> Errors => _errors.ToImmutableArray();
     [Parameter] public WiLinkTemplateViewModel Model { get; set; } = new();
     [Parameter] public EventCallback<bool> OnValidate { get; set; }
-
     [Inject] private WiLinkTemplateValidation Validator { get; set; } = null!;
     [Inject] private IAzdoTeamProjectService TeamProjectService { get; set; } = null!;
 

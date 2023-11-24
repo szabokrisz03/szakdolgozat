@@ -13,12 +13,11 @@ namespace TaskManager.Srv.Components.TaskDetails;
 /// </summary>
 public partial class Milestone
 {
-    [Parameter]
-    public bool IsOpen { get; set; }
+    private List<MilestoneViewModel> milestoneList = new();
     private MudTable<MilestoneViewModel>? milestoneTable;
     private MilestoneViewModel? milestoneBeforeEdit;
     private Snackbar? _snackbar;
-    public List<MilestoneViewModel> milestoneList = new();
+    [Parameter] public bool IsOpen { get; set; }
     [CascadingParameter(Name = "TaskId")] private long Id { get; set; }
     [Inject] public IMilestoneService? milestoneService { get; set; } = null;
     [Inject] public IMilestoneViewService? MilestoneViewService { get; set; } = null;
@@ -73,7 +72,7 @@ public partial class Milestone
             });
             milestoneTable!.ReloadServerData();
         }
-        catch(DbUpdateException ex)
+        catch (DbUpdateException)
         {
             _snackbar = Snackbar.Add("A megadott névvel már van határidő megadva!", Severity.Warning, configure =>
             {
@@ -115,7 +114,7 @@ public partial class Milestone
 
     private async Task<TableData<MilestoneViewModel>> LoadData(TableState state)
     {
-        int size = await milestoneService!.CountTasks(Id);
+        int size = await milestoneService!.CountTaskMilestone(Id);
         var milestones = await milestoneService.ListMilestones(Id);
 
         return new TableData<MilestoneViewModel>

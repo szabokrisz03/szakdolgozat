@@ -30,9 +30,27 @@ public interface ITaskService
     /// <returns>Feladatokat tartalmazó lista</returns>
     Task<List<TaskViewModel>> ListTasksById(long projectId, int take, int skip = 0);
 
+    /// <summary>
+    /// Kilistázza a feladatokat id és filter szerint
+    /// </summary>
+    /// <param name="filterName">A filterek nevei</param>
+    /// <param name="projectId">A proect idje</param>
+    /// <param name="take"></param>
+    /// <param name="skip"></param>
+    /// <returns>Feladatokat tartalmazó lista</returns>
     Task<List<TaskViewModel>> ListTasksByFilterAndId(List<string> filterName, long projectId, int take, int skip = 0);
 
-    Task UpdateTaskDb(TaskViewModel modell);
+    /// <summary>
+    /// Meghívja a UpdateTaskDbSync metódust.
+    /// </summary>
+    /// <param name="model">A módosítandó feladat viewModelje</param>
+    /// <returns></returns>
+    Task UpdateTaskDb(TaskViewModel model);
+
+    /// <summary>
+    /// A feladat módosítását végzi el adatbázisban
+    /// </summary>
+    /// <param name="modell">A módosítandó feladat viewModelje</param>
     void UpdateTaskDbSync(TaskViewModel modell);
 
     /// <summary>

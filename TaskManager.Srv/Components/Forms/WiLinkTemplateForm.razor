@@ -1,5 +1,5 @@
 ﻿@using TaskManager.Srv.Model.DataModel;
-<MudForm @ref="@Form" Model="@Model" Validation="@FieldValidator" @bind-Errors="_errors" Style="min-width: 32em;">
+<MudForm Model="@Model" Validation="@FieldValidator" @bind-Errors="_errors" Style="min-width: 32em;">
     <MudTextField Label="Név" For="@(() => Model.Name)" @bind-Value="Model.Name" OnlyValidateIfDirty="true" Immediate="true" />
     <MudSelect T="WiType" Label="WI Típus" For="@(() => Model.WiType)" @bind-Value="Model.WiType" OnlyValidateIfDirty="true">
         <MudSelectItem Value="WiType.Requirement">Igény</MudSelectItem>
