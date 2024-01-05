@@ -52,6 +52,7 @@ public partial class Milestone
     private void ResetMilestoneToOriginal(object modell)
     {
         ((MilestoneViewModel)modell).Name = milestoneBeforeEdit!.Name;
+        ((MilestoneViewModel)modell).Planned = milestoneBeforeEdit!.Planned;
     }
 
     /// <summary>
@@ -60,6 +61,19 @@ public partial class Milestone
     /// <param name="modell">A szerkesztendő határidő viewmodelje</param>
     private void UpdateMilestone(object modell)
     {
+        if (((MilestoneViewModel)modell).Planned < DateTime.Now)
+        {
+            _snackbar = Snackbar.Add("Nem állíthatsz be régebbi dátumot!", Severity.Warning, configure =>
+            {
+                configure.VisibleStateDuration = 3000;
+                configure.HideTransitionDuration = 200;
+                configure.ShowTransitionDuration = 200;
+                configure.ShowCloseIcon = true;
+            });
+            milestoneTable!.ReloadServerData();
+            return;
+        }
+
         try
         {
             milestoneService!.UpdateMilestonekDbSync((MilestoneViewModel)modell);

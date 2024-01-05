@@ -40,10 +40,12 @@
             </RowTemplate>
             <RowEditingTemplate>
                 <MudTd DataLabel="Név">
-                    <!-- Class not supported on edittemplate -->
                     <MudTextField Style="font-size: 14px;" @bind-Value="@context.Name" Variant="Variant.Outlined" Margin="Margin.Dense" Required></MudTextField>
                 </MudTd>
-                <MudTd DataLabel="Tervezett">@Convert.ToDateTime(@context.Planned).ToString("yyyy/MM/dd")</MudTd>
+                <MudTd DataLabel="Tervezett">
+                     <MudDatePicker Style="font-size: 14px;" @bind-Date="@context.Planned" Variant="Variant.Outlined" Margin="Margin.Dense">
+                     </MudDatePicker>
+                </MudTd>
                 <MudTd DataLabel="Teljesítés">@if (context.Actual != null) { @Convert.ToDateTime(@context.Actual).ToString("yyyy/MM/dd") }</MudTd>
                 <MudTd class="milestone-delete-done">
                     <MudIconButton class="sub-btn" Icon="@Icons.Material.Filled.Done" Size="Size.Small" Disabled></MudIconButton>
