@@ -1,4 +1,5 @@
 ﻿using TaskManager.Srv.Model.DataModel;
+using TaskManager.Srv.Model.DTO;
 
 namespace TaskManager.Srv.Model.ViewModel;
 
@@ -13,6 +14,7 @@ public class TaskViewModel : IComparable<TaskViewModel>
     public string Description { get; set; } = "";
     public int Priority { get; set; }
     public TaskState State { get; set; }
+    public string? ResponsiblePerson { get; set; }
 
     public int CompareTo(TaskViewModel? other)
     {

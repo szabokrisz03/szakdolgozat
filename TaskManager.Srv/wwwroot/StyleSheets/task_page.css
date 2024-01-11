@@ -16,7 +16,6 @@
 }
 
 .select-row {
-    width: 52%;
     padding: 0;
 }
 
@@ -59,4 +58,9 @@
 
 .name-row {
     width: 30%;
+}
+
+.user-autocomplete {
+    position: relative;
+    top: 10px;
 }

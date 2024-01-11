@@ -16,6 +16,9 @@ public class ADOSUrls
     private static string GetAzdoUrls(ADOSConfig config, string teamProject, int id)
         => $"https://{config.Host}/{config.Collection}/{teamProject}/_workitems/edit/{id}";
 
+    private static string GetAzdoUserUrls(ADOSConfig config)
+        => $"https://{config.Host}/{config.Collection}/_apis/IdentityPicker/Identities?api-version=6.0-preview";
+
     /// <summary>
     /// A workitemek mezőinek a lekérdezéséhez szükséges URL összeállítása.
     /// </summary>
@@ -48,5 +51,10 @@ public class ADOSUrls
     public static string GetAzdoUrl(ADOSConfig config, string teamProject, int id)
     {
         return GetAzdoUrls(config, teamProject, id);
+    }
+
+    public static string GetAzdoUserUrl(ADOSConfig config)
+    {
+        return GetAzdoUserUrls(config);
     }
 }

@@ -12,6 +12,8 @@ using TaskManager.Srv.Model.ViewModel;
 using TaskManager.Srv.Services.ProjectServices;
 using TaskManager.Srv.Services.TaskServices;
 using Microsoft.EntityFrameworkCore;
+using TaskManager.Srv.Services.AzdoServices;
+using TaskManager.Srv.Model.DTO;
 
 namespace TaskManager.Srv.Pages.Projects;
 
@@ -25,6 +27,7 @@ public partial class ProjectTasks
     private long _projectId = 0;
     private TaskViewModel? taskBeforeEdit;
     private Snackbar? _snackbar;
+    private string? responsibleUser;
     [Parameter] public string TechnicalName { get; set; } = "";
     [Parameter] public StateFilterViewModell? stateFilterView { get; set; }
     [Parameter] public TaskViewModel taskViewModel { get; set; } = new();
@@ -33,6 +36,7 @@ public partial class ProjectTasks
     [Inject] private ITaskViewService TaskViewService { get; set; } = null!;
     [Inject] private ITaskService TaskService { get; set; } = null!;
     [Inject] private IProjectDisplayService project { get; set; } = null!;
+    [Inject] private IAzdoUserService _azdoUserService { get; set; } = null!;
 
     protected override void OnParametersSet()
     {
@@ -48,6 +52,34 @@ public partial class ProjectTasks
             _lastTechnicalName = technicalName;
             _projectId = await project.GetProjectIdAsync(technicalName);
         }
+    }
+
+    private async Task<IEnumerable<string>> SearchUser(string value)
+    {
+        List<AzdoUser> azdoUsers = await _azdoUserService.SearchUsers(value);
+        List<string> usernames = new();
+        await Task.Delay(5);
+        if(string.IsNullOrEmpty(value))
+        {
+            return new string[0];
+        }
+
+        foreach (var user in azdoUsers)
+        {
+            usernames.Add(user.DisplayName!);
+        }
+
+        if (usernames.Count == 0)
+        {
+            return new string[0];
+        }
+
+        return usernames;
+    }
+
+    private async Task UpdateUser(TaskViewModel taskViewModel)
+    {
+        await _azdoUserService.UpdateTaskUserDb(taskViewModel);
     }
 
     /// <summary>
