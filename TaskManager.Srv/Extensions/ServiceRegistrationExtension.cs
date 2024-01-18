@@ -71,6 +71,7 @@ public static class ServiceRegistrationExtension
         services.AddScoped<IMilestoneViewService, MilestoneViewService>();
         services.AddScoped<IWiStateService, WiStateService>();
         services.AddScoped<IWiService, WiService>();
+        services.AddScoped<IAzdoUserService, AzdoUserService>();
 
         return services;
     }

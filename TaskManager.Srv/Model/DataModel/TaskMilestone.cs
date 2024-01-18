@@ -7,6 +7,5 @@ public class TaskMilestone : DbTable
     public string Name { get; set; } = "";
     public DateTime Planned { get; set; }
     public DateTime? Actual { get; set; }
-
-    public ProjectTask Task { get; set; }
+    public ProjectTask? Task { get; set; }
 }

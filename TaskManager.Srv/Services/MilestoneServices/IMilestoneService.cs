@@ -16,11 +16,24 @@ public interface IMilestoneService
     /// <param name="milestoneId">Határidő egyedi azonosítója</param>
     Task<MilestoneViewModel> CreateMilestone(MilestoneViewModel milestoneView);
 
-    void UpdateMilestonekDbSync(MilestoneViewModel modell);
+    /// <summary>
+    /// Határidő módosítása adatbázisban
+    /// </summary>
+    /// <param name="model">A módosítandó határidő viewModelje</param>
+    void UpdateMilestonekDbSync(MilestoneViewModel model);
 
-    Task UpdateMilestonekDb(MilestoneViewModel modell);
+    /// <summary>
+    /// Meghívja az UpdateMilestonekDbSync metódust.
+    /// </summary>
+    /// <param name="model">A módosítandó határidő viewModelje</param>
+    Task UpdateMilestonekDb(MilestoneViewModel model);
 
-    Task<int> CountTasks(long taskId);
+    /// <summary>
+    /// Megszámolja, hogy az adott feladathoz hány darab határidő tartozik
+    /// </summary>
+    /// <param name="taskId">A feladat id-je</param>
+    /// <returns>A határidők darabszáma</returns>
+    Task<int> CountTaskMilestone(long taskId);
 
     /// <summary>
     /// Egy feladathoz tartozó határidők kilistázása.

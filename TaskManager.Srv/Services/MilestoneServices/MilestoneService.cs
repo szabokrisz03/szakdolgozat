@@ -30,38 +30,40 @@ public class MilestoneService : IMilestoneService
         }
     }
 
-    public void UpdateMilestonekDbSync(MilestoneViewModel modell)
+    /// <inheritdoc cref="IMilestoneService.UpdateMilestonekDbSync(MilestoneViewModel)"/>
+    public void UpdateMilestonekDbSync(MilestoneViewModel model)
     {
         try
         {
-            if (modell.RowId == 0)
+            if (model.RowId == 0)
             {
                 return;
             }
 
             using (var dbcx = dbContextFactory.CreateDbContext())
             {
-                var res = dbcx.TaskMilestone.SingleOrDefault(x => x.RowId == modell.RowId);
+                var res = dbcx.TaskMilestone.SingleOrDefault(x => x.RowId == model.RowId);
                 if (res == null)
                 {
                     return;
                 }
 
-                var ent = mapper.Map<MilestoneViewModel, TaskMilestone>(modell, res);
+                var ent = mapper.Map<MilestoneViewModel, TaskMilestone>(model, res);
                 dbcx.TaskMilestone.Update(ent);
                 dbcx.SaveChanges();
                 dbcx.Entry(ent).State = EntityState.Detached;
             }
         }
-        catch(DbUpdateException ex)
+        catch(DbUpdateException)
         {
             throw;
         }
     }
 
-    public async Task UpdateMilestonekDb(MilestoneViewModel modell)
+    /// <inheritdoc cref="IMilestoneService.UpdateMilestonekDb(MilestoneViewModel)"/>
+    public async Task UpdateMilestonekDb(MilestoneViewModel model)
     {
-       await Task.Run (() => UpdateMilestonekDbSync(modell));
+       await Task.Run (() => UpdateMilestonekDbSync(model));
     }
 
     /// <inheritdoc cref="IMilestoneService.DeleteMilestone(long)"/>
@@ -75,7 +77,8 @@ public class MilestoneService : IMilestoneService
         }
     }
 
-    public async Task<int> CountTasks(long taskId)
+    /// <inheritdoc cref="IMilestoneService.CountTaskMilestone(long)"/>
+    public async Task<int> CountTaskMilestone(long taskId)
     {
         using (var dbcx = await dbContextFactory.CreateDbContextAsync())
         {

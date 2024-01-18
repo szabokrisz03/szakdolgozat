@@ -8,7 +8,7 @@ public class ProjectUser : IDbTable
     public long RowId { get; set; }
     public long ProjectId { get; set; }
     public long UserId { get; set; }
-    public Project Project { get; set; }
-    public User User { get; set; }
+    public Project? Project { get; set; }
+    public User? User { get; set; }
     public DateTime LastVisit { get; set; }
 }

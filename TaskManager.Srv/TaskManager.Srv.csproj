@@ -29,4 +29,8 @@
     <Folder Include="wwwroot\StyleSheets" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\logo.jpg" />
+  </ItemGroup>
+
 </Project>

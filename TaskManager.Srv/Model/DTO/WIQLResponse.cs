@@ -29,7 +29,7 @@ public class WIQLResponseBodyWIs
 public class Wi
 {
     public string rel { get; set; } = "";
-    public TargetWis target { get; set; }
+    public TargetWis? target { get; set; }
 }
 
 [Serializable]

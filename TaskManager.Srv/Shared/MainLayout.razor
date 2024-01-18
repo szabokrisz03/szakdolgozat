@@ -5,18 +5,17 @@
 <MudThemeProvider @ref="_themeProvider" IsDarkMode="@_isDarkPreferred" />
 <MudDialogProvider />
 <MudSnackbarProvider />
-
 <PageTitle>Feladat kezelő</PageTitle>
-
 <MudLayout Class="full-height">
     <MudAppBar Elevation="0">
         <MudSpacer />
     </MudAppBar>
     <MudDrawer @bind-Open="_drawerOpen" Elevation="1">
-        <MudDrawerHeader class="box" onclick="@(() => GoToMain())">
+        <MudDrawerHeader Style="padding: 0" class="box" onclick="@(() => GoToMain())">
             <MudText>Feladat kezelő</MudText>
         </MudDrawerHeader>
         <NavMenu />
+        <MudImage class="logo" Src="removedbglogo.png" Width="230" Alt="logo" Fluid></MudImage>
     </MudDrawer>
     <MudMainContent Class="full-height">
         <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="my-4 full-height">
@@ -27,8 +26,8 @@
 
 @code {
     private MudThemeProvider? _themeProvider;
-    bool _isDarkPreferred = true;
-    bool _drawerOpen = true;
+    private bool _isDarkPreferred = true;
+    private bool _drawerOpen = true;
 
     protected override async Task OnInitializedAsync()
     {

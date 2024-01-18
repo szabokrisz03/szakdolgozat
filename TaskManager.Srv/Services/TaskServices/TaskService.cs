@@ -55,6 +55,7 @@ public class TaskService : ITaskService
         }
     }
 
+    /// <inheritdoc cref="ITaskService.ListTasksByFilterAndId(List{string}, long, int, int)"/>
     public async Task<List<TaskViewModel>> ListTasksByFilterAndId(List<string> filterName, long projectId, int take, int skip = 0)
     {
 
@@ -71,11 +72,13 @@ public class TaskService : ITaskService
         }
     }
 
+    /// <inheritdoc cref="ITaskService.UpdateTaskDb(TaskViewModel)"/>
     public async Task UpdateTaskDb(TaskViewModel modell)
     {
         await Task.Run(() => UpdateTaskDbSync(modell));
     }
 
+    /// <inheritdoc cref="ITaskService.UpdateTaskDbSync(TaskViewModel)"/>
     public void UpdateTaskDbSync(TaskViewModel modell)
     {
         if (modell.RowId == 0)

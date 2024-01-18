@@ -1,9 +1,8 @@
-﻿
-<MudStack class="border" Style="gap: 0;">
+﻿<MudStack class="border">
     @foreach(var project in _projects)
     {
         <MudCard class="card">
-        <a class="card"  href="projects/@project.TechnicalName/tasks">
+        <a class="inside-card"  href="projects/@project.TechnicalName/tasks">
             <MudPaper class="paper">
                 <MudText class="paper-text">@project.Name.Substring(0, 1).ToUpper()</MudText>
             </MudPaper>
@@ -11,7 +10,7 @@
         </a>
             @if (!MineOnly)
             {
-                <div class="user-click">
+                <div>
                     <MudTooltip Text="Belépés a projektbe!">
                         <CascadingValue Value="projectId = project.RowId" Name="projId">
                         <MudIconButton Icon="@Icons.Material.Filled.Bookmark" Tag="project.RowId" OnClick="(() => AssignUserToProject())"></MudIconButton>

@@ -15,11 +15,6 @@
     background-color: transparent;
 }
 
-.select-row {
-    width: 52%;
-    padding: 0;
-}
-
 .mud-select {
     height: 2.4vw;
     position: relative;
@@ -59,4 +54,9 @@
 
 .name-row {
     width: 30%;
+}
+
+.user-autocomplete {
+    position: relative;
+    top: 10px;
 }

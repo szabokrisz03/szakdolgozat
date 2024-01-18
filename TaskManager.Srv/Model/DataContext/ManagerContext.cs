@@ -43,6 +43,7 @@ public class ManagerContext : DbContext
         projectTask.HasIndex(p => p.TechnicalName).IsUnique(true);
         projectTask.HasIndex(p => new { p.ProjectId, p.Name }).IsUnique(true);
         projectTask.HasOne(p => p.Project).WithMany().HasForeignKey(p => p.ProjectId);
+        projectTask.HasIndex(p => p.ResponsiblePerson);
 
         var comment = modelBuilder.Entity<CommentLine>();
         comment.HasOne(p => p.ProjectTask).WithMany().HasForeignKey(p => p.TaskId);

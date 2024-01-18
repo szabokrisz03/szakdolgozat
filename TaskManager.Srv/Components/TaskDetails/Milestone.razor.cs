@@ -13,12 +13,11 @@ namespace TaskManager.Srv.Components.TaskDetails;
 /// </summary>
 public partial class Milestone
 {
-    [Parameter]
-    public bool IsOpen { get; set; }
+    private List<MilestoneViewModel> milestoneList = new();
     private MudTable<MilestoneViewModel>? milestoneTable;
     private MilestoneViewModel? milestoneBeforeEdit;
     private Snackbar? _snackbar;
-    public List<MilestoneViewModel> milestoneList = new();
+    [Parameter] public bool IsOpen { get; set; }
     [CascadingParameter(Name = "TaskId")] private long Id { get; set; }
     [Inject] public IMilestoneService? milestoneService { get; set; } = null;
     [Inject] public IMilestoneViewService? MilestoneViewService { get; set; } = null;
@@ -53,6 +52,7 @@ public partial class Milestone
     private void ResetMilestoneToOriginal(object modell)
     {
         ((MilestoneViewModel)modell).Name = milestoneBeforeEdit!.Name;
+        ((MilestoneViewModel)modell).Planned = milestoneBeforeEdit!.Planned;
     }
 
     /// <summary>
@@ -61,6 +61,19 @@ public partial class Milestone
     /// <param name="modell">A szerkesztendő határidő viewmodelje</param>
     private void UpdateMilestone(object modell)
     {
+        if (((MilestoneViewModel)modell).Planned < DateTime.Now)
+        {
+            _snackbar = Snackbar.Add("Nem állíthatsz be régebbi dátumot!", Severity.Warning, configure =>
+            {
+                configure.VisibleStateDuration = 3000;
+                configure.HideTransitionDuration = 200;
+                configure.ShowTransitionDuration = 200;
+                configure.ShowCloseIcon = true;
+            });
+            milestoneTable!.ReloadServerData();
+            return;
+        }
+
         try
         {
             milestoneService!.UpdateMilestonekDbSync((MilestoneViewModel)modell);
@@ -73,7 +86,7 @@ public partial class Milestone
             });
             milestoneTable!.ReloadServerData();
         }
-        catch(DbUpdateException ex)
+        catch (DbUpdateException)
         {
             _snackbar = Snackbar.Add("A megadott névvel már van határidő megadva!", Severity.Warning, configure =>
             {
@@ -115,7 +128,7 @@ public partial class Milestone
 
     private async Task<TableData<MilestoneViewModel>> LoadData(TableState state)
     {
-        int size = await milestoneService!.CountTasks(Id);
+        int size = await milestoneService!.CountTaskMilestone(Id);
         var milestones = await milestoneService.ListMilestones(Id);
 
         return new TableData<MilestoneViewModel>

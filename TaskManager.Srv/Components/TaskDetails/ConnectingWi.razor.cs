@@ -14,17 +14,15 @@ namespace TaskManager.Srv.Components.TaskDetails;
 /// </summary>
 public partial class ConnectingWi
 {
-
-    [CascadingParameter(Name = "TaskId")] private long Id { get; set; }
-    [Parameter] public int? WiNumber { get; set; }
-    [Inject] public IWiService? WiService { get; set; }
-    [Inject] public IWiStateService? WiStateService { get; set; }
-
     private int[]? wiIdArray;
     private List<WorkItem>? workItems;
     private Dictionary<WorkItem, List<WorkItem>>? wiDetails;
     private MudNumericField<int?>? _numField;
     private Snackbar? _snackbar;
+    [Parameter] public int? WiNumber { get; set; }
+    [CascadingParameter(Name = "TaskId")] private long Id { get; set; }
+    [Inject] public IWiService? WiService { get; set; }
+    [Inject] public IWiStateService? WiStateService { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -230,7 +228,7 @@ public partial class ConnectingWi
     }
 
     /// <summary>
-    /// Workitem hozzáadása.
+    /// Workitem hozzáadása a feladathoz.
     /// </summary>
     public async Task AddWi()
     {
@@ -251,7 +249,7 @@ public partial class ConnectingWi
 
         int[] wiId = new int[] { WiNumber.Value };
         List<WorkItem> parentWi = new();
-        WiStateService.PropertyWis(wiId, parentWi);
+        WiStateService!.PropertyWis(wiId, parentWi);
 
         if (parentWi.Count <= 0)
         {
@@ -282,7 +280,7 @@ public partial class ConnectingWi
     /// <param name="id">A lenyitandó workitem</param>
     public void ShowConnectingWi(int id)
     {
-        foreach (var item in workItems)
+        foreach (var item in workItems!)
         {
             item.IsOpen = item.Id == id && !item.IsOpen;
         }

@@ -13,11 +13,12 @@
 .discussion-input {
     float: left;
     width: 20%;
-    border: 1px solid rgb(255, 255, 255, .1);
+    border: 1px solid rgba(119, 107, 231, 1);
     border-radius: 5px 5px 0px 0px;
     padding: 0 5px 0 5px;
     margin: 0;
     max-height: 100px;
+    color: black;
 }
 
 .discussion {
@@ -25,11 +26,11 @@
     overflow: auto;
     margin: 0%;
     float: left;
-    background-color: #53389F;
+    background-color: transparent;
 }
 
 .comment-paper {
-    background-color: purple;
+    background-color: rgba(119, 107, 231, 1);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,6 +53,10 @@
     white-space: pre-line;
     margin-right: 1%;
     overflow-wrap: break-word;
+}
+
+.comment:last-child {
+    margin-bottom: 10px;
 }
 
 .comment-text {

@@ -12,20 +12,15 @@ namespace TaskManager.Srv.Pages.Home;
 
 public partial class ProjectList
 {
-    [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; } = null!;
+    private string _userName = "";
+    private List<ProjectViewModel> _projects = new();
     [Parameter] public Task<long> _projectId { get; set; } = null!;
     [Parameter] public bool MineOnly { get; set; } = false;
     [Parameter] public string SearchTerm { get; set; } = "";
-
     [CascadingParameter(Name = "projId")] private long projectId { get; set; }
-
+    [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; } = null!;
     [Inject] private IProjectDisplayService _projectDisplayService { get; set; } = null!;
     [Inject] private IProjectAdminService _projectAdminService { get; set; } = null!;
-
-    private MudIconButton? mudIconButton;
-    private string _userName = "";
-    private List<ProjectViewModel> _projects = new();
-    private EventCallback<EditContext> editContext = new();
 
     protected override async Task OnInitializedAsync()
     {

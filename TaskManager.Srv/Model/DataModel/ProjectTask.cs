@@ -8,7 +8,7 @@ public class ProjectTask : DbTable
     public Guid TechnicalName { get; set; }
     public int Priority { get; set; }
     public TaskState State { get; set; }
-
-    public Project Project { get; set; }
-    public ICollection<TaskMilestone> Milestones { get; set; }
+    public Project? Project { get; set; }
+    public string? ResponsiblePerson { get; set; }
+    public ICollection<TaskMilestone>? Milestones { get; set; }
 }

@@ -10,8 +10,8 @@
     animation: table_animation 300ms ease-in-out forwards;
     transform-origin: top center;
     margin-top: 0px;
-    background-color: #53389F;
-    border: 1px solid rgb(255, 255, 255, .1);
+    background-color: transparent;
+    border: 1px solid rgba(119, 107, 231, 1);
 }
 
 .milestone-div {
@@ -22,7 +22,6 @@
 }
 
 .mud-list-item {
-    border: 1px solid rgb(255, 255, 255, .1);
     height: 4em;
 }
 
@@ -31,7 +30,7 @@
     display: inline-flex;
     position: absolute;
     top: 30%;
-    width: 85%
+    width: 85%;
 }
 
 .add-btn {

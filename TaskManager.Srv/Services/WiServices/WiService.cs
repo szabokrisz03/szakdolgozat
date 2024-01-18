@@ -15,6 +15,7 @@ public class WiService : IWiService
         this.dbContextFactory = dbContextFactory;
     }
 
+    /// <inheritdoc cref="IWiService.DeleteWi(int)"/>
     public async Task DeleteWi(int id)
     {
         using (var dbcx = await dbContextFactory.CreateDbContextAsync())

@@ -1,6 +1,7 @@
 ﻿@inject ISnackbar Snackbar
 
 @page "/projects/{TechnicalName}/tasks"
+@using TaskManager.Srv.Model.DTO
 @using TaskManager.Srv.Model.ViewModel;
 @using TaskManager.Srv.Model.DataModel;
 @using TaskManager.Srv.Components.TaskDetails;
@@ -31,30 +32,36 @@
         <MudButton class="new-task-button" Variant="Variant.Filled" Color="Color.Primary" OnClick="CreateTask">Új Feladat</MudButton>
     </ToolBarContent>
     <ColGroup>
-        <col style="width:50px;"/>
-        <col/>
-        <col/>
-        <col/>
-        <col/>
+        <col />
+        <col />
+        <col />
+        <col />
+        <col />
+        <col />
     </ColGroup>
     <HeaderContent>
         <MudTh><b>Név</b></MudTh>
         <MudTh><b>Állapot</b>
             <Filter OnClick="GetFilterData"></Filter>
         </MudTh>
+        <MudTh><b>Felelős</b></MudTh>
         <MudTh><b>Prioritás</b></MudTh>
-        <MudTh />
+        <MudTh></MudTh>
     </HeaderContent>
     <RowTemplate>
             <MudTd class="name-row">@context.Name</MudTd>
-            <MudTd class="select-row">
-                <MudSelect T="TaskState" @bind-Value="context.State" SelectedValuesChanged="@(() => UpdateState(context))" AnchorOrigin="Origin.BottomCenter" DisableUnderLine="true" Dense="true" 
-                 AdornmentColor="Color.Primary" MultiSelection="false">
-                    @foreach (var (value, name) in enumList)
-                    {
-                        <MudSelectItem T="TaskState" Value="@value">@name</MudSelectItem>
-                    }
+            <MudTd>
+                <MudSelect T="TaskState" @bind-Value="context.State" SelectedValuesChanged="@(() => UpdateState(context))" AnchorOrigin="Origin.BottomCenter" DisableUnderLine="true" Dense="true"
+                            MultiSelection="false">
+                @foreach (var (value, name) in enumList)
+                {
+                    <MudSelectItem T="TaskState" Value="@value">@name</MudSelectItem>
+                }
                 </MudSelect>
+            </MudTd>
+            <MudTd>
+                <MudAutocomplete OnAdornmentClick="@(() => UpdateUser(context))" @bind-Value="@context.ResponsiblePerson" class="user-autocomplete" T="string" Margin="Margin.Dense" AdornmentIcon="@Icons.Material.Filled.Done" AdornmentColor="Color.Primary"
+                   SearchFunc="@SearchUser" Variant="Variant.Outlined"></MudAutocomplete>
             </MudTd>
             <MudTd class="priority-row">@context.Priority</MudTd>
             <MudTd class="cell">
@@ -79,6 +86,10 @@
                 }
             </MudSelect>
         </MudTd>
+            <MudTd>
+                <MudAutocomplete OnAdornmentClick="@(() => UpdateUser(context))" @bind-Value="@context.ResponsiblePerson" class="user-autocomplete" T="string" Margin="Margin.Dense" AdornmentIcon="@Icons.Material.Filled.Done" AdornmentColor="Color.Primary"
+                    SearchFunc="@SearchUser" Variant="Variant.Outlined"></MudAutocomplete>
+            </MudTd>
         <MudTd DataLabel="Priority">
                 <!-- Class not supported on edittemplate -->
                 <MudNumericField Style="font-size: 14px;" @bind-Value="@context.Priority" Variant="Variant.Outlined" Margin="Margin.Dense" Max="5" Min="1" Required></MudNumericField>

@@ -1,4 +1,4 @@
-﻿<MudForm @ref="MudForm" Model="@taskViewModel" Validation="@FieldValidator" @bind-IsValid="@IsValid" @bind-Errors="Errors">
+﻿<MudForm Model="@taskViewModel" Validation="@FieldValidator" @bind-Errors="_errors">
     <MudTextField class="new-task-text" Label="Név" For="(() => taskViewModel.Name)" @bind-Value="taskViewModel.Name" OnlyValidateIfDirty="true" Immediate="true" />
     <MudChipSet Filter="true" Mandatory="true" @bind-SelectedChip="selectedChip">
         <MudText>Prioritás</MudText>

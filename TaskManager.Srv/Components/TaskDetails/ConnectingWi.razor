@@ -4,11 +4,7 @@
     <MudText class="wi-text">Kapcsolódó WI-k</MudText>
     
         <div class="wi-new">
-            <MudNumericField class="wi-number" @ref="_numField" @bind-Value="WiNumber" Margin="Margin.Dense" HelperText="Wi szám" Variant="Variant.Outlined" Immediate="true" Clearable="true" DisableUnderLine="true" HideSpinButtons="true"></MudNumericField>
-            <span>
-                <MudButton class="wi-button" OnClick="@(() => AddWi())">+</MudButton>
-                <MudButton class="wi-button" Disabled="true">New</MudButton>
-            </span>
+        <MudNumericField class="wi-number" @ref="_numField" @bind-Value="WiNumber" Adornment="Adornment.End" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.Add" OnAdornmentClick="@(() => AddWi())" Margin="Margin.Dense" HelperText="Wi szám" Variant="Variant.Outlined" Immediate="true" DisableUnderLine="true" HideSpinButtons="true"></MudNumericField>
         </div>
     <MudCard class="wi" Elevation="0">
         @if (wiDetails != null)
@@ -16,12 +12,12 @@
             @foreach (var item in wiDetails)
             {
                 <MudCard class="field" Variant="Variant.Text" Elevation="0" Square="true">
-                    <MudIcon Icon="@Icons.Material.Filled.Task" Size="Size.Small"></MudIcon>
-                    <MudLink Typo="Typo.body2" Href="@item.Key.AzdoLink" Target="_blank" Color="Color.Tertiary">#@item.Key.Id- </MudLink>
+                    <MudIcon Icon="@Icons.Material.Filled.Task" Color="Color.Primary" Size="Size.Small"></MudIcon>
+                    <MudLink Typo="Typo.body2" Href="@item.Key.AzdoLink" Target="_blank" Color="Color.Primary">#@item.Key.Id- </MudLink>
                     <MudText Inline="true" Typo="Typo.body2">@item.Key.Title</MudText>
                     <span class="buttons">
-                        <MudIconButton Size="Size.Medium" class="delete-button" OnClick="@(() => deleteConnectingWi(item.Key.Id))" Icon="@Icons.Material.Filled.Delete"></MudIconButton>
-                        <MudIconButton Size="Size.Medium" Icon="@Icons.Material.Filled.ExpandMore" OnClick="@(() => ShowConnectingWi(item.Key.Id))"></MudIconButton>
+                        <MudIconButton Color="Color.Primary" Size="Size.Medium" class="delete-button" OnClick="@(() => deleteConnectingWi(item.Key.Id))" Icon="@Icons.Material.Filled.Delete"></MudIconButton>
+                        <MudIconButton Color="Color.Primary" Size="Size.Medium" Icon="@Icons.Material.Filled.ExpandMore" OnClick="@(() => ShowConnectingWi(item.Key.Id))"></MudIconButton>
                     </span>
                     <MudText Inline="false" Typo="Typo.body2">
                         <b>Felelős: </b>@((item.Key.AssignedTo?.DisplayName == null) ? "-" : item.Key.AssignedTo?.DisplayName)

@@ -11,18 +11,16 @@ namespace TaskManager.Srv.Components.TaskDetails;
 /// </summary>
 public partial class Discussion
 {
-    [CascadingParameter(Name = "TaskId")] private long Id { get; set; }
-    [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; }
-    [Parameter] public string Comment { get; set; } = "";
-
-    [Inject] private ICommentService commentService { get; set; } = null!;
-
     private string authName = "";
     private List<CommentViewModel> commentViewModels = new();
+    [Parameter] public string Comment { get; set; } = "";
+    [CascadingParameter(Name = "TaskId")] private long Id { get; set; }
+    [CascadingParameter] private Task<AuthenticationState>? authenticationStateTask { get; set; }
+    [Inject] private ICommentService commentService { get; set; } = null!;
 
     protected override async Task OnInitializedAsync()
     {
-        var authState = await authenticationStateTask;
+        var authState = await authenticationStateTask!;
         authName = authState.User.Identity?.Name ?? "";
         await ListComments();
     }
@@ -32,7 +30,7 @@ public partial class Discussion
     /// </summary>
     public async Task AddComments()
     {
-        var authState = await authenticationStateTask;
+        var authState = await authenticationStateTask!;
         authName = authState.User.Identity?.Name ?? "";
 
         await commentService.CreateCommentAsync(Id, authName, Comment);
@@ -48,7 +46,7 @@ public partial class Discussion
     /// <param name="commentView">A törlendő komment</param>
     public async Task DeleteComment(string username, CommentViewModel commentView)
     {
-        var authState = await authenticationStateTask;
+        var authState = await authenticationStateTask!;
         authName = authState.User.Identity?.Name ?? "";
 
         await commentService.DeleteCommentAsync(username, authName, commentView.RowId);

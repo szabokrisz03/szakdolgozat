@@ -13,12 +13,11 @@ namespace TaskManager.Srv.Pages.Projects;
 /// </summary>
 public partial class ProjectWiTemplates
 {
+    private ProjectViewModel project = new();
     [Parameter] public string TechnicalName { get; set; } = "";
     [Inject] private IProjectDisplayService ProjectDisplayService { get; set; } = null!;
     [Inject] private IWiLinkTemplateService DataService { get; set; } = null!;
     [Inject] private IWiLinkTemplateViewService TemplateViewService { get; set; } = null!;
-
-    private ProjectViewModel project = new();
 
     protected override async Task OnParametersSetAsync()
     {

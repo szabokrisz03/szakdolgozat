@@ -1,13 +1,9 @@
-﻿* {
-
-}
-
-.wi {
+﻿.wi {
     max-height: 22em;
     overflow: auto;
     margin: 0%;
     margin-top: 0px;
-    background-color: #53389F;
+    background-color: transparent;
 }
 
 .wi-text {
@@ -33,12 +29,11 @@
     width: 30%;
 }
 
-
 .wi-button {
     width: 10%;
     height: 20%;
     display: grid;
-    border: 1px solid rgb(255, 255, 255, .1);
+    border: 1px solid rgba(119, 107, 231, 1);
     align-content: center;
     margin: 10% 0 0 10%;
     position: relative;
@@ -53,8 +48,8 @@
     display: inline-block;
     width: 100%;
     height: min-content;
-    background-color: #53389F;
-    border-bottom: 1px solid rgb(255, 255, 255, .1);
+    background-color: transparent;
+    border-bottom: 1px solid rgba(119, 107, 231, 0.3);
 }
 
 .loading-spinner {
@@ -79,14 +74,10 @@
     display: inline-block;
     width: 100%;
     height: min-content;
-    border: 1px solid rgb(255, 255, 255, .1);
+    border-bottom: 1px solid rgba(119, 107, 231, 0.3);
     animation: table_animation 300ms ease-in-out forwards;
 }
 
-.wi-child-state {
-    color: #D2691E;
-}
-
-.wi-state {
-    color: #D2691E;
+.conn-wi-div:last-child {
+    margin-bottom: 10px;
 }
