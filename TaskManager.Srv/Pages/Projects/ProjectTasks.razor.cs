@@ -249,7 +249,7 @@ public partial class ProjectTasks
     /// <returns></returns>
     private string TableRowStyle(TaskViewModel taskViewModel, int idx)
     {
-        return ShownId == taskViewModel.RowId ? $"background: #6941C6" : "";
+        return ShownId == taskViewModel.RowId ? $"background-color: rgba(119, 107, 231, 0.3);" : "";
     }
 
     /// <summary>

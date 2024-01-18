@@ -50,18 +50,18 @@
     </HeaderContent>
     <RowTemplate>
             <MudTd class="name-row">@context.Name</MudTd>
-            <MudTd class="select-row">
-                <MudSelect T="TaskState" @bind-Value="context.State" SelectedValuesChanged="@(() => UpdateState(context))" AnchorOrigin="Origin.BottomCenter" DisableUnderLine="true" Dense="true" 
-                 AdornmentColor="Color.Primary" MultiSelection="false">
-                    @foreach (var (value, name) in enumList)
-                    {
-                        <MudSelectItem T="TaskState" Value="@value">@name</MudSelectItem>
-                    }
+            <MudTd>
+                <MudSelect T="TaskState" @bind-Value="context.State" SelectedValuesChanged="@(() => UpdateState(context))" AnchorOrigin="Origin.BottomCenter" DisableUnderLine="true" Dense="true"
+                            MultiSelection="false">
+                @foreach (var (value, name) in enumList)
+                {
+                    <MudSelectItem T="TaskState" Value="@value">@name</MudSelectItem>
+                }
                 </MudSelect>
             </MudTd>
             <MudTd>
-                <MudAutocomplete OnAdornmentClick="@(() => UpdateUser(context))" @bind-Value="@context.ResponsiblePerson" class="user-autocomplete" T="string" Margin="Margin.Dense" AdornmentIcon="@Icons.Material.Filled.Done" AdornmentColor="Color.Success"
-                    SearchFunc="@SearchUser" Variant="Variant.Outlined"></MudAutocomplete>
+                <MudAutocomplete OnAdornmentClick="@(() => UpdateUser(context))" @bind-Value="@context.ResponsiblePerson" class="user-autocomplete" T="string" Margin="Margin.Dense" AdornmentIcon="@Icons.Material.Filled.Done" AdornmentColor="Color.Primary"
+                   SearchFunc="@SearchUser" Variant="Variant.Outlined"></MudAutocomplete>
             </MudTd>
             <MudTd class="priority-row">@context.Priority</MudTd>
             <MudTd class="cell">
@@ -87,7 +87,7 @@
             </MudSelect>
         </MudTd>
             <MudTd>
-                <MudAutocomplete OnAdornmentClick="@(() => UpdateUser(context))" @bind-Value="@context.ResponsiblePerson" class="user-autocomplete" T="string" Margin="Margin.Dense" AdornmentIcon="@Icons.Material.Filled.Done" AdornmentColor="Color.Success"
+                <MudAutocomplete OnAdornmentClick="@(() => UpdateUser(context))" @bind-Value="@context.ResponsiblePerson" class="user-autocomplete" T="string" Margin="Margin.Dense" AdornmentIcon="@Icons.Material.Filled.Done" AdornmentColor="Color.Primary"
                     SearchFunc="@SearchUser" Variant="Variant.Outlined"></MudAutocomplete>
             </MudTd>
         <MudTd DataLabel="Priority">

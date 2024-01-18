@@ -2,7 +2,7 @@
 @inherits LayoutComponentBase
 @inject NavigationManager navmanager
 
-<MudThemeProvider @ref="_themeProvider" IsDarkMode="@_isDarkPreferred" Theme="_theme" />
+<MudThemeProvider @ref="_themeProvider" IsDarkMode="@_isDarkPreferred" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 <PageTitle>Feladat kezelő</PageTitle>
@@ -11,11 +11,11 @@
         <MudSpacer />
     </MudAppBar>
     <MudDrawer @bind-Open="_drawerOpen" Elevation="1">
-        <MudDrawerHeader class="box" onclick="@(() => GoToMain())">
+        <MudDrawerHeader Style="padding: 0" class="box" onclick="@(() => GoToMain())">
             <MudText>Feladat kezelő</MudText>
         </MudDrawerHeader>
         <NavMenu />
-        <MudSwitch @bind-Checked="@_isDarkPreferred" Color="Color.Primary" T="bool"></MudSwitch>
+        <MudImage class="logo" Src="removedbglogo.png" Width="230" Alt="logo" Fluid></MudImage>
     </MudDrawer>
     <MudMainContent Class="full-height">
         <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="my-4 full-height">
@@ -24,37 +24,20 @@
     </MudMainContent>
 </MudLayout>
 
-
-
 @code {
     private MudThemeProvider? _themeProvider;
-    private MudTheme _theme = new();
     private bool _isDarkPreferred = true;
     private bool _drawerOpen = true;
 
-    // MudTheme _customTheme = new MudTheme()
-    // {
-    //     Palette = new PaletteLight()
-    //     {
+    protected override async Task OnInitializedAsync()
+    {
+        if (_themeProvider != null)
+        {
+            _isDarkPreferred = await _themeProvider.GetSystemPreference();
+        }
 
-    //     };
-
-    //     PaletteDark = new PaletteDark()
-    //     {
-
-    //     };
-
-    // };
-
-    // protected override async Task OnInitializedAsync()
-    // {
-    //     if (_themeProvider != null)
-    //     {
-    //         _isDarkPreferred = await _themeProvider.GetSystemPreference();
-    //     }
-
-    //     navmanager.LocationChanged += LocationChanged!;
-    // }
+        navmanager.LocationChanged += LocationChanged!;
+    }
 
     void GoToMain()
     {
