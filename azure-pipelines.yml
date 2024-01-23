@@ -29,7 +29,7 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: true
-    arguments: '-c Release --output $(publishPath) --self-contained true --runtime win-x64 --no-restore'
+    arguments: '-c Release --output $(publishPath) --self-contained true --runtime win-x64'
     zipAfterPublish: false
     modifyOutputPath: false
     workingDirectory: '$(projectPath)'
