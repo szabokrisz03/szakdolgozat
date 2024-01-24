@@ -6,7 +6,7 @@ namespace TaskManager.Srv.Model.DTO;
 public class IdentityQueryResponse
 {
     [JsonProperty("results")]
-    public List<IdentityQueryWrapperDTO> Results { get; set; } = new();
+    public List<IdentityQueryWrapperDTO> Results { get; set; } = [];
 }
 
 [Serializable]
@@ -16,7 +16,7 @@ public sealed class IdentityQueryWrapperDTO
     public string QueryToken { get; set; } = "";
 
     [JsonProperty("identities")]
-    public List<IdentityQueryResponseFieldsDTO> Identities { get; set; } = new();
+    public List<IdentityQueryResponseFieldsDTO> Identities { get; set; } = [];
 }
 
 [Serializable]

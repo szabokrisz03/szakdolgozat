@@ -54,7 +54,7 @@ public class MilestoneService : IMilestoneService
                 dbcx.Entry(ent).State = EntityState.Detached;
             }
         }
-        catch(DbUpdateException)
+        catch (DbUpdateException)
         {
             throw;
         }
@@ -63,7 +63,7 @@ public class MilestoneService : IMilestoneService
     /// <inheritdoc cref="IMilestoneService.UpdateMilestonekDb(MilestoneViewModel)"/>
     public async Task UpdateMilestonekDb(MilestoneViewModel model)
     {
-       await Task.Run (() => UpdateMilestonekDbSync(model));
+        await Task.Run(() => UpdateMilestonekDbSync(model));
     }
 
     /// <inheritdoc cref="IMilestoneService.DeleteMilestone(long)"/>

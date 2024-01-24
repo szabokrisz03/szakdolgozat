@@ -7,5 +7,5 @@
 public class AzdoListDto<TPayload>
 {
     public int Count { get; set; }
-    public List<TPayload> Value { get; set; } = new();
+    public List<TPayload> Value { get; set; } = [];
 }

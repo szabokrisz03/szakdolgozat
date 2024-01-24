@@ -1,6 +1,5 @@
-﻿using FluentValidation;
-
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore;
 
 using MudBlazor;
 
@@ -8,12 +7,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
 using TaskManager.Srv.Model.DataModel;
+using TaskManager.Srv.Model.DTO;
 using TaskManager.Srv.Model.ViewModel;
+using TaskManager.Srv.Services.AzdoServices;
 using TaskManager.Srv.Services.ProjectServices;
 using TaskManager.Srv.Services.TaskServices;
-using Microsoft.EntityFrameworkCore;
-using TaskManager.Srv.Services.AzdoServices;
-using TaskManager.Srv.Model.DTO;
 
 namespace TaskManager.Srv.Pages.Projects;
 
@@ -21,13 +19,13 @@ public partial class ProjectTasks
 {
     private long ShownId = 0;
     private MudTable<TaskViewModel>? _table;
-    private List<(TaskState value, string name)> enumList = new();
+    private List<(TaskState value, string name)> enumList = [];
     private List<string>? filterNames;
     private Guid _lastTechnicalName;
     private long _projectId = 0;
     private TaskViewModel? taskBeforeEdit;
     private Snackbar? _snackbar;
-    private string? responsibleUser;
+    private readonly string? responsibleUser;
     [Parameter] public string TechnicalName { get; set; } = "";
     [Parameter] public StateFilterViewModell? stateFilterView { get; set; }
     [Parameter] public TaskViewModel taskViewModel { get; set; } = new();
@@ -57,9 +55,9 @@ public partial class ProjectTasks
     private async Task<IEnumerable<string>> SearchUser(string value)
     {
         List<AzdoUser> azdoUsers = await _azdoUserService.SearchUsers(value);
-        List<string> usernames = new();
+        List<string> usernames = [];
         await Task.Delay(5);
-        if(string.IsNullOrEmpty(value))
+        if (string.IsNullOrEmpty(value))
         {
             return new string[0];
         }
@@ -125,12 +123,9 @@ public partial class ProjectTasks
                 configure.ShowCloseIcon = true;
             });
 
-            if (_table != null)
-            {
-                _table.ReloadServerData();
-            }
+            _table?.ReloadServerData();
         }
-        catch(DbUpdateException)
+        catch (DbUpdateException)
         {
             _snackbar = Snackbar.Add("A megadott névvel már van létrehozva feladat!", MudBlazor.Severity.Warning, configure =>
             {
@@ -140,10 +135,7 @@ public partial class ProjectTasks
                 configure.ShowCloseIcon = true;
             });
 
-            if (_table != null)
-            {
-                _table.ReloadServerData();
-            }
+            _table?.ReloadServerData();
         }
     }
 
@@ -156,7 +148,7 @@ public partial class ProjectTasks
 
         if (_table != null)
         {
-           await _table.ReloadServerData();
+            await _table.ReloadServerData();
         }
     }
 
@@ -192,7 +184,7 @@ public partial class ProjectTasks
     /// <param name="state">A filter viewModellje</param>
     private void GetFilterData(StateFilterViewModell state)
     {
-        filterNames = new();
+        filterNames = [];
 
         foreach (var prop in stateFilterView!.GetType().GetProperties())
         {
@@ -202,10 +194,7 @@ public partial class ProjectTasks
             }
         }
 
-        if (_table != null)
-        {
-            _table.ReloadServerData();
-        }
+        _table?.ReloadServerData();
     }
 
     /// <summary>

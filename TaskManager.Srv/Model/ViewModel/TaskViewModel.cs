@@ -1,5 +1,4 @@
 ﻿using TaskManager.Srv.Model.DataModel;
-using TaskManager.Srv.Model.DTO;
 
 namespace TaskManager.Srv.Model.ViewModel;
 

@@ -13,7 +13,7 @@ namespace TaskManager.Srv.Components.TaskDetails;
 /// </summary>
 public partial class Milestone
 {
-    private List<MilestoneViewModel> milestoneList = new();
+    private List<MilestoneViewModel> milestoneList = [];
     private MudTable<MilestoneViewModel>? milestoneTable;
     private MilestoneViewModel? milestoneBeforeEdit;
     private Snackbar? _snackbar;

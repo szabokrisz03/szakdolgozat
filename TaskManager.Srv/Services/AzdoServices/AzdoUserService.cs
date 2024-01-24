@@ -1,16 +1,15 @@
 ﻿using AutoMapper;
 
-using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Services.Users;
 
 using Newtonsoft.Json;
 
+using TaskManager.Srv.Model.DataContext;
+using TaskManager.Srv.Model.DataModel;
 using TaskManager.Srv.Model.DTO;
 using TaskManager.Srv.Model.ViewModel;
 using TaskManager.Srv.Utilities;
-using TaskManager.Srv.Model.DataContext;
-using TaskManager.Srv.Model.DataModel;
 
 namespace TaskManager.Srv.Services.AzdoServices;
 
@@ -74,7 +73,7 @@ public class AzdoUserService : IAzdoUserService
 
         if (string.IsNullOrEmpty(query))
         {
-            return new List<AzdoUser>();
+            return [];
         }
 
         using (_httpClient = new HttpClient(new HttpClientHandler() { UseDefaultCredentials = true }))
