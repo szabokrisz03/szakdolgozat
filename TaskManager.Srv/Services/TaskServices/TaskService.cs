@@ -37,10 +37,10 @@ public class TaskService : ITaskService
     /// <inheritdoc cref="ITaskService.ListTasksById(long, int, int)"/>
     public async Task<List<TaskViewModel>> ListTasksById(long projectId, int take, int skip = 0)
     {
-        List<string> asd = new()
-        {
+        List<string> asd =
+        [
             "Igeny_felmeres"
-        };
+        ];
 
         using (var dbcx = await dbContextFactory.CreateDbContextAsync())
         {

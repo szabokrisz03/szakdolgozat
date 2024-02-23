@@ -56,7 +56,7 @@ public partial class ConnectingWi
 
         foreach (var key in wiDetails.Keys)
         {
-            workItems ??= new();
+            workItems ??= [];
 
             workItems.Add(key);
         }
@@ -248,7 +248,7 @@ public partial class ConnectingWi
         }
 
         int[] wiId = new int[] { WiNumber.Value };
-        List<WorkItem> parentWi = new();
+        List<WorkItem> parentWi = [];
         WiStateService!.PropertyWis(wiId, parentWi);
 
         if (parentWi.Count <= 0)

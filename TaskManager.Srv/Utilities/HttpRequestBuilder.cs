@@ -7,8 +7,8 @@ namespace TaskManager.Srv.Utilities;
 
 public class HttpRequestBuilder
 {
-    private readonly List<string> paramOrder = new();
-    private readonly Dictionary<string, string> paramValues = new();
+    private readonly List<string> paramOrder = [];
+    private readonly Dictionary<string, string> paramValues = [];
     private readonly string url;
     private string? bodyJson = null;
 

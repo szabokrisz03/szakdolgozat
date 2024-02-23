@@ -5,9 +5,9 @@ public class WIQLResponse
 {
     public string QueryType { get; set; } = "";
     public string QueryResultType { get; set; } = "";
-    public List<WIQLResponseBodyColumns> Columns { get; set; } = new();
-    public List<WIQLResponseBodyWIs> WorkItems { get; set; } = new();
-    public List<Wi> workItemRelations { get; set; } = new();
+    public List<WIQLResponseBodyColumns> Columns { get; set; } = [];
+    public List<WIQLResponseBodyWIs> WorkItems { get; set; } = [];
+    public List<Wi> workItemRelations { get; set; } = [];
 }
 
 [Serializable]

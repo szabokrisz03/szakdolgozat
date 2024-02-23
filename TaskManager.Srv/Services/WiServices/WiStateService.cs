@@ -95,7 +95,7 @@ public class WiStateService : IWiStateService
     public Dictionary<WorkItem, List<WorkItem>> queryMaker(IEnumerable<int> source)
     {
 
-        Dictionary<WorkItem, List<WorkItem>> parentChildrenPairs = new();
+        Dictionary<WorkItem, List<WorkItem>> parentChildrenPairs = [];
 
         if (source == null)
         {

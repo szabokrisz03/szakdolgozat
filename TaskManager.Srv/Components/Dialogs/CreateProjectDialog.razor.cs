@@ -4,7 +4,6 @@ using MudBlazor;
 
 using TaskManager.Srv.Model.ViewModel;
 using TaskManager.Srv.Services.ProjectServices;
-using TaskManager.Srv.Utilities.Exceptions;
 
 namespace TaskManager.Srv.Components.Dialogs;
 

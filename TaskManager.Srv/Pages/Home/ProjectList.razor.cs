@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Forms;
 
-using MudBlazor;
-
-using TaskManager.Srv.Model.DataModel;
 using TaskManager.Srv.Model.ViewModel;
 using TaskManager.Srv.Services.ProjectServices;
 
@@ -13,7 +9,7 @@ namespace TaskManager.Srv.Pages.Home;
 public partial class ProjectList
 {
     private string _userName = "";
-    private List<ProjectViewModel> _projects = new();
+    private List<ProjectViewModel> _projects = [];
     [Parameter] public Task<long> _projectId { get; set; } = null!;
     [Parameter] public bool MineOnly { get; set; } = false;
     [Parameter] public string SearchTerm { get; set; } = "";

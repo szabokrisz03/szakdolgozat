@@ -12,7 +12,7 @@ namespace TaskManager.Srv.Components.TaskDetails;
 public partial class Discussion
 {
     private string authName = "";
-    private List<CommentViewModel> commentViewModels = new();
+    private List<CommentViewModel> commentViewModels = [];
     [Parameter] public string Comment { get; set; } = "";
     [CascadingParameter(Name = "TaskId")] private long Id { get; set; }
     [CascadingParameter] private Task<AuthenticationState>? authenticationStateTask { get; set; }

@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-using MudBlazor;
-
-using System.Reflection;
-
 using TaskManager.Srv.Model.ViewModel;
 
 namespace TaskManager.Srv.Components.TaskDetails;

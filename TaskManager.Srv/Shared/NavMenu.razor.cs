@@ -25,7 +25,7 @@ public partial class NavMenu : IDisposable
         }
 
         await LocationChangedAsync();
-        if(NavigationManager != null)
+        if (NavigationManager != null)
         {
             NavigationManager.LocationChanged += LocationChanged!;
         }
@@ -50,7 +50,7 @@ public partial class NavMenu : IDisposable
             if (uriComps.Length == 3 && uriComps[0] == "projects")
             {
                 projectTechnicalName = Guid.TryParse(uriComps[1], out Guid technicalName) ? technicalName : null;
-                if(ProjectDisplayService != null)
+                if (ProjectDisplayService != null)
                 {
                     projectName = await ProjectDisplayService.GetProjectNameAsync(projectTechnicalName.GetValueOrDefault()) ?? "Projekt";
                 }
