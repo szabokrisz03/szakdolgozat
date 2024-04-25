@@ -1,0 +1,10 @@
+﻿@using TaskManager_02.Data.ViewModels
+
+<PageTitle>Projektek</PageTitle>
+
+<MudDataGrid @ref="projectGrid" T="ProjectViewModel" RowClick="((e) => OpenProjectTasks(e.Item))" Outlined="true" Items="@projects" Filterable="false" 
+    SortMode="@SortMode.None" Groupable="false" RowClass="cursor-pointer">
+    <Columns>
+        <PropertyColumn Property="x => x.ProjectName" Title="Projekt név" StickyLeft="true"></PropertyColumn>
+    </Columns>
+</MudDataGrid>

@@ -1,0 +1,14 @@
+﻿@page "/"
+@using TaskManager_02.Components.Accessories
+
+<PageTitle>Projektek</PageTitle>
+
+<MudTabs Elevation="0" Rounded="true" PanelClass="pa-6" Centered="true" Border="true">
+    <MudTabPanel Text="Saját projektek">
+        <ProjectListPage isMyProject="true"></ProjectListPage>
+    </MudTabPanel>
+
+    <MudTabPanel Text="Összes projekt">
+        <ProjectListPage isMyProject="false"></ProjectListPage>
+    </MudTabPanel>
+</MudTabs>

@@ -1,0 +1,12 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudText Typo="Typo.h6">Új projekt</MudText>
+        <MudForm Model="@projectViewModel" Validation="@(ValidationRules.ValidateAsync(projectViewModel))">
+            <MudTextField @bind-Value="projectViewModel.ProjectName" For="@(() => projectViewModel.ProjectName)" OnlyValidateIfDirty="true" Label="Projekt név" Immediate="true"></MudTextField>
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Primary" OnClick="Close">Mégsem</MudButton>
+        <MudButton Color="Color.Primary" OnClick="@(() => SubmitProject())">Mentés</MudButton>
+    </DialogActions>
+</MudDialog>
